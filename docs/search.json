@@ -84,7 +84,7 @@
     "href": "chapters/01-intro-to-sas.html#setting-up-sas",
     "title": "1  Introduction to SAS",
     "section": "1.6 Setting up SAS",
-    "text": "1.6 Setting up SAS\nSAS Studio is free for students through SAS OnDemand for Academics.\n\nGo to SAS OnDemand for Academics and click Access Now.\nClick Sign in, then Don’t have a SAS profile?, then Create Profile.\nFill out the required fields. Use your gotriton or triton email for academic access.\nAgree to the terms at the bottom of the page and create a password.\nReturn to the SAS OnDemand page, sign in, and register with United States as your region.\nWait for a confirmation email. This can take a while!\nSign in again with your credentials. You now have access to SAS Studio.\n\n\n\n\n\n\n\nButton names on the SAS site may change slightly over time. The full guide is on Moodle.",
+    "text": "1.6 Setting up SAS\nSAS Studio is free for students through SAS OnDemand for Academics.\n\nGo to SAS OnDemand for Academics and click Access Now.\nClick Sign in, then Don’t have a SAS profile?, then Create Profile.\nFill out the required fields. Use your gotriton or triton email for academic access.\nAgree to the terms at the bottom of the page and create a password.\nReturn to the SAS OnDemand page, sign in, and register with United States as your region.\nWait for a confirmation email. This can take a while!\nSign in again with your credentials. You now have access to SAS Studio.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
     ]
