@@ -76,5 +76,21 @@ document.addEventListener('DOMContentLoaded', function () {
     host.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
     addTools(host, function () { return clean(pre); });
   });
+
+  // Scratchpads: Tab inserts spaces; keys typed here never move the slides
+  document.querySelectorAll('.scratchpad').forEach(function (pad) {
+    var ta = pad.querySelector('textarea');
+    ta.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        var s = ta.selectionStart, t = ta.selectionEnd;
+        ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(t);
+        ta.selectionStart = ta.selectionEnd = s + 4;
+      }
+    });
+    var clear = pad.querySelector('button.clear');
+    if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
+  });
 });
 </script>

@@ -162,8 +162,8 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="welcome" class="level1 unnumbered">
 <h1 class="unnumbered">Welcome</h1>
-<p>These are the course notes for <strong>MA505: Introduction to SAS</strong>. All course homework and submissions will still be on Moodle.</p>
-<p>Each chapter corresponds to the class notes for a day!</p>
+<p>These are the course notes for <strong>MA505: Introduction to SAS</strong>.</p>
+<p>Each chapter matches one class session. The same notebook is used to make that day’s slides, so the slides and the book always stay in sync.</p>
 <p>All code runs in <strong>SAS OnDemand for Academics</strong>, a free version of SAS Studio that runs in your browser. See the <em>Setting up SAS</em> guide on Moodle to create your account.</p>
 <section id="slides" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="slides">Slides</h2>
@@ -253,6 +253,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (seen.indexOf(host) !== -1) return; seen.push(host);
     host.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
     addTools(host, function () { return clean(pre); });
+  });
+
+  // Scratchpads: Tab inserts spaces; keys typed here never move the slides
+  document.querySelectorAll('.scratchpad').forEach(function (pad) {
+    var ta = pad.querySelector('textarea');
+    ta.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        var s = ta.selectionStart, t = ta.selectionEnd;
+        ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(t);
+        ta.selectionStart = ta.selectionEnd = s + 4;
+      }
+    });
+    var clear = pad.querySelector('button.clear');
+    if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
   });
 });
 </script>

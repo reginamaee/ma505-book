@@ -25,3 +25,9 @@
 .reveal .sas-output th, .reveal .sas-output td { padding: 0 6px; line-height: 1.25; }
 .reveal .sas-output table { font-size: .48em; margin-bottom: .4em; }
 .reveal .sas-output .sas-proctitle { font-size: .6em; margin: .2em 0; }
+/* Code cells with no output use the full width */
+.reveal section .cell:not(:has(.cell-output-display)) { display: block; }
+/* Code cells whose output is pictures: code on top, pictures side by side underneath */
+.reveal section .cell:has(.cell-output-display img) { display: block; }
+.reveal section .cell:has(.cell-output-display img) .cell-output-display { display: inline-block; width: 49%; vertical-align: top; }
+.reveal section .cell .cell-output-display img { max-width: 100%; height: auto; }

@@ -91,3 +91,57 @@ pre.cell-code {
   background: #f6f8fa !important; padding: .8em 5.2em .8em 1em !important;
 }
 .reveal div.sourceCode pre.cell-code { border: none !important; background: transparent !important; padding-right: 4.5em !important; }
+
+/* ---------- Day 2 diagrams ---------- */
+/* SAS table: data brace on the left, descriptor box on the right */
+.sastable-diagram { display: flex; align-items: center; justify-content: center; gap: .6em; margin: 1.2em 0; }
+.sastable-diagram table.grid { border-collapse: collapse; }
+.sastable-diagram table.grid td { width: 5.5em; height: 2.2em; border: 3px solid #444; background: #fff; }
+.sastable-diagram table.grid tr.head td { background: #505050; height: 2.4em; }
+.sastable-diagram .left { display: flex; align-items: center; align-self: flex-end; height: 7.2em; }
+.sastable-diagram .right { display: flex; align-items: center; align-self: flex-start; margin-top: .2em; }
+.blackbox { border: 3px solid #111; padding: .3em .9em; background: #fff; font-size: .8em; line-height: 1.35; }
+.blackbox ul { margin: .2em 0 0 0; padding-left: 1.1em; }
+.blackbox b { display: block; text-align: center; }
+.brace-left {
+  width: 16px; align-self: stretch; margin: 4px 4px 4px 10px;
+  border: 3px solid #111; border-right: none; border-radius: 16px 0 0 16px;
+}
+.arrow-left.black { background: #111; }
+.arrow-left.black::before { border-right-color: #111; }
+
+/* Column attribute cards */
+.attr-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1em; margin: 1em 0; }
+.attr-col h4 { text-align: center; margin: 0 0 .4em 0; font-size: 1.3em; }
+.attr-card { border-radius: 22px; padding: .7em 1em; margin-bottom: .8em; font-size: .8em; line-height: 1.35; color: #1f2937; }
+.attr-card.a { background: #b5cfd9; }
+.attr-card.b { background: #9dbbd6; }
+.attr-card b.t { display: block; text-align: center; margin-bottom: .2em; }
+.attr-card ul { margin: 0; padding-left: 1.2em; }
+.attr-card .red { color: #c62828; }
+
+/* libref callout: circle + arrow + label */
+.libref-circle { border: 3px solid #e53935; border-radius: 999px; padding: 0 .25em; }
+.libref-label { color: #e53935; font-style: italic; font-size: .85em; }
+.red-text { color: #c62828; }
+
+/* --- layout fixes --- */
+.sastable-diagram table.grid td { border: 3px solid #444 !important; }
+.anno-row > pre.anno-code:only-child { flex: 1 1 auto; }
+pre.anno-code { padding-right: 5em !important; }
+
+/* ---------- Scratchpad: a typing area for live examples (not executed) ---------- */
+.scratchpad { border: 1px solid #d0d7de; border-radius: 8px; background: #f6f8fa; overflow: hidden; margin: .4em 0; }
+.scratchpad-label {
+  font: 600 12px/1 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #57606a;
+  padding: 8px 12px; border-bottom: 1px solid #d0d7de; background: #eef1f4; display: flex; justify-content: space-between;
+}
+.scratchpad-label button { font: inherit; border: none; background: none; color: #0969da; cursor: pointer; padding: 0; }
+.scratchpad textarea {
+  display: block; width: 100%; box-sizing: border-box; min-height: 12em; resize: vertical;
+  border: none; outline: none; background: transparent; padding: .7em 1em; margin: 0;
+  font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: .85em; line-height: 1.5; color: #1f2328;
+  tab-size: 4;
+}
+.reveal .scratchpad textarea { font-size: .78em; min-height: 13em; }
+.reveal .scratchpad-label { font-size: 15px; }
