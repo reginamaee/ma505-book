@@ -80,15 +80,14 @@
 .sas-output .stacked-value { display: block; }
 .reveal .sas-output table { font-size: .55em; }
 
-/* Copy buttons: always visible */
-.anno-copy {
-  position: absolute; top: 6px; right: 6px; z-index: 2;
-  font: 600 12px/1 -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
-  padding: 5px 9px; border: 1px solid #d0d7de; border-radius: 6px; background: #fff; color: #24292f; cursor: pointer;
-}
-.anno-copy:hover { background: #f3f4f6; }
-.reveal .anno-copy { font-size: 14px; }
+/* Copy icons (styled inline by copy-code.html) */
 .code-copy-button { opacity: 1 !important; visibility: visible !important; }
 /* the code font in the book draws * as a raised star; use a plainer font */
 div.sourceCode, pre.anno-code, code { font-family: SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
-pre.has-copy { position: relative; padding-top: 2.4em !important; }
+
+/* Plain SAS code cells: bordered panel like the annotated ones */
+pre.cell-code {
+  border: 1px solid #d0d7de !important; border-radius: 8px !important;
+  background: #f6f8fa !important; padding: .8em 5.2em .8em 1em !important;
+}
+.reveal div.sourceCode pre.cell-code { border: none !important; background: transparent !important; padding-right: 4.5em !important; }
