@@ -1,8 +1,9 @@
 # Welcome {.unnumbered}
 
 These are the course notes for **MA505: Introduction to SAS**.
+All course homework and submissions will still be on Moodle.
 
-Each chapter matches one class session. The same notebook is used to make that day's slides, so the slides and the book always stay in sync.
+Each chapter corresponds to the class notes for a day!
 
 All code runs in **SAS OnDemand for Academics**, a free version of SAS Studio that runs in your browser. See the *Setting up SAS* guide on Moodle to create your account.
 
