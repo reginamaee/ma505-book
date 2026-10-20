@@ -1,0 +1,27 @@
+project:
+  type: book
+  output-dir: docs
+  resources:
+    - slides/
+
+book:
+  title: "Introduction to SAS"
+  subtitle: "MA505"
+  # author: "Your Name"
+  chapters:
+    - index.qmd
+    - chapters/01-intro-to-sas.ipynb
+    # - chapters/02-next-topic.ipynb
+
+# Notebooks are NOT re-run when the book is built.
+# The SAS output saved in each .ipynb is what shows up.
+execute:
+  enabled: false
+
+format:
+  html:
+    theme: cosmo
+    css: annotations.css
+    toc: true
+    code-copy: true
+    highlight-style: github

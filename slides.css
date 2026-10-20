@@ -1,0 +1,27 @@
+/* Extra slide styling: bigger, easier-to-read code */
+.reveal div.sourceCode pre code,
+.reveal pre code {
+  font-size: 1.15em;
+  line-height: 1.45;
+  max-height: 520px;
+}
+.reveal .cell-output pre code { font-size: 1em; }
+
+/* Screenshots: show them large */
+.reveal img.screenshot {
+  width: 68% !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* Callout boxes: readable size */
+.reveal div.callout { font-size: 1.3em !important; }
+
+/* Run-it slides: code on the left, SAS output on the right */
+.reveal section .cell { display: grid; grid-template-columns: 1.1fr 1fr; gap: 1em; align-items: start; }
+.reveal section .cell > * { min-width: 0; }
+.reveal .sas-output table { margin-left: 0; margin-top: 0; }
+.reveal .sas-output .sas-proctitle { margin-top: 0; }
+.reveal .sas-output th, .reveal .sas-output td { padding: 0 6px; line-height: 1.25; }
+.reveal .sas-output table { font-size: .48em; margin-bottom: .4em; }
+.reveal .sas-output .sas-proctitle { font-size: .6em; margin: .2em 0; }

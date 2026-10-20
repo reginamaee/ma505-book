@@ -1,0 +1,81 @@
+/* Annotated-code layouts (red label boxes, arrows, braces, note boxes, highlights).
+   Used by both the slides and the book. */
+.anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
+.anno-row { display: flex; align-items: stretch; gap: 0; }
+.anno-code {
+  flex: 0 0 52%; margin: 0 !important; padding: .35em .8em !important;
+  background: #f6f8fa; border-left: 1px solid #d0d7de; border-right: 1px solid #d0d7de;
+  font-family: SFMono-Regular, Menlo, Consolas, monospace; font-size: .85em; line-height: 1.45;
+  white-space: pre; overflow: visible; box-shadow: none !important; max-height: none !important;
+  color: #1f2328;
+}
+.anno-row:first-child .anno-code { border-top: 1px solid #d0d7de; border-radius: 8px 8px 0 0; }
+.anno-row:last-child  .anno-code { border-bottom: 1px solid #d0d7de; border-radius: 0 0 8px 8px; }
+.anno-code .cmt { color: #1a7f37; }
+.anno-code .kw  { color: #0b3d91; font-weight: 700; }
+.anno-callout { display: flex; align-items: center; flex: 1; gap: 0; padding-left: .4em; }
+.brace {
+  flex: 0 0 16px; align-self: stretch; margin: 6px 10px 6px 4px;
+  border: 3px solid #e53935; border-left: none; border-radius: 0 16px 16px 0;
+}
+.redbox {
+  border: 3px solid #e53935; padding: .25em .9em; font-weight: 700;
+  background: #fff; white-space: nowrap; font-size: .85em;
+}
+.redbox.wide { white-space: normal; font-weight: 400; font-size: .8em; line-height: 1.35; }
+.arrow-left {
+  flex: 0 0 56px; height: 3px; background: #e53935; position: relative; margin: 0 6px 0 10px;
+}
+.arrow-left::before {
+  content: ""; position: absolute; left: -2px; top: -6px;
+  border-right: 12px solid #e53935; border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent;
+}
+.anno-text { font-size: .8em; line-height: 1.3; max-width: 13em; }
+.anno-side { display: flex; gap: 1.2em; align-items: flex-start; }
+.anno-side > .anno { flex: 0 0 56%; }
+.anno-side .anno-code { flex: 1 1 auto; }
+.anno-notes { display: flex; flex-direction: column; gap: .8em; flex: 1; margin-top: .6em; }
+.note {
+  border: 3px solid #111; border-radius: 16px; padding: .55em .9em;
+  font-size: .8em; line-height: 1.35; background: #fff;
+}
+.anno-code mark { background: #fff176; padding: 0 2px; border-radius: 3px; color: inherit; }
+
+/* SAS programming process: boxes on a big gray arrow */
+.sas-process { position: relative; display: flex; justify-content: center; gap: .5em; padding: 2.6em 1.5em; margin: 1em 0; }
+.sas-process::before {
+  content: ""; position: absolute; left: 10%; right: 4%; top: 0; bottom: 0; background: #e3e3e3; z-index: 0;
+  clip-path: polygon(0 32%, 84% 32%, 84% 0, 100% 50%, 84% 100%, 84% 68%, 0 68%);
+}
+.sas-process .step {
+  position: relative; z-index: 1; color: #fff; border-radius: 12px; border: 3px solid #fff;
+  flex: 1 1 0; max-width: 8.5em; min-height: 5.2em; padding: .8em .5em;
+  display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.25; font-size: .95em;
+}
+
+/* --- size/spacing fixes --- */
+.anno pre.anno-code, .reveal .anno pre.anno-code {
+  font-size: .78em !important; width: auto !important; display: block;
+  box-shadow: none !important; overflow: visible !important;
+}
+.reveal .anno pre.anno-code { font-size: .6em !important; }
+.anno-row { align-items: center; }
+.anno-row > pre.anno-code { align-self: stretch; }
+.anno-callout { min-width: 0; }
+.anno-text { flex: 1 1 auto; max-width: 16em; }
+.anno-top { margin-bottom: .5em; }
+.sas-process { gap: 1em; }
+.reveal img.screenshot-wide { width: 100% !important; height: auto !important; max-height: none !important; }
+.anno-callout { align-self: stretch; }
+.reveal .anno pre.anno-code { font-size: .78em !important; background:#f6f8fa !important; }
+.reveal .anno-code code, .anno-code code { font-size: 1em; }
+
+/* SAS results tables (ODS output pasted from SAS Studio) */
+.sas-output { margin: .4em 0 1em; }
+.sas-output .sas-proctitle { font-weight: 700; color: #112277; margin: .6em 0 .3em; font-size: .9em; }
+.sas-output table { border-collapse: collapse; font-family: Arial, Helvetica, sans-serif; font-size: .8em; margin-bottom: .8em; }
+.sas-output th, .sas-output td { border: 1px solid #c1c1c1; padding: 3px 8px; text-align: left; vertical-align: top; }
+.sas-output .header, .sas-output .rowheader { background: #edf2f9; color: #112277; font-weight: 700; }
+.sas-output .r, .sas-output .d { text-align: right; }
+.sas-output .stacked-value { display: block; }
+.reveal .sas-output table { font-size: .55em; }

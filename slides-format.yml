@@ -1,0 +1,20 @@
+# Slide settings, used by build.sh for every chapter notebook.
+project:
+  type: default
+
+execute:
+  enabled: false
+  echo: true   # reveal.js hides code by default; show it
+
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    scrollable: true
+    smaller: true
+    code-copy: true
+    highlight-style: github
+    width: 1280
+    height: 720
+    css: [slides.css, annotations.css]
+    embed-resources: true   # one self-contained .html per deck

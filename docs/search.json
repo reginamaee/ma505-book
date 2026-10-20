@@ -1,0 +1,202 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Introduction to SAS",
+    "section": "",
+    "text": "Welcome\nThese are the course notes for MA505: Introduction to SAS.\nEach chapter matches one class session. The same notebook is used to make that day’s slides, so the slides and the book always stay in sync.\nAll code runs in SAS OnDemand for Academics, a free version of SAS Studio that runs in your browser. See the Setting up SAS guide on Moodle to create your account.",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "index.html#slides",
+    "href": "index.html#slides",
+    "title": "Introduction to SAS",
+    "section": "Slides",
+    "text": "Slides\n\nDay 1: Introduction to SAS",
+    "crumbs": [
+      "Welcome"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html",
+    "href": "chapters/01-intro-to-sas.html",
+    "title": "1  Introduction to SAS",
+    "section": "",
+    "text": "1.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#agenda",
+    "href": "chapters/01-intro-to-sas.html#agenda",
+    "title": "1  Introduction to SAS",
+    "section": "",
+    "text": "Course syllabus\nProject\nSAS Studio interface\nSAS basics and fundamentals",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#course-syllabus",
+    "href": "chapters/01-intro-to-sas.html#course-syllabus",
+    "title": "1  Introduction to SAS",
+    "section": "1.2 Course syllabus",
+    "text": "1.2 Course syllabus\nOffice hours: online, by appointment. Please email me!\nAssignments and grade percentage\n\n\n\nComponent\nWeight\n\n\n\n\n4 homework assignments\n70%\n\n\nFinal project\n30%",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#late-work-policy",
+    "href": "chapters/01-intro-to-sas.html#late-work-policy",
+    "title": "1  Introduction to SAS",
+    "section": "1.3 Late work policy",
+    "text": "1.3 Late work policy\nAll assignments are expected to be submitted by the due date. Late submissions are discouraged, since they can affect your learning progress and how quickly you get feedback.\n\n\n\n\n\n\n\nDays late\nPenalty\n\n\n\n\n1–2 days\n10% reduction\n\n\n3–7 days\n20% reduction\n\n\nMore than 1 week\nNot accepted, unless prior arrangement has been made",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#final-project",
+    "href": "chapters/01-intro-to-sas.html#final-project",
+    "title": "1  Introduction to SAS",
+    "section": "1.4 Final project",
+    "text": "1.4 Final project\nThis is an individual project that uses the skills and techniques you learn in this course.\n\nEach student will acquire a dataset and formulate a question or hypothesis.\nYou are expected to obtain, clean, manipulate, and visualize the data to develop a conclusion from the dataset.\n\nRecord each step of your process and your reasoning for it:\n\n\n\nData cleaning techniques\nOutlier techniques\nEncodings\n\n\n\nVisualizations used\nStatistical tests\n\n\n\n\n\n\n\n\n\nThis project accounts for 30% of your final grade.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#final-project-data-requirements",
+    "href": "chapters/01-intro-to-sas.html#final-project-data-requirements",
+    "title": "1  Introduction to SAS",
+    "section": "1.5 Final project: data requirements",
+    "text": "1.5 Final project: data requirements\n\nDataset approval must be submitted by November 9, 2026.\nSubmissions are due December 10, 2026 and should include:\n\nDataset (raw)\nSAS code\nPresentation slides",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#setting-up-sas",
+    "href": "chapters/01-intro-to-sas.html#setting-up-sas",
+    "title": "1  Introduction to SAS",
+    "section": "1.6 Setting up SAS",
+    "text": "1.6 Setting up SAS\nSAS Studio is free for students through SAS OnDemand for Academics.\n\nGo to SAS OnDemand for Academics and click Access Now.\nClick Sign in, then Don’t have a SAS profile?, then Create Profile.\nFill out the required fields. Use your gotriton or triton email for academic access.\nAgree to the terms at the bottom of the page and create a password.\nReturn to the SAS OnDemand page, sign in, and register with United States as your region.\nWait for a confirmation email. This can take a while!\nSign in again with your credentials. You now have access to SAS Studio.\n\n\n\n\n\n\n\nButton names on the SAS site may change slightly over time. The full guide is on Moodle.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#what-is-sas",
+    "href": "chapters/01-intro-to-sas.html#what-is-sas",
+    "title": "1  Introduction to SAS",
+    "section": "1.7 What is SAS?",
+    "text": "1.7 What is SAS?\nSAS (Statistical Analysis System) is a comprehensive software suite for advanced data analysis, business intelligence, data management, and predictive analytics.\nIt is widely used in industries like healthcare, finance, government, and education for tasks such as data mining, statistical modeling, and report creation.\n\n1.7.1 What is SAS Studio?\nSAS Studio is a development application that runs and processes SAS code on a cloud server. You can access it through any web browser, so there is nothing to install.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#the-sas-programming-process",
+    "href": "chapters/01-intro-to-sas.html#the-sas-programming-process",
+    "title": "1  Introduction to SAS",
+    "section": "1.8 The SAS programming process",
+    "text": "1.8 The SAS programming process\n\n  Accessdata\n  Exploredata\n  Preparedata\n  Analyze and report on data\n  Exportresults",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#sas-studio-interface",
+    "href": "chapters/01-intro-to-sas.html#sas-studio-interface",
+    "title": "1  Introduction to SAS",
+    "section": "1.9 SAS Studio interface",
+    "text": "1.9 SAS Studio interface\n\n\nNavigation pane (left): files and folders, tasks, snippets, libraries\nWork area (right): where you write and run your programs",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#code-log-and-results-tabs",
+    "href": "chapters/01-intro-to-sas.html#code-log-and-results-tabs",
+    "title": "1  Introduction to SAS",
+    "section": "1.10 Code, Log, and Results tabs",
+    "text": "1.10 Code, Log, and Results tabs",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#example-sas-code",
+    "href": "chapters/01-intro-to-sas.html#example-sas-code",
+    "title": "1  Introduction to SAS",
+    "section": "1.11 Example SAS code",
+    "text": "1.11 Example SAS code\n\n  \n    /* This code creates a dataset called \"example\"\n   and prints out the SAS table */\n    \n      Multi-line comments: /* … */Single-line comments: * … ;\n  \n  data example;\n  input name $ age height;\n  datalines;\nAlice 30 5.5\nBob 25 6.1\n;\nrun;\n\nproc print data=example;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#a-sas-program-is-a-sequence-of-steps",
+    "href": "chapters/01-intro-to-sas.html#a-sas-program-is-a-sequence-of-steps",
+    "title": "1  Introduction to SAS",
+    "section": "1.12 A SAS program is a sequence of steps",
+    "text": "1.12 A SAS program is a sequence of steps\nA SAS program is a sequence of steps: any combination of DATA and PROC (procedure) steps.\n\n  /* This code creates a dataset called \"example\"\n   and prints out the SAS table */\n\n  \n    data example;\n  input name $ age height;\n  datalines;\nAlice 30 5.5\nBob 25 6.1\n;\nrun;\n    DATA STEP\n      DATA steps typically read, process, or create data.\n  \n  \n    proc print data=example;\nrun;\n    PROC STEP\n      PROC steps typically report, manage, or analyze data.\n  \n\nThis program has 2 steps (1 DATA and 1 PROC).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#where-steps-begin-and-end",
+    "href": "chapters/01-intro-to-sas.html#where-steps-begin-and-end",
+    "title": "1  Introduction to SAS",
+    "section": "1.13 Where steps begin and end",
+    "text": "1.13 Where steps begin and end\n\n  \n    /* This code creates a dataset called \"example\"\n   and prints out the SAS table */\n\ndata example;\n  input name $ age height;\n  datalines;\nAlice 30 5.5\nBob 25 6.1\n;\nrun;\n\nproc print data=example;\nrun;\n  \n  \n    Steps begin with either DATA or PROC.\n    Steps end with RUN; (some procedures end with QUIT;).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#try-it-run-the-example",
+    "href": "chapters/01-intro-to-sas.html#try-it-run-the-example",
+    "title": "1  Introduction to SAS",
+    "section": "1.14 Try it: run the example",
+    "text": "1.14 Try it: run the example\nCopy this program into SAS Studio and click Run. The table appears in the Results tab.\n\n/* This code creates a dataset called \"example\"\n   and prints out the SAS table */\n\ndata example;\n  input name $ age height;\n  datalines;\nAlice 30 5.5\nBob 25 6.1\n;\nrun;\n\nproc print data=example;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nname\nage\nheight\n\n\n\n\n1\nAlice\n30\n5.5\n\n\n2\nBob\n25\n6.1",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#a-second-example",
+    "href": "chapters/01-intro-to-sas.html#a-second-example",
+    "title": "1  Introduction to SAS",
+    "section": "1.15 A second example",
+    "text": "1.15 A second example\nThis program copies the sashelp.class table into a dataset called myclass, calculates height in centimeters, and computes means.\n\n/* This code sets the sashelp.class table into a\n   dataset called myclass, calculates height in cm,\n   and also provides means */\n\ndata myclass;\n    set sashelp.class;\n    heightcm = height*2.54;\nrun;\n\nproc print data=myclass;\nrun;\n\nproc means data=myclass;\n    var age heightcm;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\nheightcm\n\n\n\n\n1\nAlfred\nM\n14\n69.0\n112.5\n175.260\n\n\n2\nAlice\nF\n13\n56.5\n84.0\n143.510\n\n\n3\nBarbara\nF\n13\n65.3\n98.0\n165.862\n\n\n4\nCarol\nF\n14\n62.8\n102.5\n159.512\n\n\n5\nHenry\nM\n14\n63.5\n102.5\n161.290\n\n\n6\nJames\nM\n12\n57.3\n83.0\n145.542\n\n\n7\nJane\nF\n12\n59.8\n84.5\n151.892\n\n\n8\nJanet\nF\n15\n62.5\n112.5\n158.750\n\n\n9\nJeffrey\nM\n13\n62.5\n84.0\n158.750\n\n\n10\nJohn\nM\n12\n59.0\n99.5\n149.860\n\n\n11\nJoyce\nF\n11\n51.3\n50.5\n130.302\n\n\n12\nJudy\nF\n14\n64.3\n90.0\n163.322\n\n\n13\nLouise\nF\n12\n56.3\n77.0\n143.002\n\n\n14\nMary\nF\n15\n66.5\n112.0\n168.910\n\n\n15\nPhilip\nM\n16\n72.0\n150.0\n182.880\n\n\n16\nRobert\nM\n12\n64.8\n128.0\n164.592\n\n\n17\nRonald\nM\n15\n67.0\n133.0\n170.180\n\n\n18\nThomas\nM\n11\n57.5\n85.0\n146.050\n\n\n19\nWilliam\nM\n15\n66.5\n112.0\n168.910\n\n\n\n\nThe Means Procedure\n\n\n\n\nVariable\nN\nMean\nStd Dev\nMinimum\nMaximum\n\n\n\n\n\n\nAge\n\n\nheightcm\n\n\n\n\n19\n\n\n19\n\n\n\n\n13.3157895\n\n\n158.3355789\n\n\n\n\n1.4926722\n\n\n13.0227711\n\n\n\n\n11.0000000\n\n\n130.3020000\n\n\n\n\n16.0000000\n\n\n182.8800000",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#steps-vs.-statements",
+    "href": "chapters/01-intro-to-sas.html#steps-vs.-statements",
+    "title": "1  Introduction to SAS",
+    "section": "1.16 Steps vs. statements",
+    "text": "1.16 Steps vs. statements\n\n  /* This code sets the sashelp.class table into a\n   dataset called myclass, calculates height in cm,\n   and also provides means */\n\ndata myclass;\n    set sashelp.class;\n    heightcm=height*2.54;\nrun;\n\nproc print data=myclass;\nrun;\n\nproc means data=myclass;\n    var age heightcm;\nrun;\n  \n    This program has 3 steps (1 DATA step and 2 PROC steps).\n    Most statements (not steps) begin with a keyword, and all statements end with a semicolon.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/01-intro-to-sas.html#general-sas-statement-rules",
+    "href": "chapters/01-intro-to-sas.html#general-sas-statement-rules",
+    "title": "1  Introduction to SAS",
+    "section": "1.17 General SAS statement rules",
+    "text": "1.17 General SAS statement rules\n\nAll SAS statements (except lines of data) must end with a semicolon.\nSAS statements begin with a SAS keyword, such as TITLE, DATA, INPUT, DATALINES, RUN, PROC, and VAR.\nSAS statements are not case-sensitive. You can type code in all caps, all lowercase, or a mix of both.\nWords in SAS statements are separated by blanks or special characters (such as =, +, or *).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
+    ]
+  }
+]
