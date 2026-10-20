@@ -194,7 +194,7 @@
     "href": "chapters/01-intro-to-sas.html#general-sas-statement-rules",
     "title": "1  Introduction to SAS",
     "section": "1.17 General SAS statement rules",
-    "text": "1.17 General SAS statement rules\n\n\n\nAll SAS statements (except lines of data) must end with a semicolon.\nSAS statements begin with a SAS keyword, such as TITLE, DATA, INPUT, DATALINES, RUN, PROC, and VAR.\nSAS statements are not case-sensitive. You can type code in all caps, all lowercase, or a mix of both.\nWords in SAS statements are separated by blanks or special characters (such as =, +, or *).\n\n\n\n  Notepad:Clear",
+    "text": "1.17 General SAS statement rules\n\n\n\nAll SAS statements (except lines of data) must end with a semicolon.\nSAS statements begin with a SAS keyword, such as TITLE, DATA, INPUT, DATALINES, RUN, PROC, and VAR.\nSAS statements are not case-sensitive. You can type code in all caps, all lowercase, or a mix of both.\nWords in SAS statements are separated by blanks or special characters (such as =, +, or *).",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction to SAS</span>"
     ]
