@@ -11,7 +11,7 @@ for nb in chapters/*.ipynb; do
   name=$(basename "$nb" .ipynb)
   tmp=$(mktemp -d)   # outside the book folder, so Quarto treats it as its own project
   cp slides-format.yml "$tmp/_quarto.yml"
-  cp "$nb" slides.css annotations.css "$tmp/"
+  cp "$nb" slides.css annotations.css copy-code.html "$tmp/"
   [ -d chapters/images ] && cp -r chapters/images "$tmp/"
   (cd "$tmp" && quarto render "$name.ipynb" --quiet)
   cp "$tmp/$name.html" "slides/$name.html"

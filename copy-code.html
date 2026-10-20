@@ -1,0 +1,37 @@
+<script>
+// Adds a "Copy code" button to every SAS code block:
+//  - annotated blocks (the ones with boxes/arrows)
+//  - plain code cells (SAS has no syntax highlighter, so Quarto doesn't add its own button)
+document.addEventListener('DOMContentLoaded', function () {
+  function addButton(host, getText) {
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.className = 'anno-copy'; btn.textContent = 'Copy code';
+    btn.addEventListener('click', function () {
+      var text = getText();
+      var done = function () { btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = 'Copy code'; }, 1500); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done);
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove(); done();
+      }
+    });
+    host.classList.add('has-copy');
+    host.appendChild(btn);
+  }
+  function clean(pre) {
+    var c = pre.cloneNode(true);
+    c.querySelectorAll('.anno-copy').forEach(function (b) { b.remove(); });
+    return c.textContent.replace(/^\n+|\n+$/g, '');
+  }
+  document.querySelectorAll('.anno').forEach(function (block) {
+    var pres = block.querySelectorAll('pre.anno-code');
+    if (!pres.length) return;
+    addButton(pres[0], function () { return Array.prototype.map.call(pres, clean).join('\n\n'); });
+  });
+  document.querySelectorAll('pre.cell-code').forEach(function (pre) {
+    if (pre.closest('div.sourceCode') && pre.closest('div.sourceCode').querySelector('.code-copy-button')) return;
+    addButton(pre, function () { return clean(pre); });
+  });
+});
+</script>

@@ -17,4 +17,5 @@ format:
     width: 1280
     height: 720
     css: [slides.css, annotations.css]
+    include-after-body: copy-code.html
     embed-resources: true   # one self-contained .html per deck
