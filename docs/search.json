@@ -364,7 +364,7 @@
     "href": "chapters/02-tables-libraries.html#libraries-last-for-one-session",
     "title": "2  SAS Tables and Libraries",
     "section": "2.16 Libraries last for one session",
-    "text": "2.16 Libraries last for one session\n\nLibrary assignments are temporary: they are removed once your SAS session ends.\nTo keep a library every time you log in, add the LIBNAME statement to your SAS autoexec file.",
+    "text": "2.16 Libraries last for one session\n\nThe libref is temporary: SAS forgets it when your session ends. The data is permanent: your tables stay in the folder. Run LIBNAME again (or put it in your autoexec) to reconnect.\n\n\nSo why use libraries?\n\nShort names instead of long paths: ma505.overwatch instead of \"/home/u63936157/overwatch.sas7bdat\".\nYour work gets saved: tables written with a libref (data ma505.clean;) are real files that survive sign-out. Tables with no libref go to work, which is deleted.\nOne place to change: if the folder moves, edit one LIBNAME line, not every PROC.\nOrganization: separate librefs for separate projects, or for raw vs. cleaned data.\nOne line to restore: just the LIBNAME at the top of your program, or nothing at all with an autoexec.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]

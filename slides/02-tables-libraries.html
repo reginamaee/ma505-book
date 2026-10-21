@@ -1946,8 +1946,17 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="libraries-last-for-one-session" class="slide level2">
 <h2>Libraries last for one session</h2>
 <div class="red-text">
-<p>Library assignments are <strong>temporary</strong>: they are removed once your SAS session ends.</p>
-<p>To keep a library every time you log in, add the <code>LIBNAME</code> statement to your <strong>SAS autoexec</strong> file.</p>
+<p>The <strong>libref</strong> is temporary: SAS forgets it when your session ends. The <strong>data</strong> is permanent: your tables stay in the folder. Run <code>LIBNAME</code> again (or put it in your autoexec) to reconnect.</p>
+</div>
+<div class="fragment">
+<p><strong>So why use libraries?</strong></p>
+<ul>
+<li><strong>Short names instead of long paths:</strong> <code>ma505.overwatch</code> instead of <code>&quot;/home/u63936157/overwatch.sas7bdat&quot;</code>.</li>
+<li><strong>Your work gets saved:</strong> tables written with a libref (<code>data ma505.clean;</code>) are real files that survive sign-out. Tables with no libref go to <code>work</code>, which <em>is</em> deleted.</li>
+<li><strong>One place to change:</strong> if the folder moves, edit one <code>LIBNAME</code> line, not every PROC.</li>
+<li><strong>Organization:</strong> separate librefs for separate projects, or for raw vs. cleaned data.</li>
+<li><strong>One line to restore:</strong> just the <code>LIBNAME</code> at the top of your program, or nothing at all with an autoexec.</li>
+</ul>
 </div>
 </section>
 <section id="keeping-a-library-the-autoexec-file" class="slide level2 scrollable">
