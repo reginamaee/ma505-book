@@ -354,27 +354,7 @@
     "href": "chapters/02-tables-libraries.html#exercise",
     "title": "2  SAS Tables and Libraries",
     "section": "2.15 Exercise",
-    "text": "2.15 Exercise\nRun PROC CONTENTS on the sample table sashelp.class and answer:\n\nHow many rows (observations) does it have?\nHow many columns (variables)?\nWhich columns are character?\nWhat is the length of Name?",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#exercise-solution",
-    "href": "chapters/02-tables-libraries.html#exercise-solution",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.16 Exercise: solution",
-    "text": "2.16 Exercise: solution\n\nproc contents data=sashelp.class;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nSASHELP.CLASS\nObservations\n19\n\n\nMember Type\nDATA\nVariables\n5\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n01/18/2023 05:39:45\nObservation Length\n40\n\n\nLast Modified\n01/18/2023 05:39:45\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\nStudent Data\n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nus-ascii ASCII (ANSI)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n65536\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1632\n\n\nObs in First Data Page\n19\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/pbr/sfw/sas/940/SASFoundation/9.4/sashelp/class.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n81449460\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nodaowner\n\n\nFile Size\n128KB\n\n\nFile Size (bytes)\n131072\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\n\n\n\n\n3\nAge\nNum\n8\n\n\n4\nHeight\nNum\n8\n\n\n1\nName\nChar\n8\n\n\n2\nSex\nChar\n1\n\n\n5\nWeight\nNum\n8",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#exercise-answers",
-    "href": "chapters/02-tables-libraries.html#exercise-answers",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.17 Exercise: answers",
-    "text": "2.17 Exercise: answers\n\n19 rows\n5 columns\nName and Sex are character; Age, Height, and Weight are numeric\nName has a length of 8",
+    "text": "2.15 Exercise\nRun PROC CONTENTS on the sample table sashelp.class and answer:\n\nHow many rows (observations) does it have?\nHow many columns (variables)?\nWhich columns are character?\nWhat is the length of Name?\n\n\n\n\n\nproc contents data=sashelp.class;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nSASHELP.CLASS\nObservations\n19\n\n\nMember Type\nDATA\nVariables\n5\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n01/18/2023 05:39:45\nObservation Length\n40\n\n\nLast Modified\n01/18/2023 05:39:45\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\nStudent Data\n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nus-ascii ASCII (ANSI)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n65536\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1632\n\n\nObs in First Data Page\n19\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/pbr/sfw/sas/940/SASFoundation/9.4/sashelp/class.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n81449460\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nodaowner\n\n\nFile Size\n128KB\n\n\nFile Size (bytes)\n131072\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\n\n\n\n\n3\nAge\nNum\n8\n\n\n4\nHeight\nNum\n8\n\n\n1\nName\nChar\n8\n\n\n2\nSex\nChar\n1\n\n\n5\nWeight\nNum\n8",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]
@@ -383,8 +363,8 @@
     "objectID": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
     "href": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
     "title": "2  SAS Tables and Libraries",
-    "section": "2.18 Dates and times are numeric",
-    "text": "2.18 Dates and times are numeric\n\n  Numeric\n    digitsminus signdecimal pointscientific notation\n    DATETIMEDATETIME\n  \n    \n      Dates are stored as the number of days since January 1, 1960.\n        Jan 1, 2024 → 23376\n      Time is stored as the number of seconds since midnight.\n        6:00 PM → 64800\n      Datetime is stored as the number of seconds since midnight on January 1, 1960.\n        Jan 1, 2024 at midnight → 2,019,686,400",
+    "section": "2.16 Dates and times are numeric",
+    "text": "2.16 Dates and times are numeric\n\n  Numeric\n    digitsminus signdecimal pointscientific notation\n    DATETIMEDATETIME\n  \n    \n      Dates are stored as the number of days since January 1, 1960.\n        Jan 1, 2024 → 23376\n      Time is stored as the number of seconds since midnight.\n        6:00 PM → 64800\n      Datetime is stored as the number of seconds since midnight on January 1, 1960.\n        Jan 1, 2024 at midnight → 2,019,686,400",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]
@@ -393,8 +373,8 @@
     "objectID": "chapters/02-tables-libraries.html#dates",
     "href": "chapters/02-tables-libraries.html#dates",
     "title": "2  SAS Tables and Libraries",
-    "section": "2.19 Dates",
-    "text": "2.19 Dates\nSAS lets you type a date, time, or datetime as a literal: the value in quotes, followed by d, t, or dt.\nNo libref here, so dates is saved in work.\n\ndata dates;\n    d  = '01JAN2024'd;          /* date     */\n    t  = '18:00't;              /* time     */\n    dt = '01JAN2024:00:00'dt;   /* datetime */\nrun;\n\nproc print data=dates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nd\nt\ndt\n\n\n\n\n1\n23376\n64800\n2019686400",
+    "section": "2.17 Dates",
+    "text": "2.17 Dates\nSAS lets you type a date, time, or datetime as a literal: the value in quotes, followed by d, t, or dt.\nNo libref here, so dates is saved in work.\n\ndata dates;\n    d  = '01JAN2024'd;          /* date     */\n    t  = '18:00't;              /* time     */\n    dt = '01JAN2024:00:00'dt;   /* datetime */\nrun;\n\nproc print data=dates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nd\nt\ndt\n\n\n\n\n1\n23376\n64800\n2019686400",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]

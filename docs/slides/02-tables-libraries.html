@@ -1690,10 +1690,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <li>Which columns are <strong>character</strong>?</li>
 <li>What is the <strong>length</strong> of <code>Name</code>?</li>
 </ol>
-</section>
-<section id="exercise-solution" class="slide level2 solution">
-<h2>Exercise: solution</h2>
-<div id="cell-20" class="cell">
+<div class="solution-start">
+
+</div>
+<div id="cell-19" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href></a>proc contents data=sashelp.class;</span>
 <span id="cb4-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -1885,15 +1885,6 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </section>
-<section id="exercise-answers" class="slide level2 solution scrollable">
-<h2>Exercise: answers</h2>
-<ol type="1">
-<li><strong>19</strong> rows</li>
-<li><strong>5</strong> columns</li>
-<li><code>Name</code> and <code>Sex</code> are character; <code>Age</code>, <code>Height</code>, and <code>Weight</code> are numeric</li>
-<li><code>Name</code> has a length of <strong>8</strong></li>
-</ol>
-</section>
 <section id="dates-and-times-are-numeric" class="slide level2">
 <h2>Dates and times are numeric</h2>
 <div style="display:flex;gap:2em;align-items:flex-start;">
@@ -1916,7 +1907,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <h2>Dates</h2>
 <p>SAS lets you type a date, time, or datetime as a <strong>literal</strong>: the value in quotes, followed by <code>d</code>, <code>t</code>, or <code>dt</code>.</p>
 <p>No libref here, so <code>dates</code> is saved in <strong>work</strong>.</p>
-<div id="cell-24" class="cell">
+<div id="cell-22" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href></a>data dates;</span>
 <span id="cb5-2"><a href></a>    d  = &#39;01JAN2024&#39;d;          /* date     */</span>
 <span id="cb5-3"><a href></a>    t  = &#39;18:00&#39;t;              /* time     */</span>
@@ -3134,6 +3125,20 @@ window.QuartoSupport = function () {
     //   [download .sas]  [copy to clipboard]
     // Works for the annotated blocks (boxes/arrows) and for plain code cells.
     document.addEventListener('DOMContentLoaded', function () {
+      // Book only: everything after a <div class="solution-start"></div> marker
+      // (in the same section) goes behind a "Show solution" toggle
+      if (!document.querySelector('.reveal .slides')) {
+        document.querySelectorAll('.solution-start').forEach(function (m) {
+          var d = document.createElement('details'); d.className = 'solution-toggle';
+          var sm = document.createElement('summary'); sm.textContent = 'Show solution'; d.appendChild(sm);
+          var n = m.nextElementSibling;
+          while (n) { var next = n.nextElementSibling; d.appendChild(n); n = next; }
+          m.parentNode.replaceChild(d, m);
+        });
+      } else {
+        document.querySelectorAll('.solution-start').forEach(function (m) { m.remove(); });  // slides: no empty click
+      }
+
       var ICON_COPY = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>';
       var ICON_DOWNLOAD = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>';
       var ICON_DONE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>';
