@@ -31,3 +31,11 @@
 .reveal section .cell:has(.cell-output-display img) { display: block; }
 .reveal section .cell:has(.cell-output-display img) .cell-output-display { display: inline-block; width: 49%; vertical-align: top; }
 .reveal section .cell .cell-output-display img { max-width: 100%; height: auto; }
+/* PROC CONTENTS-style output: code on top, tables underneath */
+.reveal section .cell:has(.sas-output.wide) { display: block; }
+.reveal .sas-output.wide table { font-size: .4em; }
+.reveal .sas-output.big table { font-size: .8em; }
+.reveal .sas-output.big .sas-proctitle { font-size: .8em; }
+/* PROC CONTENTS on slides: hide the Engine/Host table (still in the book) and enlarge the other two */
+.reveal .sas-output.wide .sas-tables > table:nth-of-type(2) { display: none; }
+.reveal .sas-output.wide table { font-size: .5em; }

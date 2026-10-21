@@ -145,3 +145,29 @@ pre.anno-code { padding-right: 5em !important; }
 }
 .reveal .scratchpad textarea { font-size: .78em; min-height: 13em; }
 .reveal .scratchpad-label { font-size: 15px; }
+
+/* SAS table diagram v2: grid so the bracket and arrow line up with the rows */
+.sastable-wrap { display: flex; justify-content: center; margin: 1.2em 0; }
+.sastable-grid {
+  display: grid; align-items: stretch;
+  grid-template-columns: auto 30px 5.5em 5.5em 5.5em 80px minmax(9em, auto);
+  grid-template-rows: 2.6em 2.4em 2.4em 2.4em;
+}
+.sastable-grid .st-h { grid-row: 1; background: #505050; border: 1.5px solid #333; }
+.sastable-grid .st-d { background: #fff; border: 1.5px solid #333; }
+.sastable-grid .st-label { grid-column: 1; grid-row: 2 / 5; align-self: center; }
+.sastable-grid .st-brace {                         /* "{" spanning exactly the 3 data rows */
+  grid-column: 2; grid-row: 2 / 5; margin: 3px 8px 3px 10px;
+  border: 3px solid #111; border-right: none; border-radius: 14px 0 0 14px;
+  position: relative;
+}
+.sastable-grid .st-brace::after {                  /* little point in the middle of the brace */
+  content: ""; position: absolute; left: -9px; top: 50%; width: 8px; height: 3px; background: #111; transform: translateY(-50%);
+}
+.sastable-grid .st-arrow { grid-column: 6; grid-row: 1; align-self: center; padding: 0 8px; }
+.sastable-grid .st-arrow .arrow-left { margin: 0; flex: none; width: 100%; }
+.sastable-grid .st-desc { grid-column: 7; grid-row: 1 / 5; align-self: start; }
+
+/* wide SAS output (e.g., PROC CONTENTS): tables flow side by side */
+.sas-output.wide .sas-tables { display: flex; flex-wrap: wrap; gap: .8em; align-items: flex-start; }
+.sas-output.wide .sas-tables table { margin: 0; }

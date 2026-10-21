@@ -1,0 +1,1391 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>2&nbsp; SAS Tables and Libraries – Introduction to SAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/01-intro-to-sas.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ea07c801963e0f738b5ea27386c64fa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="../annotations.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/02-tables-libraries.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SAS Tables and Libraries</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Introduction to SAS</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-intro-to-sas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to SAS</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-tables-libraries.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SAS Tables and Libraries</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#agenda" id="toc-agenda" class="nav-link active" data-scroll-target="#agenda"><span class="header-section-number">2.1</span> Agenda</a></li>
+  <li><a href="#sas-tables" id="toc-sas-tables" class="nav-link" data-scroll-target="#sas-tables"><span class="header-section-number">2.2</span> SAS tables</a></li>
+  <li><a href="#column-attributes" id="toc-column-attributes" class="nav-link" data-scroll-target="#column-attributes"><span class="header-section-number">2.3</span> Column attributes</a></li>
+  <li><a href="#dates-and-times-are-numeric" id="toc-dates-and-times-are-numeric" class="nav-link" data-scroll-target="#dates-and-times-are-numeric"><span class="header-section-number">2.4</span> Dates and times are numeric</a></li>
+  <li><a href="#dates" id="toc-dates" class="nav-link" data-scroll-target="#dates"><span class="header-section-number">2.5</span> Dates</a></li>
+  <li><a href="#viewing-column-attributes-proc-contents" id="toc-viewing-column-attributes-proc-contents" class="nav-link" data-scroll-target="#viewing-column-attributes-proc-contents"><span class="header-section-number">2.6</span> Viewing column attributes: <code>PROC CONTENTS</code></a></li>
+  <li><a href="#reading-the-output" id="toc-reading-the-output" class="nav-link" data-scroll-target="#reading-the-output"><span class="header-section-number">2.7</span> Reading the output</a></li>
+  <li><a href="#sas-libraries" id="toc-sas-libraries" class="nav-link" data-scroll-target="#sas-libraries"><span class="header-section-number">2.8</span> SAS libraries</a></li>
+  <li><a href="#the-libname-statement" id="toc-the-libname-statement" class="nav-link" data-scroll-target="#the-libname-statement"><span class="header-section-number">2.9</span> The <code>LIBNAME</code> statement</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">2.10</span> Exercise</a></li>
+  <li><a href="#a-possible-solution" id="toc-a-possible-solution" class="nav-link" data-scroll-target="#a-possible-solution"><span class="header-section-number">2.11</span> A possible solution</a></li>
+  <li><a href="#what-is-a-libref" id="toc-what-is-a-libref" class="nav-link" data-scroll-target="#what-is-a-libref"><span class="header-section-number">2.12</span> What is a libref?</a></li>
+  <li><a href="#libraries-last-for-one-session" id="toc-libraries-last-for-one-session" class="nav-link" data-scroll-target="#libraries-last-for-one-session"><span class="header-section-number">2.13</span> Libraries last for one session</a></li>
+  <li><a href="#keeping-a-library-the-autoexec-file" id="toc-keeping-a-library-the-autoexec-file" class="nav-link" data-scroll-target="#keeping-a-library-the-autoexec-file"><span class="header-section-number">2.14</span> Keeping a library: the autoexec file</a></li>
+  <li><a href="#automatic-sas-libraries" id="toc-automatic-sas-libraries" class="nav-link" data-scroll-target="#automatic-sas-libraries"><span class="header-section-number">2.15</span> Automatic SAS libraries</a></li>
+  <li><a href="#the-libraries-pane" id="toc-the-libraries-pane" class="nav-link" data-scroll-target="#the-libraries-pane"><span class="header-section-number">2.16</span> The Libraries pane</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SAS Tables and Libraries</span></h1>
+<p class="subtitle lead">MA505 · Day 2</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="agenda" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="agenda"><span class="header-section-number">2.1</span> Agenda</h2>
+<ol type="1">
+<li>SAS tables</li>
+<li>Column attributes</li>
+<li>Viewing a table’s attributes with <code>PROC CONTENTS</code></li>
+<li>SAS libraries and <code>LIBNAME</code></li>
+</ol>
+</section>
+<section id="sas-tables" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sas-tables"><span class="header-section-number">2.2</span> SAS tables</h2>
+<ul>
+<li><strong>Structured data</strong> with defined columns and rows, like a data frame in R or an Excel worksheet.</li>
+<li>File extension: <code>.sas7bdat</code></li>
+</ul>
+<div class="sastable-wrap">
+<div class="sastable-grid" role="img" aria-label="A SAS table: the header row is the descriptor; the rows below are the data">
+  <div class="st-label fragment" data-fragment-index="2"><div class="blackbox"><b>DATA</b></div></div>
+  <div class="st-brace fragment" data-fragment-index="2"></div>
+  <div class="st-h" style="grid-column:3"></div><div class="st-h" style="grid-column:4"></div><div class="st-h" style="grid-column:5"></div>
+  <div class="st-d" style="grid-column:3;grid-row:2"></div><div class="st-d" style="grid-column:4;grid-row:2"></div><div class="st-d" style="grid-column:5;grid-row:2"></div>
+  <div class="st-d" style="grid-column:3;grid-row:3"></div><div class="st-d" style="grid-column:4;grid-row:3"></div><div class="st-d" style="grid-column:5;grid-row:3"></div>
+  <div class="st-d" style="grid-column:3;grid-row:4"></div><div class="st-d" style="grid-column:4;grid-row:4"></div><div class="st-d" style="grid-column:5;grid-row:4"></div>
+  <div class="st-arrow fragment" data-fragment-index="1"><div class="arrow-left black"></div></div>
+  <div class="st-desc fragment" data-fragment-index="1"><div class="blackbox"><b>DESCRIPTOR</b><ul><li>table name</li><li>number of rows</li><li>date created</li><li>column names</li><li>column attributes</li></ul></div></div>
+</div>
+</div>
+</section>
+<section id="column-attributes" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="column-attributes"><span class="header-section-number">2.3</span> Column attributes</h2>
+<p>Every column <strong>must</strong> have a <strong>name</strong>, a <strong>type</strong>, and a <strong>length</strong>.</p>
+<div class="attr-grid">
+  <div class="attr-col"><h4 class="anchored">name</h4>
+    <div class="attr-card a"><ul>
+      <li>1–32 characters</li>
+      <li>starts with a letter or underscore</li>
+      <li>followed by letters, numbers, or underscores</li>
+      <li>can be upper, lower, or mixed case</li>
+    </ul></div>
+  </div>
+  <div class="attr-col fragment"><h4 class="anchored">type</h4>
+    <div class="attr-card b"><b class="t">Numeric</b><ul><li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li></ul></div>
+    <div class="attr-card b"><b class="t">Character</b><ul><li>letters</li><li>numbers</li><li>special characters</li><li>blanks</li></ul></div>
+  </div>
+  <div class="attr-col fragment"><h4 class="anchored">length</h4>
+    <div class="attr-card a"><b class="t">Numeric</b>8 bytes (about 16 significant digits)</div>
+    <div class="attr-card a"><b class="t">Character</b>1–32,767 bytes (1 byte = 1 character)</div>
+  </div>
+</div>
+</section>
+<section id="dates-and-times-are-numeric" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="dates-and-times-are-numeric"><span class="header-section-number">2.4</span> Dates and times are numeric</h2>
+<div style="display:flex;gap:2em;align-items:flex-start;">
+  <div class="attr-card b" style="flex:0 0 13em;font-size:.85em;"><b class="t">Numeric</b><ul>
+    <li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li>
+    <li class="red">DATE</li><li class="red">TIME</li><li class="red">DATETIME</li></ul></div>
+  <div style="flex:1;font-size:.9em;">
+    <ul>
+      <li class="fragment"><b>Dates</b> are stored as <b>the number of days since January 1, 1960</b>.
+        <ul><li>Jan 1, 2024 → 23376</li></ul></li>
+      <li class="fragment"><b>Time</b> is stored as <b>the number of seconds since midnight</b>.
+        <ul><li>6:00 PM → 64800</li></ul></li>
+      <li class="fragment"><b>Datetime</b> is stored as <b>the number of seconds since midnight on January 1, 1960</b>.
+        <ul><li>Jan 1, 2024 at midnight → 2,019,686,400</li></ul></li>
+    </ul>
+  </div>
+</div>
+</section>
+<section id="dates" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="dates"><span class="header-section-number">2.5</span> Dates</h2>
+<p>SAS lets you type a date, time, or datetime as a <strong>literal</strong>: the value in quotes, followed by <code>d</code>, <code>t</code>, or <code>dt</code>.</p>
+<div id="cell-06" class="cell">
+<pre class="sas cell-code"><code>data dates;
+    d  = '01JAN2024'd;          /* date     */
+    t  = '18:00't;              /* time     */
+    dt = '01JAN2024:00:00'dt;   /* datetime */
+run;
+
+proc print data=dates;
+run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output big">
+<p class="sas-proctitle">The Print Procedure</p>
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Obs</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">d</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">t</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">dt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="r data">23376</td>
+<td class="r data">64800</td>
+<td class="r data">2019686400</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="viewing-column-attributes-proc-contents" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="viewing-column-attributes-proc-contents"><span class="header-section-number">2.6</span> Viewing column attributes: <code>PROC CONTENTS</code></h2>
+<p><code>PROC CONTENTS</code> shows a table’s <strong>descriptor</strong>: its size, when it was created, and every column’s attributes.</p>
+<p>Replace <code>u63936157</code> with your own user ID (shown under <strong>Files → Home</strong> in SAS Studio).</p>
+<div id="cell-08" class="cell">
+<pre class="sas cell-code"><code>proc contents data="/home/u63936157/ow_hero.sas7bdat";
+run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output wide">
+<p class="sas-proctitle">The Contents Procedure</p>
+<div class="sas-tables">
+
+<table class="table caption-top table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Name</th>
+<td class="data">/home/u63936157/ow_hero.sas7bdat</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observations</th>
+<td class="data">99</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Member Type</th>
+<td class="data">DATA</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Variables</th>
+<td class="data">8</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Engine</th>
+<td class="data">V9</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Indexes</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Created</th>
+<td class="data">10/21/2024 14:38:17</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observation Length</th>
+<td class="data">80</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Last Modified</th>
+<td class="data">10/21/2024 14:38:17</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Deleted Observations</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Protection</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Compressed</th>
+<td class="data">NO</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Type</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Sorted</th>
+<td class="data">NO</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Label</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Representation</th>
+<td class="data">SOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Encoding</th>
+<td class="data">utf-8 Unicode (UTF-8)</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="2" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Engine/Host Dependent Information</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Page Size</th>
+<td class="data">131072</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Pages</th>
+<td class="data">1</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">First Data Page</th>
+<td class="data">1</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Max Obs per Page</th>
+<td class="data">1635</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Obs in First Data Page</th>
+<td class="data">99</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Repairs</th>
+<td class="data">0</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Filename</th>
+<td class="data">/home/u63936157/ow_hero.sas7bdat</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Release Created</th>
+<td class="data">9.0401M7</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Host Created</th>
+<td class="data">Linux</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Inode Number</th>
+<td class="data">17200423071</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Access Permission</th>
+<td class="data">rw-r--r--</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Owner Name</th>
+<td class="data">u63936157</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size</th>
+<td class="data">256KB</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size (bytes)</th>
+<td class="data">262144</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="6" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Alphabetic List of Variables and Attributes</th>
+</tr>
+<tr class="even">
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">#</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Len</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Format</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Informat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
+<td class="data">Date</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">MMDDYY10.</td>
+<td class="data">MMDDYY10.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">8</th>
+<td class="data">Hero</td>
+<td class="data">Char</td>
+<td class="r data">10</td>
+<td class="data">$10.</td>
+<td class="data">$10.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
+<td class="data">Map</td>
+<td class="data">Char</td>
+<td class="r data">16</td>
+<td class="data">$16.</td>
+<td class="data">$16.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
+<td class="data">Mode</td>
+<td class="data">Char</td>
+<td class="r data">13</td>
+<td class="data">$13.</td>
+<td class="data">$13.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">7</th>
+<td class="data">Percent Played</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="data">Player</td>
+<td class="data">Char</td>
+<td class="r data">7</td>
+<td class="data">$7.</td>
+<td class="data">$7.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">6</th>
+<td class="data">Role</td>
+<td class="data">Char</td>
+<td class="r data">7</td>
+<td class="data">$7.</td>
+<td class="data">$7.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
+<td class="data">Win</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="reading-the-output" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="reading-the-output"><span class="header-section-number">2.7</span> Reading the output</h2>
+<ul>
+<li>The first table is the <strong>descriptor</strong>: table name, number of rows (<em>Observations</em>), number of columns (<em>Variables</em>), and dates created/modified.</li>
+<li>The second table lists each column’s <strong>attributes</strong>: <em>Type</em> (<code>Num</code> or <code>Char</code>), <em>Len</em> (length), and its <em>Format</em>.</li>
+<li>Notice <code>Date</code> is <code>Num</code> with the format <code>MMDDYY10.</code>. It is stored as a number and <em>displayed</em> as a date.</li>
+</ul>
+</section>
+<section id="sas-libraries" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="sas-libraries"><span class="header-section-number">2.8</span> SAS libraries</h2>
+<p>A <strong>SAS library</strong> is a collection of SAS files that are stored in the same folder or directory.</p>
+<p>Typing the full file path every time is long and easy to get wrong:</p>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc contents</span> data=<span style="text-decoration:underline;text-decoration-color:#e53935;text-decoration-thickness:3px;text-underline-offset:5px;">"/home/u63936157/ow_hero.sas7bdat"</span>;
+<span class="kw">run</span>;</pre></div></div>
+<div class="fragment">
+<p>Instead, we can store our data in a <strong>SAS library</strong> for ease of access. This is done with the <strong>global</strong> statement <code>LIBNAME</code>.</p>
+</div>
+</section>
+<section id="the-libname-statement" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="the-libname-statement"><span class="header-section-number">2.9</span> The <code>LIBNAME</code> statement</h2>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">libname</span> <i>libref</i> "<i>path-to-folder</i>";</pre></div></div>
+<ul>
+<li><code>libref</code> is the short name you will use for the library (up to 8 characters, starting with a letter or underscore).</li>
+<li>The path is the <strong>folder</strong> that holds your data, not a single file.</li>
+<li>After this runs, refer to any table in that folder as <code>libref.table-name</code>.</li>
+</ul>
+</section>
+<section id="exercise" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="exercise"><span class="header-section-number">2.10</span> Exercise</h2>
+<ol type="1">
+<li>Create a new library called <strong>ma505</strong>.</li>
+<li>Add the Overwatch data to the library.</li>
+<li>Run a <code>PROC CONTENTS</code> on the dataset.</li>
+</ol>
+</section>
+<section id="a-possible-solution" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="a-possible-solution"><span class="header-section-number">2.11</span> A possible solution</h2>
+<div id="cell-14" class="cell">
+<pre class="sas cell-code"><code>/* 1. point the libref ma505 at your home folder */
+libname ma505 "/home/u63936157";
+
+/* 2. save a copy of the Overwatch data in the library as "overwatch" */
+data ma505.overwatch;
+    set ma505.ow_hero;
+run;
+
+/* 3. describe the table */
+proc contents data=ma505.overwatch;
+run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output wide">
+<p class="sas-proctitle">The Contents Procedure</p>
+<div class="sas-tables">
+
+<table class="table caption-top table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Name</th>
+<td class="data">MA505.OVERWATCH</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observations</th>
+<td class="data">99</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Member Type</th>
+<td class="data">DATA</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Variables</th>
+<td class="data">8</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Engine</th>
+<td class="data">V9</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Indexes</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Created</th>
+<td class="data">10/20/2026 16:42:20</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observation Length</th>
+<td class="data">80</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Last Modified</th>
+<td class="data">10/20/2026 16:42:20</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Deleted Observations</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Protection</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Compressed</th>
+<td class="data">NO</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Type</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Sorted</th>
+<td class="data">NO</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Label</th>
+<td class="data">&nbsp;</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Representation</th>
+<td class="data">SOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Encoding</th>
+<td class="data">utf-8 Unicode (UTF-8)</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">&nbsp;</th>
+<td class="data">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="2" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Engine/Host Dependent Information</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Page Size</th>
+<td class="data">131072</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Pages</th>
+<td class="data">1</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">First Data Page</th>
+<td class="data">1</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Max Obs per Page</th>
+<td class="data">1635</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Obs in First Data Page</th>
+<td class="data">99</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Repairs</th>
+<td class="data">0</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Filename</th>
+<td class="data">/home/u63936157/overwatch.sas7bdat</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Release Created</th>
+<td class="data">9.0401M8</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Host Created</th>
+<td class="data">Linux</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Inode Number</th>
+<td class="data">17217457378</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Access Permission</th>
+<td class="data">rw-r--r--</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Owner Name</th>
+<td class="data">u63936157</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size</th>
+<td class="data">256KB</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size (bytes)</th>
+<td class="data">262144</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="6" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Alphabetic List of Variables and Attributes</th>
+</tr>
+<tr class="even">
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">#</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Len</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Format</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Informat</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
+<td class="data">Date</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">MMDDYY10.</td>
+<td class="data">MMDDYY10.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">8</th>
+<td class="data">Hero</td>
+<td class="data">Char</td>
+<td class="r data">10</td>
+<td class="data">$10.</td>
+<td class="data">$10.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
+<td class="data">Map</td>
+<td class="data">Char</td>
+<td class="r data">16</td>
+<td class="data">$16.</td>
+<td class="data">$16.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
+<td class="data">Mode</td>
+<td class="data">Char</td>
+<td class="r data">13</td>
+<td class="data">$13.</td>
+<td class="data">$13.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">7</th>
+<td class="data">Percent Played</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="data">Player</td>
+<td class="data">Char</td>
+<td class="r data">7</td>
+<td class="data">$7.</td>
+<td class="data">$7.</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">6</th>
+<td class="data">Role</td>
+<td class="data">Char</td>
+<td class="r data">7</td>
+<td class="data">$7.</td>
+<td class="data">$7.</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
+<td class="data">Win</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+<td class="data">BEST12.</td>
+<td class="data">BEST32.</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="what-is-a-libref" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="what-is-a-libref"><span class="header-section-number">2.12</span> What is a libref?</h2>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc contents</span> data=<span class="libref-circle">ma505</span>.overwatch;
+<span class="kw">run</span>;</pre>
+<div class="anno-callout fragment"><div class="arrow-left"></div><span class="libref-label">libref</span></div></div></div>
+<div class="fragment red-text">
+<p>A <strong><em>libref</em></strong> is:</p>
+<ul>
+<li>a pointer, or shortcut, to existing data</li>
+<li>the libref may be deleted, but the data stays in the same place</li>
+<li>to get the libref back, run the <code>LIBNAME</code> statement again</li>
+</ul>
+</div>
+</section>
+<section id="libraries-last-for-one-session" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="libraries-last-for-one-session"><span class="header-section-number">2.13</span> Libraries last for one session</h2>
+<div class="red-text">
+<p>Library assignments are <strong>temporary</strong>: they are removed once your SAS session ends.</p>
+<p>To keep a library every time you log in, add the <code>LIBNAME</code> statement to your <strong>SAS autoexec</strong> file.</p>
+</div>
+</section>
+<section id="keeping-a-library-the-autoexec-file" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="keeping-a-library-the-autoexec-file"><span class="header-section-number">2.14</span> Keeping a library: the autoexec file</h2>
+<p>The <strong>autoexec</strong> file is a SAS program that runs automatically every time you start SAS Studio. Put your <code>LIBNAME</code> statement there and the library is ready every time you log in.</p>
+<ol type="1">
+<li>In SAS Studio, click <strong>More application options</strong> (top right) → <strong>Edit Autoexec File</strong>.</li>
+<li>Add your <code>LIBNAME</code> statement (example below).</li>
+<li>Click <strong>Run</strong> and check the log for errors.</li>
+<li>Click <strong>Save</strong>. Sign out and back in to see <strong>MA505</strong> waiting in the Libraries pane.</li>
+</ol>
+<div id="cell-18" class="cell">
+<pre class="sas cell-code"><code>/* autoexec.sas: runs automatically each time SAS Studio starts */
+libname ma505 "/home/u63936157";</code></pre>
+</div>
+</section>
+<section id="automatic-sas-libraries" class="level2" data-number="2.15">
+<h2 data-number="2.15" class="anchored" data-anchor-id="automatic-sas-libraries"><span class="header-section-number">2.15</span> Automatic SAS libraries</h2>
+<p>SAS creates two libraries for you automatically.</p>
+<div class="attr-grid" style="grid-template-columns: repeat(2, minmax(0, 16em)); justify-content: center;">
+  <div class="attr-col"><h4 class="anchored">work</h4>
+    <div class="attr-card a" style="min-height:9em;"><ul>
+      <li>default library</li><li>temporary</li><li>contents deleted when the session ends</li></ul></div></div>
+  <div class="attr-col"><h4 class="anchored">sashelp</h4>
+    <div class="attr-card b" style="min-height:9em;"><ul>
+      <li>permanent library</li><li>sample datasets (like <code>sashelp.class</code>)</li></ul></div></div>
+</div>
+<p>If you leave out the libref (<code>data example;</code>), the table is saved in <strong>work</strong>, so <code>example</code> is really <code>work.example</code>.</p>
+</section>
+<section id="the-libraries-pane" class="level2" data-number="2.16">
+<h2 data-number="2.16" class="anchored" data-anchor-id="the-libraries-pane"><span class="header-section-number">2.16</span> The Libraries pane</h2>
+<p>In SAS Studio, open <strong>Libraries</strong> in the navigation pane, then <strong>My Libraries</strong>.</p>
+<div class="incremental">
+<ol class="incremental" type="1">
+<li><strong>WORK</strong>: tables you created without a libref, like <code>example</code> and <code>dates</code>. These disappear when you sign out.</li>
+<li><strong>SASHELP</strong>: sample datasets. Double-click <strong>CLASS</strong> to view the table you used on Day 1.</li>
+<li><strong>MA505</strong>: appears after you run your <code>LIBNAME</code> statement. Click <strong>Refresh</strong> if you don’t see it.</li>
+</ol>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+// Adds two small icons to the top-right of every SAS code panel:
+//   [download .sas]  [copy to clipboard]
+// Works for the annotated blocks (boxes/arrows) and for plain code cells.
+document.addEventListener('DOMContentLoaded', function () {
+  var ICON_COPY = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>';
+  var ICON_DOWNLOAD = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>';
+  var ICON_DONE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>';
+  var GREY = '#57606a', DARK = '#24292f', GREEN = '#1a7f37';
+
+  function makeButton(icon, label, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.title = label; b.setAttribute('aria-label', label); b.innerHTML = icon;
+    // inline styles so the look never depends on a cached stylesheet
+    b.style.cssText = 'width:30px;height:30px;padding:0;margin:0;display:flex;align-items:center;justify-content:center;' +
+      'border:1px solid #d0d7de;border-radius:6px;background:#ffffff;color:' + GREY + ';cursor:pointer;opacity:.85;line-height:0;box-shadow:none;';
+    b.addEventListener('mouseenter', function () { b.style.opacity = '1'; b.style.color = DARK; });
+    b.addEventListener('mouseleave', function () { b.style.opacity = '.85'; b.style.color = GREY; });
+    b.addEventListener('click', function () { onClick(b, icon, label); });
+    return b;
+  }
+  function flash(b, icon, label) {
+    b.innerHTML = ICON_DONE; b.style.color = GREEN;
+    setTimeout(function () { b.innerHTML = icon; b.style.color = GREY; b.title = label; }, 1500);
+  }
+  function fileName(host) {
+    var page = (location.pathname.split('/').pop() || 'code').replace(/\.html?$/, '');
+    var sec = host.closest('section[id]');
+    return page + (sec ? '_' + sec.id : '') + '.sas';
+  }
+  function addTools(host, getText) {
+    var bar = document.createElement('div');
+    bar.className = 'sas-code-tools';
+    bar.style.cssText = 'position:absolute;top:6px;right:6px;z-index:2;display:flex;gap:6px;';
+    bar.appendChild(makeButton(ICON_DOWNLOAD, 'Download .sas file', function (b, icon, label) {
+      var blob = new Blob([getText() + '\n'], { type: 'text/plain' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = fileName(host);
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      flash(b, icon, label);
+    }));
+    bar.appendChild(makeButton(ICON_COPY, 'Copy code', function (b, icon, label) {
+      var text = getText();
+      var done = function () { flash(b, icon, label); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done);
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove(); done();
+      }
+    }));
+    host.style.position = 'relative';
+    host.appendChild(bar);
+  }
+  function clean(pre) {
+    var c = pre.cloneNode(true);
+    c.querySelectorAll('.sas-code-tools, .code-copy-button').forEach(function (x) { x.remove(); });
+    // reveal.js line numbers live in separate elements; textContent of <code> skips them
+    var code = c.querySelector('code') || c;
+    return code.textContent.replace(/^\n+|\n+$/g, '');
+  }
+  // annotated blocks: one pair of icons for the whole code panel
+  document.querySelectorAll('.anno').forEach(function (block) {
+    var pres = block.querySelectorAll('pre.anno-code');
+    if (!pres.length) return;
+    addTools(pres[0], function () { return Array.prototype.map.call(pres, clean).join('\n\n'); });
+  });
+  // plain code cells (replace Quarto's own copy button, if any, so every panel looks the same)
+  var seen = [];
+  document.querySelectorAll('.cell-code').forEach(function (el) {
+    var pre = el.tagName === 'PRE' ? el : el.querySelector('pre');
+    if (!pre) return;
+    var host = pre.closest('div.sourceCode') || pre;
+    if (seen.indexOf(host) !== -1) return; seen.push(host);
+    // newer Quarto puts its own copy button next to the code (in a wrapper), not inside it
+    var wrap = pre.closest('.code-copy-outer-scaffold') || host;
+    wrap.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
+    addTools(host, function () { return clean(pre); });
+  });
+
+  // Scratchpads: Tab inserts spaces; keys typed here never move the slides
+  document.querySelectorAll('.scratchpad').forEach(function (pad) {
+    var ta = pad.querySelector('textarea');
+    ta.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        var s = ta.selectionStart, t = ta.selectionEnd;
+        ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(t);
+        ta.selectionStart = ta.selectionEnd = s + 4;
+      }
+    });
+    var clear = pad.querySelector('button.clear');
+    if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
+  });
+
+  // Slides only: on slides that have SAS code, reveal each piece on click,
+  // in order: text -> code -> output
+  if (document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
+      if (!sec.querySelector('.cell')) return;
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
+        if (el.classList.contains('cell')) {
+          var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
+          if (code) code.classList.add('fragment');
+          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+        } else {
+          el.classList.add('fragment');
+        }
+      });
+    });
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
+  }
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/01-intro-to-sas.html" class="pagination-link" aria-label="Introduction to SAS">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to SAS</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

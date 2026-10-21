@@ -120,6 +120,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to SAS</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/02-tables-libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SAS Tables and Libraries</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -169,6 +175,7 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="unnumbered anchored" data-anchor-id="slides">Slides</h2>
 <ul>
 <li><a href="slides/01-intro-to-sas.html">Day 1: Introduction to SAS</a></li>
+<li><a href="slides/02-tables-libraries.html">Day 2: SAS Tables and Libraries</a></li>
 </ul>
 
 
@@ -251,7 +258,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!pre) return;
     var host = pre.closest('div.sourceCode') || pre;
     if (seen.indexOf(host) !== -1) return; seen.push(host);
-    host.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
+    // newer Quarto puts its own copy button next to the code (in a wrapper), not inside it
+    var wrap = pre.closest('.code-copy-outer-scaffold') || host;
+    wrap.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
     addTools(host, function () { return clean(pre); });
   });
 
@@ -270,6 +279,25 @@ document.addEventListener('DOMContentLoaded', function () {
     var clear = pad.querySelector('button.clear');
     if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
   });
+
+  // Slides only: on slides that have SAS code, reveal each piece on click,
+  // in order: text -> code -> output
+  if (document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
+      if (!sec.querySelector('.cell')) return;
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
+        if (el.classList.contains('cell')) {
+          var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
+          if (code) code.classList.add('fragment');
+          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+        } else {
+          el.classList.add('fragment');
+        }
+      });
+    });
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
+  }
 });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

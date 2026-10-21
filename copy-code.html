@@ -73,7 +73,9 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!pre) return;
     var host = pre.closest('div.sourceCode') || pre;
     if (seen.indexOf(host) !== -1) return; seen.push(host);
-    host.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
+    // newer Quarto puts its own copy button next to the code (in a wrapper), not inside it
+    var wrap = pre.closest('.code-copy-outer-scaffold') || host;
+    wrap.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
     addTools(host, function () { return clean(pre); });
   });
 
@@ -92,5 +94,24 @@ document.addEventListener('DOMContentLoaded', function () {
     var clear = pad.querySelector('button.clear');
     if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
   });
+
+  // Slides only: on slides that have SAS code, reveal each piece on click,
+  // in order: text -> code -> output
+  if (document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
+      if (!sec.querySelector('.cell')) return;
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
+        if (el.classList.contains('cell')) {
+          var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
+          if (code) code.classList.add('fragment');
+          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+        } else {
+          el.classList.add('fragment');
+        }
+      });
+    });
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
+  }
 });
 </script>

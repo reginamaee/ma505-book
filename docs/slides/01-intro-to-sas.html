@@ -584,6 +584,14 @@ max-height: none !important;
 .reveal section .cell:has(.cell-output-display img) { display: block; }
 .reveal section .cell:has(.cell-output-display img) .cell-output-display { display: inline-block; width: 49%; vertical-align: top; }
 .reveal section .cell .cell-output-display img { max-width: 100%; height: auto; }
+
+.reveal section .cell:has(.sas-output.wide) { display: block; }
+.reveal .sas-output.wide table { font-size: .4em; }
+.reveal .sas-output.big table { font-size: .8em; }
+.reveal .sas-output.big .sas-proctitle { font-size: .8em; }
+
+.reveal .sas-output.wide .sas-tables > table:nth-of-type(2) { display: none; }
+.reveal .sas-output.wide table { font-size: .5em; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -721,6 +729,30 @@ tab-size: 4;
 }
 .reveal .scratchpad textarea { font-size: .78em; min-height: 13em; }
 .reveal .scratchpad-label { font-size: 15px; }
+
+.sastable-wrap { display: flex; justify-content: center; margin: 1.2em 0; }
+.sastable-grid {
+display: grid; align-items: stretch;
+grid-template-columns: auto 30px 5.5em 5.5em 5.5em 80px minmax(9em, auto);
+grid-template-rows: 2.6em 2.4em 2.4em 2.4em;
+}
+.sastable-grid .st-h { grid-row: 1; background: #505050; border: 1.5px solid #333; }
+.sastable-grid .st-d { background: #fff; border: 1.5px solid #333; }
+.sastable-grid .st-label { grid-column: 1; grid-row: 2 / 5; align-self: center; }
+.sastable-grid .st-brace { 
+grid-column: 2; grid-row: 2 / 5; margin: 3px 8px 3px 10px;
+border: 3px solid #111; border-right: none; border-radius: 14px 0 0 14px;
+position: relative;
+}
+.sastable-grid .st-brace::after { 
+content: ""; position: absolute; left: -9px; top: 50%; width: 8px; height: 3px; background: #111; transform: translateY(-50%);
+}
+.sastable-grid .st-arrow { grid-column: 6; grid-row: 1; align-self: center; padding: 0 8px; }
+.sastable-grid .st-arrow .arrow-left { margin: 0; flex: none; width: 100%; }
+.sastable-grid .st-desc { grid-column: 7; grid-row: 1 / 5; align-self: start; }
+
+.sas-output.wide .sas-tables { display: flex; flex-wrap: wrap; gap: .8em; align-items: flex-start; }
+.sas-output.wide .sas-tables table { margin: 0; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -3101,7 +3133,9 @@ window.QuartoSupport = function () {
         if (!pre) return;
         var host = pre.closest('div.sourceCode') || pre;
         if (seen.indexOf(host) !== -1) return; seen.push(host);
-        host.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
+        // newer Quarto puts its own copy button next to the code (in a wrapper), not inside it
+        var wrap = pre.closest('.code-copy-outer-scaffold') || host;
+        wrap.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
         addTools(host, function () { return clean(pre); });
       });
 
@@ -3120,6 +3154,25 @@ window.QuartoSupport = function () {
         var clear = pad.querySelector('button.clear');
         if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
       });
+
+      // Slides only: on slides that have SAS code, reveal each piece on click,
+      // in order: text -> code -> output
+      if (document.querySelector('.reveal .slides')) {
+        document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
+          if (!sec.querySelector('.cell')) return;
+          Array.prototype.forEach.call(sec.children, function (el) {
+            if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
+            if (el.classList.contains('cell')) {
+              var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
+              if (code) code.classList.add('fragment');
+              el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+            } else {
+              el.classList.add('fragment');
+            }
+          });
+        });
+        if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
+      }
     });
     </script>
     <script id="quarto-html-after-body" type="application/javascript">

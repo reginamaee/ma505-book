@@ -9,3 +9,4 @@ All code runs in **SAS OnDemand for Academics**, a free version of SAS Studio th
 ## Slides {.unnumbered}
 
 - [Day 1: Introduction to SAS](slides/01-intro-to-sas.html)
+- [Day 2: SAS Tables and Libraries](slides/02-tables-libraries.html)
