@@ -280,101 +280,11 @@
     ]
   },
   {
-    "objectID": "chapters/02-tables-libraries.html#your-turn-get-the-overwatch-data-into-sas",
-    "href": "chapters/02-tables-libraries.html#your-turn-get-the-overwatch-data-into-sas",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.8 Your turn: get the Overwatch data into SAS",
-    "text": "2.8 Your turn: get the Overwatch data into SAS\n\nDownload overwatch_heros.csv from Moodle.\nIn SAS Studio, open Server Files and Folders, right-click Files (Home) → Upload Files, and upload the file.\nRight-click the uploaded file → Properties to see its full path, e.g. /home/u12345678/overwatch_heros.csv.\nCreate the ma505 library, then import the CSV into it as a SAS table (use your own user ID):\n\n\n/* point the libref ma505 at your home folder */\nlibname ma505 \"/home/u63936157\";\n\n/* import the CSV into the library as a SAS table called \"overwatch\" */\nproc import datafile=\"/home/u63936157/overwatch_heros.csv\"\n    out=ma505.overwatch\n    dbms=csv\n    replace;\nrun;",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#column-attributes",
-    "href": "chapters/02-tables-libraries.html#column-attributes",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.9 Column attributes",
-    "text": "2.9 Column attributes\nEvery column must have a name, a type, and a length.\n\n  name\n    \n      1–32 characters\n      starts with a letter or underscore\n      followed by letters, numbers, or underscores\n      can be upper, lower, or mixed case\n    \n  \n  type\n    Numericdigitsminus signdecimal pointscientific notation\n    Characterlettersnumbersspecial charactersblanks\n  \n  length\n    Numeric8 bytes (about 16 significant digits)\n    Character1–32,767 bytes (1 byte = 1 character)",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#viewing-column-attributes-proc-contents",
-    "href": "chapters/02-tables-libraries.html#viewing-column-attributes-proc-contents",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.10 Viewing column attributes: PROC CONTENTS",
-    "text": "2.10 Viewing column attributes: PROC CONTENTS\nPROC CONTENTS shows a table’s descriptor: its size, when it was created, and every column’s attributes.\n\nproc contents data=ma505.overwatch;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nMA505.OVERWATCH\nObservations\n99\n\n\nMember Type\nDATA\nVariables\n8\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n10/21/2026 14:10:51\nObservation Length\n80\n\n\nLast Modified\n10/21/2026 14:10:51\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\n \n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nutf-8 Unicode (UTF-8)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n131072\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1635\n\n\nObs in First Data Page\n99\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/home/u63936157/overwatch.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n17217457378\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nu63936157\n\n\nFile Size\n256KB\n\n\nFile Size (bytes)\n262144\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\nFormat\nInformat\n\n\n\n\n2\nDate\nNum\n8\nMMDDYY10.\nMMDDYY10.\n\n\n8\nHero\nChar\n10\n$10.\n$10.\n\n\n4\nMap\nChar\n16\n$16.\n$16.\n\n\n5\nMode\nChar\n13\n$13.\n$13.\n\n\n7\nPercent Played\nNum\n8\nBEST12.\nBEST32.\n\n\n1\nPlayer\nChar\n7\n$7.\n$7.\n\n\n6\nRole\nChar\n7\n$7.\n$7.\n\n\n3\nWin\nNum\n8\nBEST12.\nBEST32.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#reading-the-output",
-    "href": "chapters/02-tables-libraries.html#reading-the-output",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.11 Reading the output",
-    "text": "2.11 Reading the output\n\nThe first table is the descriptor: table name, number of rows (Observations), number of columns (Variables), and dates created/modified.\nThe second table lists each column’s attributes: Type (Num or Char), Len (length), and its Format.\nNotice Date is Num with the format MMDDYY10.. It is stored as a number and displayed as a date.",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#exercise",
-    "href": "chapters/02-tables-libraries.html#exercise",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.12 Exercise",
-    "text": "2.12 Exercise\nRun PROC CONTENTS on the sample table sashelp.class and answer:\n\nHow many rows (observations) does it have?\nHow many columns (variables)?\nWhich columns are character?\nWhat is the length of Name?",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#exercise-solution",
-    "href": "chapters/02-tables-libraries.html#exercise-solution",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.13 Exercise: solution",
-    "text": "2.13 Exercise: solution\n\nproc contents data=sashelp.class;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nSASHELP.CLASS\nObservations\n19\n\n\nMember Type\nDATA\nVariables\n5\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n01/18/2023 05:39:45\nObservation Length\n40\n\n\nLast Modified\n01/18/2023 05:39:45\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\nStudent Data\n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nus-ascii ASCII (ANSI)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n65536\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1632\n\n\nObs in First Data Page\n19\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/pbr/sfw/sas/940/SASFoundation/9.4/sashelp/class.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n81449460\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nodaowner\n\n\nFile Size\n128KB\n\n\nFile Size (bytes)\n131072\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\n\n\n\n\n3\nAge\nNum\n8\n\n\n4\nHeight\nNum\n8\n\n\n1\nName\nChar\n8\n\n\n2\nSex\nChar\n1\n\n\n5\nWeight\nNum\n8",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#exercise-answers",
-    "href": "chapters/02-tables-libraries.html#exercise-answers",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.14 Exercise: answers",
-    "text": "2.14 Exercise: answers\n\n19 rows\n5 columns\nName and Sex are character; Age, Height, and Weight are numeric\nName has a length of 8",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
-    "href": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.15 Dates and times are numeric",
-    "text": "2.15 Dates and times are numeric\n\n  Numeric\n    digitsminus signdecimal pointscientific notation\n    DATETIMEDATETIME\n  \n    \n      Dates are stored as the number of days since January 1, 1960.\n        Jan 1, 2024 → 23376\n      Time is stored as the number of seconds since midnight.\n        6:00 PM → 64800\n      Datetime is stored as the number of seconds since midnight on January 1, 1960.\n        Jan 1, 2024 at midnight → 2,019,686,400",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
-    "objectID": "chapters/02-tables-libraries.html#dates",
-    "href": "chapters/02-tables-libraries.html#dates",
-    "title": "2  SAS Tables and Libraries",
-    "section": "2.16 Dates",
-    "text": "2.16 Dates\nSAS lets you type a date, time, or datetime as a literal: the value in quotes, followed by d, t, or dt.\nNo libref here, so dates is saved in work.\n\ndata dates;\n    d  = '01JAN2024'd;          /* date     */\n    t  = '18:00't;              /* time     */\n    dt = '01JAN2024:00:00'dt;   /* datetime */\nrun;\n\nproc print data=dates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nd\nt\ndt\n\n\n\n\n1\n23376\n64800\n2019686400",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
-    ]
-  },
-  {
     "objectID": "chapters/02-tables-libraries.html#the-libraries-pane",
     "href": "chapters/02-tables-libraries.html#the-libraries-pane",
     "title": "2  SAS Tables and Libraries",
-    "section": "2.17 The Libraries pane",
-    "text": "2.17 The Libraries pane\nIn SAS Studio, open Libraries in the navigation pane, then My Libraries.\n\n\nWORK: tables you created without a libref, like example and dates. These disappear when you sign out.\nSASHELP: sample datasets. Double-click CLASS to view the table you used on Day 1.\nMA505: appears after you run your LIBNAME statement. Click Refresh if you don’t see it.",
+    "section": "2.8 The Libraries pane",
+    "text": "2.8 The Libraries pane\nIn SAS Studio, open Libraries in the navigation pane, then My Libraries.\n\n\nWORK: tables you created without a libref, like example. These disappear when you sign out.\nSASHELP: sample datasets. Double-click CLASS to view the table you used on Day 1.\nMA505: appears after you run your LIBNAME statement. Click Refresh if you don’t see it.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]
@@ -383,8 +293,8 @@
     "objectID": "chapters/02-tables-libraries.html#libraries-last-for-one-session",
     "href": "chapters/02-tables-libraries.html#libraries-last-for-one-session",
     "title": "2  SAS Tables and Libraries",
-    "section": "2.18 Libraries last for one session",
-    "text": "2.18 Libraries last for one session\n\nThe libref is temporary: SAS forgets it when your session ends. The data is permanent: your tables stay in the folder. Run LIBNAME again (or put it in your autoexec) to reconnect.\n\n\nSo why use libraries?\n\nShort names instead of long paths: ma505.overwatch instead of \"/home/u63936157/overwatch.sas7bdat\".\nYour work gets saved: tables written with a libref (data ma505.clean;) are real files that survive sign-out. Tables with no libref go to work, which is deleted.\nOne place to change: if the folder moves, edit one LIBNAME line, not every PROC.\nOrganization: separate librefs for separate projects, or for raw vs. cleaned data.\nOne line to restore: just the LIBNAME at the top of your program, or nothing at all with an autoexec.",
+    "section": "2.9 Libraries last for one session",
+    "text": "2.9 Libraries last for one session\n\nThe libref is temporary: SAS forgets it when your session ends. The data is permanent: your tables stay in the folder. Run LIBNAME again (or put it in your autoexec) to reconnect.\n\n\nSo why use libraries?\n\nShort names instead of long paths: ma505.overwatch instead of \"/home/u63936157/overwatch.sas7bdat\".\nYour work gets saved: tables written with a libref (data ma505.clean;) are real files that survive sign-out. Tables with no libref go to work, which is deleted.\nOne place to change: if the folder moves, edit one LIBNAME line, not every PROC.\nOrganization: separate librefs for separate projects, or for raw vs. cleaned data.\nOne line to restore: just the LIBNAME at the top of your program, or nothing at all with an autoexec.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]
@@ -393,8 +303,98 @@
     "objectID": "chapters/02-tables-libraries.html#keeping-a-library-the-autoexec-file",
     "href": "chapters/02-tables-libraries.html#keeping-a-library-the-autoexec-file",
     "title": "2  SAS Tables and Libraries",
-    "section": "2.19 Keeping a library: the autoexec file",
-    "text": "2.19 Keeping a library: the autoexec file\nThe autoexec file is a SAS program that runs automatically every time you start SAS Studio. Put your LIBNAME statement there and the library is ready every time you log in.\n\nIn SAS Studio, click More application options (top right) → Edit Autoexec File.\nAdd your LIBNAME statement (example below).\nClick Run and check the log for errors.\nClick Save. Sign out and back in to see MA505 waiting in the Libraries pane.\n\n\n/* autoexec.sas: runs automatically each time SAS Studio starts */\nlibname ma505 \"/home/u63936157\";",
+    "section": "2.10 Keeping a library: the autoexec file",
+    "text": "2.10 Keeping a library: the autoexec file\nThe autoexec file is a SAS program that runs automatically every time you start SAS Studio. Put your LIBNAME statement there and the library is ready every time you log in.\n\nIn SAS Studio, click More application options (top right) → Edit Autoexec File.\nAdd your LIBNAME statement (example below).\nClick Run and check the log for errors.\nClick Save. Sign out and back in to see MA505 waiting in the Libraries pane.\n\n\n/* autoexec.sas: runs automatically each time SAS Studio starts */\nlibname ma505 \"/home/u63936157\";",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#your-turn-get-the-overwatch-data-into-sas",
+    "href": "chapters/02-tables-libraries.html#your-turn-get-the-overwatch-data-into-sas",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.11 Your turn: get the Overwatch data into SAS",
+    "text": "2.11 Your turn: get the Overwatch data into SAS\n\nDownload overwatch_heros.csv from Moodle.\nIn SAS Studio, open Server Files and Folders, right-click Files (Home) → Upload Files, and upload the file.\nRight-click the uploaded file → Properties to see its full path, e.g. /home/u12345678/overwatch_heros.csv.\nCreate the ma505 library, then import the CSV into it as a SAS table (use your own user ID):\n\n\n/* point the libref ma505 at your home folder */\nlibname ma505 \"/home/u63936157\";\n\n/* import the CSV into the library as a SAS table called \"overwatch\" */\nproc import datafile=\"/home/u63936157/overwatch_heros.csv\"\n    out=ma505.overwatch\n    dbms=csv\n    replace;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#column-attributes",
+    "href": "chapters/02-tables-libraries.html#column-attributes",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.12 Column attributes",
+    "text": "2.12 Column attributes\nEvery column must have a name, a type, and a length.\n\n  name\n    \n      1–32 characters\n      starts with a letter or underscore\n      followed by letters, numbers, or underscores\n      can be upper, lower, or mixed case\n    \n  \n  type\n    Numericdigitsminus signdecimal pointscientific notation\n    Characterlettersnumbersspecial charactersblanks\n  \n  length\n    Numeric8 bytes (about 16 significant digits)\n    Character1–32,767 bytes (1 byte = 1 character)",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#viewing-column-attributes-proc-contents",
+    "href": "chapters/02-tables-libraries.html#viewing-column-attributes-proc-contents",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.13 Viewing column attributes: PROC CONTENTS",
+    "text": "2.13 Viewing column attributes: PROC CONTENTS\nPROC CONTENTS shows a table’s descriptor: its size, when it was created, and every column’s attributes.\n\nproc contents data=ma505.overwatch;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nMA505.OVERWATCH\nObservations\n99\n\n\nMember Type\nDATA\nVariables\n8\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n10/21/2026 14:10:51\nObservation Length\n80\n\n\nLast Modified\n10/21/2026 14:10:51\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\n \n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nutf-8 Unicode (UTF-8)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n131072\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1635\n\n\nObs in First Data Page\n99\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/home/u63936157/overwatch.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n17217457378\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nu63936157\n\n\nFile Size\n256KB\n\n\nFile Size (bytes)\n262144\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\nFormat\nInformat\n\n\n\n\n2\nDate\nNum\n8\nMMDDYY10.\nMMDDYY10.\n\n\n8\nHero\nChar\n10\n$10.\n$10.\n\n\n4\nMap\nChar\n16\n$16.\n$16.\n\n\n5\nMode\nChar\n13\n$13.\n$13.\n\n\n7\nPercent Played\nNum\n8\nBEST12.\nBEST32.\n\n\n1\nPlayer\nChar\n7\n$7.\n$7.\n\n\n6\nRole\nChar\n7\n$7.\n$7.\n\n\n3\nWin\nNum\n8\nBEST12.\nBEST32.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#reading-the-output",
+    "href": "chapters/02-tables-libraries.html#reading-the-output",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.14 Reading the output",
+    "text": "2.14 Reading the output\n\nThe first table is the descriptor: table name, number of rows (Observations), number of columns (Variables), and dates created/modified.\nThe second table lists each column’s attributes: Type (Num or Char), Len (length), and its Format.\nNotice Date is Num with the format MMDDYY10.. It is stored as a number and displayed as a date.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#exercise",
+    "href": "chapters/02-tables-libraries.html#exercise",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.15 Exercise",
+    "text": "2.15 Exercise\nRun PROC CONTENTS on the sample table sashelp.class and answer:\n\nHow many rows (observations) does it have?\nHow many columns (variables)?\nWhich columns are character?\nWhat is the length of Name?",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#exercise-solution",
+    "href": "chapters/02-tables-libraries.html#exercise-solution",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.16 Exercise: solution",
+    "text": "2.16 Exercise: solution\n\nproc contents data=sashelp.class;\nrun;\n\n\nThe Contents Procedure\n\n\n\n\n\nData Set Name\nSASHELP.CLASS\nObservations\n19\n\n\nMember Type\nDATA\nVariables\n5\n\n\nEngine\nV9\nIndexes\n0\n\n\nCreated\n01/18/2023 05:39:45\nObservation Length\n40\n\n\nLast Modified\n01/18/2023 05:39:45\nDeleted Observations\n0\n\n\nProtection\n \nCompressed\nNO\n\n\nData Set Type\n \nSorted\nNO\n\n\nLabel\nStudent Data\n \n \n\n\nData Representation\nSOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64\n \n \n\n\nEncoding\nus-ascii ASCII (ANSI)\n \n \n\n\n\n\n\n\n\n\nEngine/Host Dependent Information\n\n\n\n\nData Set Page Size\n65536\n\n\nNumber of Data Set Pages\n1\n\n\nFirst Data Page\n1\n\n\nMax Obs per Page\n1632\n\n\nObs in First Data Page\n19\n\n\nNumber of Data Set Repairs\n0\n\n\nFilename\n/pbr/sfw/sas/940/SASFoundation/9.4/sashelp/class.sas7bdat\n\n\nRelease Created\n9.0401M8\n\n\nHost Created\nLinux\n\n\nInode Number\n81449460\n\n\nAccess Permission\nrw-r--r--\n\n\nOwner Name\nodaowner\n\n\nFile Size\n128KB\n\n\nFile Size (bytes)\n131072\n\n\n\n\n\n\n\n\nAlphabetic List of Variables and Attributes\n\n\n#\nVariable\nType\nLen\n\n\n\n\n3\nAge\nNum\n8\n\n\n4\nHeight\nNum\n8\n\n\n1\nName\nChar\n8\n\n\n2\nSex\nChar\n1\n\n\n5\nWeight\nNum\n8",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#exercise-answers",
+    "href": "chapters/02-tables-libraries.html#exercise-answers",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.17 Exercise: answers",
+    "text": "2.17 Exercise: answers\n\n19 rows\n5 columns\nName and Sex are character; Age, Height, and Weight are numeric\nName has a length of 8",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
+    "href": "chapters/02-tables-libraries.html#dates-and-times-are-numeric",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.18 Dates and times are numeric",
+    "text": "2.18 Dates and times are numeric\n\n  Numeric\n    digitsminus signdecimal pointscientific notation\n    DATETIMEDATETIME\n  \n    \n      Dates are stored as the number of days since January 1, 1960.\n        Jan 1, 2024 → 23376\n      Time is stored as the number of seconds since midnight.\n        6:00 PM → 64800\n      Datetime is stored as the number of seconds since midnight on January 1, 1960.\n        Jan 1, 2024 at midnight → 2,019,686,400",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/02-tables-libraries.html#dates",
+    "href": "chapters/02-tables-libraries.html#dates",
+    "title": "2  SAS Tables and Libraries",
+    "section": "2.19 Dates",
+    "text": "2.19 Dates\nSAS lets you type a date, time, or datetime as a literal: the value in quotes, followed by d, t, or dt.\nNo libref here, so dates is saved in work.\n\ndata dates;\n    d  = '01JAN2024'd;          /* date     */\n    t  = '18:00't;              /* time     */\n    dt = '01JAN2024:00:00'dt;   /* datetime */\nrun;\n\nproc print data=dates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nd\nt\ndt\n\n\n\n\n1\n23376\n64800\n2019686400",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]

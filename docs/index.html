@@ -298,6 +298,19 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
   }
+
+  // Book only: sections marked {.solution} are hidden behind a "Show solution" toggle
+  if (!document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('section.solution').forEach(function (sec) {
+      var h = sec.querySelector(':scope > h1, :scope > h2, :scope > h3');
+      var d = document.createElement('details'); d.className = 'solution-toggle';
+      var sm = document.createElement('summary');
+      sm.textContent = (h && /answer/i.test(h.textContent)) ? 'Show answers' : 'Show solution';
+      d.appendChild(sm);
+      Array.prototype.slice.call(sec.children).forEach(function (x) { if (x !== h) d.appendChild(x); });
+      sec.appendChild(d);
+    });
+  }
 });
 </script>
 <script id="quarto-html-after-body" type="application/javascript">

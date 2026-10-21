@@ -171,3 +171,8 @@ pre.anno-code { padding-right: 5em !important; }
 /* wide SAS output (e.g., PROC CONTENTS): tables flow side by side */
 .sas-output.wide .sas-tables { display: flex; flex-wrap: wrap; gap: .8em; align-items: flex-start; }
 .sas-output.wide .sas-tables table { margin: 0; }
+
+/* Book: "Show solution" toggles */
+details.solution-toggle { border: 1px solid #d0d7de; border-radius: 8px; padding: .6em 1em; background: #fafbfc; margin: .5em 0 1em; }
+details.solution-toggle > summary { cursor: pointer; font-weight: 600; color: #0969da; }
+details.solution-toggle[open] > summary { margin-bottom: .6em; }
