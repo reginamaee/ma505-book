@@ -1382,13 +1382,30 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </section>
+<section id="your-turn-get-the-overwatch-data-into-sas" class="slide level2 scrollable">
+<h2>Your turn: get the Overwatch data into SAS</h2>
+<ol type="1">
+<li>Download <code>overwatch_heros.csv</code> from Moodle.</li>
+<li>In SAS Studio, open <strong>Server Files and Folders</strong>, right-click <strong>Files (Home)</strong> → <strong>Upload Files</strong>, and upload <code>overwatch_heros.csv</code>.</li>
+<li>Right-click the uploaded file → <strong>Properties</strong> to see its full path, e.g. <code>/home/u12345678/overwatch_heros.csv</code>.</li>
+<li>A CSV is not a SAS table yet. Run this to <strong>import</strong> it into a SAS table called <code>ow_hero</code> (use your own path):</li>
+</ol>
+<div id="cell-08" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>proc import datafile=&quot;/home/u63936157/overwatch_heros.csv&quot;</span>
+<span id="cb2-2"><a href></a>    out=ow_hero</span>
+<span id="cb2-3"><a href></a>    dbms=csv</span>
+<span id="cb2-4"><a href></a>    replace;</span>
+<span id="cb2-5"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
 <section id="viewing-column-attributes-proc-contents" class="slide level2">
 <h2>Viewing column attributes: <code>PROC CONTENTS</code></h2>
 <p><code>PROC CONTENTS</code> shows a table’s <strong>descriptor</strong>: its size, when it was created, and every column’s attributes.</p>
 <p>Replace <code>u63936157</code> with your own user ID (shown under <strong>Files → Home</strong> in SAS Studio).</p>
-<div id="cell-08" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>proc contents data=&quot;/home/u63936157/ow_hero.sas7bdat&quot;;</span>
-<span id="cb2-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On your own: run <code>proc contents data=ow_hero; run;</code> on the table you just imported.</p>
+<div id="cell-10" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href></a>proc contents data=&quot;/home/u63936157/ow_hero.sas7bdat&quot;;</span>
+<span id="cb3-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="sas-output wide">
 <p class="sas-proctitle">The Contents Procedure</p>
@@ -1641,6 +1658,33 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <li>After this runs, refer to any table in that folder as <code>libref.table-name</code>.</li>
 </ul>
 </section>
+<section id="what-is-a-libref" class="slide level2">
+<h2>What is a libref?</h2>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc contents</span> data=<span class="libref-circle">ma505</span>.overwatch;
+<span class="kw">run</span>;</pre>
+<div class="anno-callout fragment"><div class="arrow-left"></div><span class="libref-label">libref</span></div></div></div>
+<div class="fragment red-text">
+<p>A <strong><em>libref</em></strong> is:</p>
+<ul>
+<li>a pointer, or shortcut, to existing data</li>
+<li>the libref may be deleted, but the data stays in the same place</li>
+<li>to get the libref back, run the <code>LIBNAME</code> statement again</li>
+</ul>
+</div>
+</section>
+<section id="automatic-sas-libraries" class="slide level2">
+<h2>Automatic SAS libraries</h2>
+<p>SAS creates two libraries for you automatically.</p>
+<div class="attr-grid" style="grid-template-columns: repeat(2, minmax(0, 16em)); justify-content: center;">
+  <div class="attr-col"><h4>work</h4>
+    <div class="attr-card a" style="min-height:9em;"><ul>
+      <li>default library</li><li>temporary</li><li>contents deleted when the session ends</li></ul></div></div>
+  <div class="attr-col"><h4>sashelp</h4>
+    <div class="attr-card b" style="min-height:9em;"><ul>
+      <li>permanent library</li><li>sample datasets (like <code>sashelp.class</code>)</li></ul></div></div>
+</div>
+<p>If you leave out the libref (<code>data example;</code>), the table is saved in <strong>work</strong>, so <code>example</code> is really <code>work.example</code>.</p>
+</section>
 <section id="exercise" class="slide level2 scrollable">
 <h2>Exercise</h2>
 <ol type="1">
@@ -1651,18 +1695,20 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="a-possible-solution" class="slide level2">
 <h2>A possible solution</h2>
-<div id="cell-14" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href></a>/* 1. point the libref ma505 at your home folder */</span>
-<span id="cb3-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span>
-<span id="cb3-3"><a href></a></span>
-<span id="cb3-4"><a href></a>/* 2. save a copy of the Overwatch data in the library as &quot;overwatch&quot; */</span>
-<span id="cb3-5"><a href></a>data ma505.overwatch;</span>
-<span id="cb3-6"><a href></a>    set ma505.ow_hero;</span>
-<span id="cb3-7"><a href></a>run;</span>
-<span id="cb3-8"><a href></a></span>
-<span id="cb3-9"><a href></a>/* 3. describe the table */</span>
-<span id="cb3-10"><a href></a>proc contents data=ma505.overwatch;</span>
-<span id="cb3-11"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-18" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href></a>/* 1. point the libref ma505 at your home folder */</span>
+<span id="cb4-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span>
+<span id="cb4-3"><a href></a></span>
+<span id="cb4-4"><a href></a>/* 2. import the Overwatch CSV into the library as &quot;overwatch&quot; */</span>
+<span id="cb4-5"><a href></a>proc import datafile=&quot;/home/u63936157/overwatch_heros.csv&quot;</span>
+<span id="cb4-6"><a href></a>    out=ma505.overwatch</span>
+<span id="cb4-7"><a href></a>    dbms=csv</span>
+<span id="cb4-8"><a href></a>    replace;</span>
+<span id="cb4-9"><a href></a>run;</span>
+<span id="cb4-10"><a href></a></span>
+<span id="cb4-11"><a href></a>/* 3. describe the table */</span>
+<span id="cb4-12"><a href></a>proc contents data=ma505.overwatch;</span>
+<span id="cb4-13"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="sas-output wide">
 <p class="sas-proctitle">The Contents Procedure</p>
@@ -1690,13 +1736,13 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 <tr class="even">
 <th class="rowheader" data-quarto-table-cell-role="th" scope="row">Created</th>
-<td class="data">10/20/2026 16:42:20</td>
+<td class="data">10/21/2026 14:10:51</td>
 <th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observation Length</th>
 <td class="data">80</td>
 </tr>
 <tr class="odd">
 <th class="rowheader" data-quarto-table-cell-role="th" scope="row">Last Modified</th>
-<td class="data">10/20/2026 16:42:20</td>
+<td class="data">10/21/2026 14:10:51</td>
 <th class="rowheader" data-quarto-table-cell-role="th" scope="row">Deleted Observations</th>
 <td class="data">0</td>
 </tr>
@@ -1888,19 +1934,14 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </section>
-<section id="what-is-a-libref" class="slide level2">
-<h2>What is a libref?</h2>
-<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc contents</span> data=<span class="libref-circle">ma505</span>.overwatch;
-<span class="kw">run</span>;</pre>
-<div class="anno-callout fragment"><div class="arrow-left"></div><span class="libref-label">libref</span></div></div></div>
-<div class="fragment red-text">
-<p>A <strong><em>libref</em></strong> is:</p>
-<ul>
-<li>a pointer, or shortcut, to existing data</li>
-<li>the libref may be deleted, but the data stays in the same place</li>
-<li>to get the libref back, run the <code>LIBNAME</code> statement again</li>
-</ul>
-</div>
+<section id="the-libraries-pane" class="slide level2 scrollable">
+<h2>The Libraries pane</h2>
+<p>In SAS Studio, open <strong>Libraries</strong> in the navigation pane, then <strong>My Libraries</strong>.</p>
+<ol type="1">
+<li class="fragment"><strong>WORK</strong>: tables you created without a libref, like <code>example</code> and <code>dates</code>. These disappear when you sign out.</li>
+<li class="fragment"><strong>SASHELP</strong>: sample datasets. Double-click <strong>CLASS</strong> to view the table you used on Day 1.</li>
+<li class="fragment"><strong>MA505</strong>: appears after you run your <code>LIBNAME</code> statement. Click <strong>Refresh</strong> if you don’t see it.</li>
+</ol>
 </section>
 <section id="libraries-last-for-one-session" class="slide level2">
 <h2>Libraries last for one session</h2>
@@ -1918,32 +1959,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <li>Click <strong>Run</strong> and check the log for errors.</li>
 <li>Click <strong>Save</strong>. Sign out and back in to see <strong>MA505</strong> waiting in the Libraries pane.</li>
 </ol>
-<div id="cell-18" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href></a>/* autoexec.sas: runs automatically each time SAS Studio starts */</span>
-<span id="cb4-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="cell-22" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href></a>/* autoexec.sas: runs automatically each time SAS Studio starts */</span>
+<span id="cb5-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</section>
-<section id="automatic-sas-libraries" class="slide level2">
-<h2>Automatic SAS libraries</h2>
-<p>SAS creates two libraries for you automatically.</p>
-<div class="attr-grid" style="grid-template-columns: repeat(2, minmax(0, 16em)); justify-content: center;">
-  <div class="attr-col"><h4>work</h4>
-    <div class="attr-card a" style="min-height:9em;"><ul>
-      <li>default library</li><li>temporary</li><li>contents deleted when the session ends</li></ul></div></div>
-  <div class="attr-col"><h4>sashelp</h4>
-    <div class="attr-card b" style="min-height:9em;"><ul>
-      <li>permanent library</li><li>sample datasets (like <code>sashelp.class</code>)</li></ul></div></div>
-</div>
-<p>If you leave out the libref (<code>data example;</code>), the table is saved in <strong>work</strong>, so <code>example</code> is really <code>work.example</code>.</p>
-</section>
-<section id="the-libraries-pane" class="slide level2 scrollable">
-<h2>The Libraries pane</h2>
-<p>In SAS Studio, open <strong>Libraries</strong> in the navigation pane, then <strong>My Libraries</strong>.</p>
-<ol type="1">
-<li class="fragment"><strong>WORK</strong>: tables you created without a libref, like <code>example</code> and <code>dates</code>. These disappear when you sign out.</li>
-<li class="fragment"><strong>SASHELP</strong>: sample datasets. Double-click <strong>CLASS</strong> to view the table you used on Day 1.</li>
-<li class="fragment"><strong>MA505</strong>: appears after you run your <code>LIBNAME</code> statement. Click <strong>Refresh</strong> if you don’t see it.</li>
-</ol>
 
 </section>
     </div>
