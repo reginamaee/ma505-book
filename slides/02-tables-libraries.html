@@ -1278,10 +1278,10 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="agenda" class="slide level2 scrollable">
 <h2>Agenda</h2>
 <ol type="1">
-<li>SAS tables</li>
-<li>Column attributes</li>
-<li>Viewing a table’s attributes with <code>PROC CONTENTS</code></li>
-<li>SAS libraries and <code>LIBNAME</code></li>
+<li>SAS tables and libraries</li>
+<li>Getting data into SAS</li>
+<li>Column attributes and <code>PROC CONTENTS</code></li>
+<li>Dates and times</li>
 </ol>
 </section>
 <section id="sas-tables" class="slide level2">
@@ -1302,342 +1302,6 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
   <div class="st-desc fragment" data-fragment-index="1"><div class="blackbox"><b>DESCRIPTOR</b><ul><li>table name</li><li>number of rows</li><li>date created</li><li>column names</li><li>column attributes</li></ul></div></div>
 </div>
 </div>
-</section>
-<section id="column-attributes" class="slide level2">
-<h2>Column attributes</h2>
-<p>Every column <strong>must</strong> have a <strong>name</strong>, a <strong>type</strong>, and a <strong>length</strong>.</p>
-<div class="attr-grid">
-  <div class="attr-col"><h4>name</h4>
-    <div class="attr-card a"><ul>
-      <li>1–32 characters</li>
-      <li>starts with a letter or underscore</li>
-      <li>followed by letters, numbers, or underscores</li>
-      <li>can be upper, lower, or mixed case</li>
-    </ul></div>
-  </div>
-  <div class="attr-col fragment"><h4>type</h4>
-    <div class="attr-card b"><b class="t">Numeric</b><ul><li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li></ul></div>
-    <div class="attr-card b"><b class="t">Character</b><ul><li>letters</li><li>numbers</li><li>special characters</li><li>blanks</li></ul></div>
-  </div>
-  <div class="attr-col fragment"><h4>length</h4>
-    <div class="attr-card a"><b class="t">Numeric</b>8 bytes (about 16 significant digits)</div>
-    <div class="attr-card a"><b class="t">Character</b>1–32,767 bytes (1 byte = 1 character)</div>
-  </div>
-</div>
-</section>
-<section id="dates-and-times-are-numeric" class="slide level2">
-<h2>Dates and times are numeric</h2>
-<div style="display:flex;gap:2em;align-items:flex-start;">
-  <div class="attr-card b" style="flex:0 0 13em;font-size:.85em;"><b class="t">Numeric</b><ul>
-    <li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li>
-    <li class="red">DATE</li><li class="red">TIME</li><li class="red">DATETIME</li></ul></div>
-  <div style="flex:1;font-size:.9em;">
-    <ul>
-      <li class="fragment"><b>Dates</b> are stored as <b>the number of days since January 1, 1960</b>.
-        <ul><li>Jan 1, 2024 → 23376</li></ul></li>
-      <li class="fragment"><b>Time</b> is stored as <b>the number of seconds since midnight</b>.
-        <ul><li>6:00 PM → 64800</li></ul></li>
-      <li class="fragment"><b>Datetime</b> is stored as <b>the number of seconds since midnight on January 1, 1960</b>.
-        <ul><li>Jan 1, 2024 at midnight → 2,019,686,400</li></ul></li>
-    </ul>
-  </div>
-</div>
-</section>
-<section id="dates" class="slide level2">
-<h2>Dates</h2>
-<p>SAS lets you type a date, time, or datetime as a <strong>literal</strong>: the value in quotes, followed by <code>d</code>, <code>t</code>, or <code>dt</code>.</p>
-<div id="cell-06" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href></a>data dates;</span>
-<span id="cb1-2"><a href></a>    d  = &#39;01JAN2024&#39;d;          /* date     */</span>
-<span id="cb1-3"><a href></a>    t  = &#39;18:00&#39;t;              /* time     */</span>
-<span id="cb1-4"><a href></a>    dt = &#39;01JAN2024:00:00&#39;dt;   /* datetime */</span>
-<span id="cb1-5"><a href></a>run;</span>
-<span id="cb1-6"><a href></a></span>
-<span id="cb1-7"><a href></a>proc print data=dates;</span>
-<span id="cb1-8"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div class="sas-output big">
-<p class="sas-proctitle">The Print Procedure</p>
-
-<table class="table caption-top">
-<thead>
-<tr class="header">
-<th class="r header" data-quarto-table-cell-role="th" scope="col">Obs</th>
-<th class="r header" data-quarto-table-cell-role="th" scope="col">d</th>
-<th class="r header" data-quarto-table-cell-role="th" scope="col">t</th>
-<th class="r header" data-quarto-table-cell-role="th" scope="col">dt</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
-<td class="r data">23376</td>
-<td class="r data">64800</td>
-<td class="r data">2019686400</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</section>
-<section id="your-turn-get-the-overwatch-data-into-sas" class="slide level2 scrollable">
-<h2>Your turn: get the Overwatch data into SAS</h2>
-<ol type="1">
-<li>Download <code>overwatch_heros.csv</code> from Moodle.</li>
-<li>In SAS Studio, open <strong>Server Files and Folders</strong>, right-click <strong>Files (Home)</strong> → <strong>Upload Files</strong>, and upload <code>overwatch_heros.csv</code>.</li>
-<li>Right-click the uploaded file → <strong>Properties</strong> to see its full path, e.g. <code>/home/u12345678/overwatch_heros.csv</code>.</li>
-<li>A CSV is not a SAS table yet. Run this to <strong>import</strong> it into a SAS table called <code>ow_hero</code> (use your own path):</li>
-</ol>
-<div id="cell-08" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>proc import datafile=&quot;/home/u63936157/overwatch_heros.csv&quot;</span>
-<span id="cb2-2"><a href></a>    out=ow_hero</span>
-<span id="cb2-3"><a href></a>    dbms=csv</span>
-<span id="cb2-4"><a href></a>    replace;</span>
-<span id="cb2-5"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="viewing-column-attributes-proc-contents" class="slide level2">
-<h2>Viewing column attributes: <code>PROC CONTENTS</code></h2>
-<p><code>PROC CONTENTS</code> shows a table’s <strong>descriptor</strong>: its size, when it was created, and every column’s attributes.</p>
-<p>Replace <code>u63936157</code> with your own user ID (shown under <strong>Files → Home</strong> in SAS Studio).</p>
-<p>On your own: run <code>proc contents data=ow_hero; run;</code> on the table you just imported.</p>
-<div id="cell-10" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href></a>proc contents data=&quot;/home/u63936157/ow_hero.sas7bdat&quot;;</span>
-<span id="cb3-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div class="sas-output wide">
-<p class="sas-proctitle">The Contents Procedure</p>
-<div class="sas-tables">
-
-<table class="table caption-top">
-<tbody>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Name</th>
-<td class="data">/home/u63936157/ow_hero.sas7bdat</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observations</th>
-<td class="data">99</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Member Type</th>
-<td class="data">DATA</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Variables</th>
-<td class="data">8</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Engine</th>
-<td class="data">V9</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Indexes</th>
-<td class="data">0</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Created</th>
-<td class="data">10/21/2024 14:38:17</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observation Length</th>
-<td class="data">80</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Last Modified</th>
-<td class="data">10/21/2024 14:38:17</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Deleted Observations</th>
-<td class="data">0</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Protection</th>
-<td class="data"> </td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Compressed</th>
-<td class="data">NO</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Type</th>
-<td class="data"> </td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Sorted</th>
-<td class="data">NO</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Label</th>
-<td class="data"> </td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
-<td class="data"> </td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Representation</th>
-<td class="data">SOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
-<td class="data"> </td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Encoding</th>
-<td class="data">utf-8 Unicode (UTF-8)</td>
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
-<td class="data"> </td>
-</tr>
-</tbody>
-</table>
-
-
-<table class="table caption-top">
-<thead>
-<tr class="header">
-<th colspan="2" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Engine/Host Dependent Information</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Page Size</th>
-<td class="data">131072</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Pages</th>
-<td class="data">1</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">First Data Page</th>
-<td class="data">1</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Max Obs per Page</th>
-<td class="data">1635</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Obs in First Data Page</th>
-<td class="data">99</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Repairs</th>
-<td class="data">0</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Filename</th>
-<td class="data">/home/u63936157/ow_hero.sas7bdat</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Release Created</th>
-<td class="data">9.0401M7</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Host Created</th>
-<td class="data">Linux</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Inode Number</th>
-<td class="data">17200423071</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Access Permission</th>
-<td class="data">rw-r--r--</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Owner Name</th>
-<td class="data">u63936157</td>
-</tr>
-<tr class="odd">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size</th>
-<td class="data">256KB</td>
-</tr>
-<tr class="even">
-<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size (bytes)</th>
-<td class="data">262144</td>
-</tr>
-</tbody>
-</table>
-
-
-<table class="table caption-top">
-<thead>
-<tr class="header">
-<th colspan="6" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Alphabetic List of Variables and Attributes</th>
-</tr>
-<tr class="even">
-<th class="r b header" data-quarto-table-cell-role="th" scope="col">#</th>
-<th class="b header" data-quarto-table-cell-role="th" scope="col">Variable</th>
-<th class="b header" data-quarto-table-cell-role="th" scope="col">Type</th>
-<th class="r b header" data-quarto-table-cell-role="th" scope="col">Len</th>
-<th class="b header" data-quarto-table-cell-role="th" scope="col">Format</th>
-<th class="b header" data-quarto-table-cell-role="th" scope="col">Informat</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
-<td class="data">Date</td>
-<td class="data">Num</td>
-<td class="r data">8</td>
-<td class="data">MMDDYY10.</td>
-<td class="data">MMDDYY10.</td>
-</tr>
-<tr class="even">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">8</th>
-<td class="data">Hero</td>
-<td class="data">Char</td>
-<td class="r data">10</td>
-<td class="data">$10.</td>
-<td class="data">$10.</td>
-</tr>
-<tr class="odd">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
-<td class="data">Map</td>
-<td class="data">Char</td>
-<td class="r data">16</td>
-<td class="data">$16.</td>
-<td class="data">$16.</td>
-</tr>
-<tr class="even">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
-<td class="data">Mode</td>
-<td class="data">Char</td>
-<td class="r data">13</td>
-<td class="data">$13.</td>
-<td class="data">$13.</td>
-</tr>
-<tr class="odd">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">7</th>
-<td class="data">Percent Played</td>
-<td class="data">Num</td>
-<td class="r data">8</td>
-<td class="data">BEST12.</td>
-<td class="data">BEST32.</td>
-</tr>
-<tr class="even">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
-<td class="data">Player</td>
-<td class="data">Char</td>
-<td class="r data">7</td>
-<td class="data">$7.</td>
-<td class="data">$7.</td>
-</tr>
-<tr class="odd">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">6</th>
-<td class="data">Role</td>
-<td class="data">Char</td>
-<td class="r data">7</td>
-<td class="data">$7.</td>
-<td class="data">$7.</td>
-</tr>
-<tr class="even">
-<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
-<td class="data">Win</td>
-<td class="data">Num</td>
-<td class="r data">8</td>
-<td class="data">BEST12.</td>
-<td class="data">BEST32.</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="reading-the-output" class="slide level2">
-<h2>Reading the output</h2>
-<ul>
-<li>The first table is the <strong>descriptor</strong>: table name, number of rows (<em>Observations</em>), number of columns (<em>Variables</em>), and dates created/modified.</li>
-<li>The second table lists each column’s <strong>attributes</strong>: <em>Type</em> (<code>Num</code> or <code>Char</code>), <em>Len</em> (length), and its <em>Format</em>.</li>
-<li>Notice <code>Date</code> is <code>Num</code> with the format <code>MMDDYY10.</code>. It is stored as a number and <em>displayed</em> as a date.</li>
-</ul>
 </section>
 <section id="sas-libraries" class="slide level2">
 <h2>SAS libraries</h2>
@@ -1683,32 +1347,64 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <div class="attr-card b" style="min-height:9em;"><ul>
       <li>permanent library</li><li>sample datasets (like <code>sashelp.class</code>)</li></ul></div></div>
 </div>
-<p>If you leave out the libref (<code>data example;</code>), the table is saved in <strong>work</strong>, so <code>example</code> is really <code>work.example</code>.</p>
 </section>
-<section id="exercise" class="slide level2 scrollable">
-<h2>Exercise</h2>
+<section id="the-work-library" class="slide level2">
+<h2>The work library</h2>
+<ul>
+<li><strong>work</strong> is SAS’s scratch space. Every session starts with a fresh, empty one.</li>
+<li>Any table you create <strong>without a libref</strong> goes there: <code>data dates;</code> is really <code>data work.dates;</code></li>
+<li>Use it for intermediate steps you don’t need to keep.</li>
+<li>Everything in work is <strong>deleted when you sign out</strong>. To keep a table, save it with a permanent libref instead: <code>data ma505.dates;</code></li>
+</ul>
+</section>
+<section id="your-turn-get-the-overwatch-data-into-sas" class="slide level2 scrollable">
+<h2>Your turn: get the Overwatch data into SAS</h2>
 <ol type="1">
-<li>Create a new library called <strong>ma505</strong>.</li>
-<li>Add the Overwatch data to the library.</li>
-<li>Run a <code>PROC CONTENTS</code> on the dataset.</li>
+<li>Download <code>overwatch_heros.csv</code> from Moodle.</li>
+<li>In SAS Studio, open <strong>Server Files and Folders</strong>, right-click <strong>Files (Home)</strong> → <strong>Upload Files</strong>, and upload the file.</li>
+<li>Right-click the uploaded file → <strong>Properties</strong> to see its full path, e.g. <code>/home/u12345678/overwatch_heros.csv</code>.</li>
+<li>Create the <strong>ma505</strong> library, then <strong>import</strong> the CSV into it as a SAS table (use your own user ID):</li>
 </ol>
+<div id="cell-09" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href></a>/* point the libref ma505 at your home folder */</span>
+<span id="cb1-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span>
+<span id="cb1-3"><a href></a></span>
+<span id="cb1-4"><a href></a>/* import the CSV into the library as a SAS table called &quot;overwatch&quot; */</span>
+<span id="cb1-5"><a href></a>proc import datafile=&quot;/home/u63936157/overwatch_heros.csv&quot;</span>
+<span id="cb1-6"><a href></a>    out=ma505.overwatch</span>
+<span id="cb1-7"><a href></a>    dbms=csv</span>
+<span id="cb1-8"><a href></a>    replace;</span>
+<span id="cb1-9"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 </section>
-<section id="a-possible-solution" class="slide level2">
-<h2>A possible solution</h2>
-<div id="cell-18" class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href></a>/* 1. point the libref ma505 at your home folder */</span>
-<span id="cb4-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span>
-<span id="cb4-3"><a href></a></span>
-<span id="cb4-4"><a href></a>/* 2. import the Overwatch CSV into the library as &quot;overwatch&quot; */</span>
-<span id="cb4-5"><a href></a>proc import datafile=&quot;/home/u63936157/overwatch_heros.csv&quot;</span>
-<span id="cb4-6"><a href></a>    out=ma505.overwatch</span>
-<span id="cb4-7"><a href></a>    dbms=csv</span>
-<span id="cb4-8"><a href></a>    replace;</span>
-<span id="cb4-9"><a href></a>run;</span>
-<span id="cb4-10"><a href></a></span>
-<span id="cb4-11"><a href></a>/* 3. describe the table */</span>
-<span id="cb4-12"><a href></a>proc contents data=ma505.overwatch;</span>
-<span id="cb4-13"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="column-attributes" class="slide level2">
+<h2>Column attributes</h2>
+<p>Every column <strong>must</strong> have a <strong>name</strong>, a <strong>type</strong>, and a <strong>length</strong>.</p>
+<div class="attr-grid">
+  <div class="attr-col"><h4>name</h4>
+    <div class="attr-card a"><ul>
+      <li>1–32 characters</li>
+      <li>starts with a letter or underscore</li>
+      <li>followed by letters, numbers, or underscores</li>
+      <li>can be upper, lower, or mixed case</li>
+    </ul></div>
+  </div>
+  <div class="attr-col fragment"><h4>type</h4>
+    <div class="attr-card b"><b class="t">Numeric</b><ul><li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li></ul></div>
+    <div class="attr-card b"><b class="t">Character</b><ul><li>letters</li><li>numbers</li><li>special characters</li><li>blanks</li></ul></div>
+  </div>
+  <div class="attr-col fragment"><h4>length</h4>
+    <div class="attr-card a"><b class="t">Numeric</b>8 bytes (about 16 significant digits)</div>
+    <div class="attr-card a"><b class="t">Character</b>1–32,767 bytes (1 byte = 1 character)</div>
+  </div>
+</div>
+</section>
+<section id="viewing-column-attributes-proc-contents" class="slide level2">
+<h2>Viewing column attributes: <code>PROC CONTENTS</code></h2>
+<p><code>PROC CONTENTS</code> shows a table’s <strong>descriptor</strong>: its size, when it was created, and every column’s attributes.</p>
+<div id="cell-12" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>proc contents data=ma505.overwatch;</span>
+<span id="cb2-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div class="sas-output wide">
 <p class="sas-proctitle">The Contents Procedure</p>
@@ -1934,6 +1630,285 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </div>
 </div>
 </section>
+<section id="reading-the-output" class="slide level2">
+<h2>Reading the output</h2>
+<ul>
+<li>The first table is the <strong>descriptor</strong>: table name, number of rows (<em>Observations</em>), number of columns (<em>Variables</em>), and dates created/modified.</li>
+<li>The second table lists each column’s <strong>attributes</strong>: <em>Type</em> (<code>Num</code> or <code>Char</code>), <em>Len</em> (length), and its <em>Format</em>.</li>
+<li>Notice <code>Date</code> is <code>Num</code> with the format <code>MMDDYY10.</code>. It is stored as a number and <em>displayed</em> as a date.</li>
+</ul>
+</section>
+<section id="exercise" class="slide level2 scrollable">
+<h2>Exercise</h2>
+<p>Run <code>PROC CONTENTS</code> on the sample table <code>sashelp.class</code> and answer:</p>
+<ol type="1">
+<li>How many rows (observations) does it have?</li>
+<li>How many columns (variables)?</li>
+<li>Which columns are <strong>character</strong>?</li>
+<li>What is the <strong>length</strong> of <code>Name</code>?</li>
+</ol>
+</section>
+<section id="exercise-solution" class="slide level2">
+<h2>Exercise: solution</h2>
+<div id="cell-16" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href></a>proc contents data=sashelp.class;</span>
+<span id="cb3-2"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="sas-output wide">
+<p class="sas-proctitle">The Contents Procedure</p>
+<div class="sas-tables">
+
+<table class="table caption-top">
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Name</th>
+<td class="data">SASHELP.CLASS</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observations</th>
+<td class="data">19</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Member Type</th>
+<td class="data">DATA</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Variables</th>
+<td class="data">5</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Engine</th>
+<td class="data">V9</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Indexes</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Created</th>
+<td class="data">01/18/2023 05:39:45</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Observation Length</th>
+<td class="data">40</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Last Modified</th>
+<td class="data">01/18/2023 05:39:45</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Deleted Observations</th>
+<td class="data">0</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Protection</th>
+<td class="data"> </td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Compressed</th>
+<td class="data">NO</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Type</th>
+<td class="data"> </td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Sorted</th>
+<td class="data">NO</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Label</th>
+<td class="data">Student Data</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
+<td class="data"> </td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Representation</th>
+<td class="data">SOLARIS_X86_64, LINUX_X86_64, ALPHA_TRU64, LINUX_IA64</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
+<td class="data"> </td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Encoding</th>
+<td class="data">us-ascii ASCII (ANSI)</td>
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row"> </th>
+<td class="data"> </td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top">
+<thead>
+<tr class="header">
+<th colspan="2" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Engine/Host Dependent Information</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Data Set Page Size</th>
+<td class="data">65536</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Pages</th>
+<td class="data">1</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">First Data Page</th>
+<td class="data">1</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Max Obs per Page</th>
+<td class="data">1632</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Obs in First Data Page</th>
+<td class="data">19</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Number of Data Set Repairs</th>
+<td class="data">0</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Filename</th>
+<td class="data">/pbr/sfw/sas/940/SASFoundation/9.4/sashelp/class.sas7bdat</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Release Created</th>
+<td class="data">9.0401M8</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Host Created</th>
+<td class="data">Linux</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Inode Number</th>
+<td class="data">81449460</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Access Permission</th>
+<td class="data">rw-r--r--</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Owner Name</th>
+<td class="data">odaowner</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size</th>
+<td class="data">128KB</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">File Size (bytes)</th>
+<td class="data">131072</td>
+</tr>
+</tbody>
+</table>
+
+
+<table class="table caption-top">
+<thead>
+<tr class="header">
+<th colspan="4" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Alphabetic List of Variables and Attributes</th>
+</tr>
+<tr class="even">
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">#</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Len</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
+<td class="data">Age</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
+<td class="data">Height</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="data">Name</td>
+<td class="data">Char</td>
+<td class="r data">8</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
+<td class="data">Sex</td>
+<td class="data">Char</td>
+<td class="r data">1</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
+<td class="data">Weight</td>
+<td class="data">Num</td>
+<td class="r data">8</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="exercise-answers" class="slide level2 scrollable">
+<h2>Exercise: answers</h2>
+<ol type="1">
+<li><strong>19</strong> rows</li>
+<li><strong>5</strong> columns</li>
+<li><code>Name</code> and <code>Sex</code> are character; <code>Age</code>, <code>Height</code>, and <code>Weight</code> are numeric</li>
+<li><code>Name</code> has a length of <strong>8</strong></li>
+</ol>
+</section>
+<section id="dates-and-times-are-numeric" class="slide level2">
+<h2>Dates and times are numeric</h2>
+<div style="display:flex;gap:2em;align-items:flex-start;">
+  <div class="attr-card b" style="flex:0 0 13em;font-size:.85em;"><b class="t">Numeric</b><ul>
+    <li>digits</li><li>minus sign</li><li>decimal point</li><li>scientific notation</li>
+    <li class="red">DATE</li><li class="red">TIME</li><li class="red">DATETIME</li></ul></div>
+  <div style="flex:1;font-size:.9em;">
+    <ul>
+      <li class="fragment"><b>Dates</b> are stored as <b>the number of days since January 1, 1960</b>.
+        <ul><li>Jan 1, 2024 → 23376</li></ul></li>
+      <li class="fragment"><b>Time</b> is stored as <b>the number of seconds since midnight</b>.
+        <ul><li>6:00 PM → 64800</li></ul></li>
+      <li class="fragment"><b>Datetime</b> is stored as <b>the number of seconds since midnight on January 1, 1960</b>.
+        <ul><li>Jan 1, 2024 at midnight → 2,019,686,400</li></ul></li>
+    </ul>
+  </div>
+</div>
+</section>
+<section id="dates" class="slide level2">
+<h2>Dates</h2>
+<p>SAS lets you type a date, time, or datetime as a <strong>literal</strong>: the value in quotes, followed by <code>d</code>, <code>t</code>, or <code>dt</code>.</p>
+<p>No libref here, so <code>dates</code> is saved in <strong>work</strong>.</p>
+<div id="cell-20" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb4-1"><a href></a>data dates;</span>
+<span id="cb4-2"><a href></a>    d  = &#39;01JAN2024&#39;d;          /* date     */</span>
+<span id="cb4-3"><a href></a>    t  = &#39;18:00&#39;t;              /* time     */</span>
+<span id="cb4-4"><a href></a>    dt = &#39;01JAN2024:00:00&#39;dt;   /* datetime */</span>
+<span id="cb4-5"><a href></a>run;</span>
+<span id="cb4-6"><a href></a></span>
+<span id="cb4-7"><a href></a>proc print data=dates;</span>
+<span id="cb4-8"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div class="sas-output big">
+<p class="sas-proctitle">The Print Procedure</p>
+
+<table class="table caption-top">
+<thead>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Obs</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">d</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">t</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">dt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="r data">23376</td>
+<td class="r data">64800</td>
+<td class="r data">2019686400</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
 <section id="the-libraries-pane" class="slide level2 scrollable">
 <h2>The Libraries pane</h2>
 <p>In SAS Studio, open <strong>Libraries</strong> in the navigation pane, then <strong>My Libraries</strong>.</p>
@@ -1968,7 +1943,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <li>Click <strong>Run</strong> and check the log for errors.</li>
 <li>Click <strong>Save</strong>. Sign out and back in to see <strong>MA505</strong> waiting in the Libraries pane.</li>
 </ol>
-<div id="cell-22" class="cell">
+<div id="cell-24" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href></a>/* autoexec.sas: runs automatically each time SAS Studio starts */</span>
 <span id="cb5-2"><a href></a>libname ma505 &quot;/home/u63936157&quot;;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
