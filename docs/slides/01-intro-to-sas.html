@@ -592,6 +592,9 @@ max-height: none !important;
 
 .reveal .sas-output.wide .sas-tables > table:nth-of-type(2) { display: none; }
 .reveal .sas-output.wide table { font-size: .5em; }
+
+.reveal section .cell:has(.sas-output.multi) { display: block; }
+.reveal .sas-output.multi table { font-size: .5em; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -757,6 +760,27 @@ content: ""; position: absolute; left: -9px; top: 50%; width: 8px; height: 3px; 
 details.solution-toggle { border: 1px solid #d0d7de; border-radius: 8px; padding: .6em 1em; background: #fafbfc; margin: .5em 0 1em; }
 details.solution-toggle > summary { cursor: pointer; font-weight: 600; color: #0969da; }
 details.solution-toggle[open] > summary { margin-bottom: .6em; }
+
+
+.syntax-box { border: 3px solid #8fb0d0; border-radius: 22px; padding: .5em 1em; display: inline-block; line-height: 1.5; font-size: .9em; }
+
+.where-list > div { margin-bottom: .45em; font-size: .85em; }
+.where-list pre.anno-code { margin: .15em 0 0 0; padding: .3em .8em !important; border: 1px solid #d0d7de; border-radius: 8px; display: block; }
+.reveal .where-list pre.anno-code { font-size: .8em !important; }
+
+.macro-compare { display: flex; align-items: center; gap: .6em; }
+.macro-compare > .anno { flex: 1 1 0; min-width: 0; margin: 0; }
+.macro-arrow { flex: 0 0 60px; display: flex; align-items: center; }
+.arrow-right { flex: 1; height: 3px; background: #e53935; position: relative; }
+.arrow-right::after { content: ""; position: absolute; right: -2px; top: -6px;
+border-left: 12px solid #e53935; border-top: 7.5px solid transparent; border-bottom: 7.5px solid transparent; }
+.arrow-right.black { background: #111; }
+.arrow-right.black::after { border-left-color: #111; }
+.reveal .macro-compare pre.anno-code { font-size: .62em !important; }
+.reveal .anno.warmup pre.anno-code { font-size: .62em !important; }
+
+.sas-output.multi .sas-tables { display: flex; flex-wrap: wrap; gap: .8em; align-items: flex-start; }
+.sas-output.multi .sas-tables table { margin: 0; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode

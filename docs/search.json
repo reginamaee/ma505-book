@@ -14,7 +14,7 @@
     "href": "index.html#slides",
     "title": "Introduction to SAS",
     "section": "Slides",
-    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries",
+    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures",
     "crumbs": [
       "Welcome"
     ]
@@ -377,6 +377,186 @@
     "text": "2.17 Dates\nSAS lets you type a date, time, or datetime as a literal: the value in quotes, followed by d, t, or dt.\nNo libref here, so dates is saved in work.\n\ndata dates;\n    d  = '01JAN2024'd;          /* date     */\n    t  = '18:00't;              /* time     */\n    dt = '01JAN2024:00:00'dt;   /* datetime */\nrun;\n\nproc print data=dates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nd\nt\ndt\n\n\n\n\n1\n23376\n64800\n2019686400",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html",
+    "href": "chapters/03-procedures.html",
+    "title": "3  Exploring Data with Procedures",
+    "section": "",
+    "text": "3.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#agenda",
+    "href": "chapters/03-procedures.html#agenda",
+    "title": "3  Exploring Data with Procedures",
+    "section": "",
+    "text": "Warm-up: steps and statements\nExploring data: PRINT, MEANS, UNIVARIATE, FREQ\nControlling output with ODS\nFiltering rows with WHERE\nMacro variables",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#warm-up",
+    "href": "chapters/03-procedures.html#warm-up",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.2 Warm-up",
+    "text": "3.2 Warm-up\nDetermine the number of steps, what steps, and how many statements are in this SAS code.\ndata work.class_summary;\n    set sashelp.class;\n    BMI = (Weight / (Height**2)) * 703;\n    if BMI &gt;= 25 then Category = \"Overweight\";\n    else Category = \"Normal\";\nrun;\n\nproc sort data=work.class_summary;\n    by descending BMI;\nrun;\n\nproc print data=work.class_summary label;\n    var Name Age Height Weight BMI Category;\n    label BMI = \"Body Mass Index\"\n          Category = \"Weight Category\";\n    title \"BMI Summary from SASHELP.CLASS\";\nrun;\n\n\n\n\n\n3 steps: 1 DATA step (lines 1–6), then 2 PROC steps: PROC SORT and PROC PRINT.\n14 statements: 6 in the DATA step, 3 in PROC SORT, 5 in PROC PRINT.\nThe label statement spans two lines but is one statement: a statement ends at the semicolon, not at the end of the line.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#exploring-data-with-procedures",
+    "href": "chapters/03-procedures.html#exploring-data-with-procedures",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.3 Exploring data with PROCedures",
+    "text": "3.3 Exploring data with PROCedures\nFour procedures for a first look at any table: PRINT, MEANS, UNIVARIATE, and FREQ.\n/* prints n rows for the listed columns */\nproc print data=input-table(obs=n);\n    var col-name(s);\nrun;\n\n/* summary statistics for the listed columns */\nproc means data=input-table;\n    var col-name(s);\nrun;\n\n/* summary statistics, with more about the distribution */\nproc univariate data=input-table;\n    var col-name(s);\nrun;\n\n/* frequency table for each listed column */\nproc freq data=input-table;\n    tables col-name(s);\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#proc-print",
+    "href": "chapters/03-procedures.html#proc-print",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.4 PROC PRINT",
+    "text": "3.4 PROC PRINT\nLists the rows of a table. (obs=10) keeps the first 10 rows; var picks the columns.\n\n/* print the first 10 observations of the sashelp.cars table */\nproc print data=sashelp.cars (obs=10);\n    var Make Model Type MSRP;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nMake\nModel\nType\nMSRP\n\n\n\n\n1\nAcura\nMDX\nSUV\n$36,945\n\n\n2\nAcura\nRSX Type S 2dr\nSedan\n$23,820\n\n\n3\nAcura\nTSX 4dr\nSedan\n$26,990\n\n\n4\nAcura\nTL 4dr\nSedan\n$33,195\n\n\n5\nAcura\n3.5 RL 4dr\nSedan\n$43,755\n\n\n6\nAcura\n3.5 RL w/Navigation 4dr\nSedan\n$46,100\n\n\n7\nAcura\nNSX coupe 2dr manual S\nSports\n$89,765\n\n\n8\nAudi\nA4 1.8T 4dr\nSedan\n$25,940\n\n\n9\nAudi\nA41.8T convertible 2dr\nSedan\n$35,940\n\n\n10\nAudi\nA4 3.0 4dr\nSedan\n$31,840\n\n\n\n\n\n\n\n\nDefault: proc print data=sashelp.cars; run; prints the entire table, every row and every column (all 428 cars).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#proc-means",
+    "href": "chapters/03-procedures.html#proc-means",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.5 PROC MEANS",
+    "text": "3.5 PROC MEANS\nSummary statistics (N, mean, standard deviation, min, max) for numeric columns.\n\n/* summary statistics for EngineSize and Horsepower */\nproc means data=sashelp.cars;\n    var EngineSize Horsepower;\nrun;\n\n\nThe MEANS Procedure\n\n\n\n\nVariable\nLabel\nN\nMean\nStd Dev\nMinimum\nMaximum\n\n\n\n\n\n\nEngineSize\n\n\nHorsepower\n\n\n\n\nEngine Size (L)\n\n\n \n\n\n\n\n428\n\n\n428\n\n\n\n\n3.1967290\n\n\n215.8855140\n\n\n\n\n1.1085947\n\n\n71.8360316\n\n\n\n\n1.3000000\n\n\n73.0000000\n\n\n\n\n8.3000000\n\n\n500.0000000\n\n\n\n\n\n\n\n\n\n\nDefault: without a var statement, PROC MEANS gives summary statistics for every numeric column.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#quick-exercise",
+    "href": "chapters/03-procedures.html#quick-exercise",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.6 Quick exercise",
+    "text": "3.6 Quick exercise\nWhat happens if we limit the number of observations, e.g. (obs=15)?\n\n\n\n\nproc means data=sashelp.cars (obs=15);\n    var EngineSize Horsepower;\nrun;\n\n\nThe MEANS Procedure\n\n\n\n\nVariable\nLabel\nN\nMean\nStd Dev\nMinimum\nMaximum\n\n\n\n\n\n\nEngineSize\n\n\nHorsepower\n\n\n\n\nEngine Size (L)\n\n\n \n\n\n\n\n15\n\n\n15\n\n\n\n\n2.8600000\n\n\n222.3333333\n\n\n\n\n0.5840744\n\n\n32.9429521\n\n\n\n\n1.8000000\n\n\n170.0000000\n\n\n\n\n3.5000000\n\n\n290.0000000\n\n\n\n\n\n\n\n\n\nN drops to 15: the statistics are computed from the first 15 rows only, not the whole table.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#proc-univariate",
+    "href": "chapters/03-procedures.html#proc-univariate",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.7 PROC UNIVARIATE",
+    "text": "3.7 PROC UNIVARIATE\nDescriptive statistics with more about the distribution. We get 5 tables: Moments, Basic Statistical Measures, Tests for Location, Quantiles, and Extreme Observations.\n\n/* descriptive statistics / distribution for MPG_Highway */\nproc univariate data=sashelp.cars;\n    var MPG_Highway;\nrun;\n\n\nThe UNIVARIATE Procedure\nVariable: MPG_Highway (MPG (Highway))\n\n\n\n\n\nMoments\n\n\n\n\nN\n428\nSum Weights\n428\n\n\nMean\n26.8434579\nSum Observations\n11489\n\n\nStd Deviation\n5.74120072\nVariance\n32.9613857\n\n\nSkewness\n1.25239527\nKurtosis\n6.04561068\n\n\nUncorrected SS\n322479\nCorrected SS\n14074.5117\n\n\nCoeff Variation\n21.3877092\nStd Error Mean\n0.27751141\n\n\n\n\n\n\n\n\nBasic Statistical Measures\n\n\nLocation\nVariability\n\n\n\n\nMean\n26.84346\nStd Deviation\n5.74120\n\n\nMedian\n26.00000\nVariance\n32.96139\n\n\nMode\n26.00000\nRange\n54.00000\n\n\n \n \nInterquartile Range\n5.00000\n\n\n\n\n\n\n\n\nTests for Location: Mu0=0\n\n\nTest\nStatistic\np Value\n\n\n\n\nStudent's t\nt\n96.7292\nPr &gt; |t|\n&lt;.0001\n\n\nSign\nM\n214\nPr &gt;= |M|\n&lt;.0001\n\n\nSigned Rank\nS\n45903\nPr &gt;= |S|\n&lt;.0001\n\n\n\n\n\n\n\n\nQuantiles (Definition 5)\n\n\nLevel\nQuantile\n\n\n\n\n100% Max\n66\n\n\n99%\n44\n\n\n95%\n36\n\n\n90%\n34\n\n\n75% Q3\n29\n\n\n50% Median\n26\n\n\n25% Q1\n24\n\n\n10%\n20\n\n\n5%\n18\n\n\n1%\n16\n\n\n0% Min\n12\n\n\n\n\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n12\n167\n44\n156\n\n\n13\n119\n46\n405\n\n\n14\n252\n51\n150\n\n\n16\n217\n51\n374\n\n\n16\n216\n66\n151",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#proc-freq",
+    "href": "chapters/03-procedures.html#proc-freq",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.8 PROC FREQ",
+    "text": "3.8 PROC FREQ\nCounts how often each value appears. Use it on categorical columns.\n\n/* frequency table for a categorical column */\nproc freq data=sashelp.cars;\n    tables Origin;\nrun;\n\n\nThe FREQ Procedure\n\n\n\n\nOrigin\nFrequency\nPercent\nCumulative\nFrequency\nCumulative\nPercent\n\n\n\n\nAsia\n158\n36.92\n158\n36.92\n\n\nEurope\n123\n28.74\n281\n65.65\n\n\nUSA\n147\n34.35\n428\n100.00",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#exercise",
+    "href": "chapters/03-procedures.html#exercise",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.9 Exercise",
+    "text": "3.9 Exercise\n\nUpload overwatch_stats.csv to SAS Studio and import it into your ma505 library as ma505.ow_stats.\nUsing this new table, find the value with the highest frequency in the columns Mode, Map, and Role.\nCompute summary statistics for all numeric columns with PROC UNIVARIATE.\n\nWhat are the 5 highest values of Damage? The 5 lowest values of Assists?\n\n\n\n\n\n\n/* 1. import the CSV into the ma505 library (use your own user ID) */\nproc import datafile=\"/home/u63936157/overwatch_stats.csv\"\n    out=ma505.ow_stats\n    dbms=csv\n    replace;\nrun;\n\n/* 2. most frequent Mode, Map, and Role */\nproc freq data=ma505.ow_stats;\n    tables Mode Map Role;\nrun;\n\n/* 3. no var statement: every numeric column */\nproc univariate data=ma505.ow_stats;\nrun;\n\n\nThe FREQ Procedure\n\n\n\n\n\nMode\nFrequency\nPercent\nCumulative\nFrequency\nCumulative\nPercent\n\n\n\n\nAssault\n11\n12.64\n11\n12.64\n\n\nAttack\n16\n18.39\n27\n31.03\n\n\nAttack Escort\n21\n24.14\n48\n55.17\n\n\nEscort\n26\n29.89\n74\n85.06\n\n\nRobot\n13\n14.94\n87\n100.00\n\n\n\n\n\n\n\n\n\n\nThe output above shows only the tables needed for the answers: PROC UNIVARIATE with no var statement prints 5 tables for every numeric column.\n\nMost frequent: Mode = Escort (26), Map = Suravasa (6), Role = Support (35).\n5 highest Damage: 14824, 13538, 13201, 12204, 11480.\n5 lowest Assists: all 0 (5 games with no assists).",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#ods-the-output-delivery-system",
+    "href": "chapters/03-procedures.html#ods-the-output-delivery-system",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.10 ODS: the Output Delivery System",
+    "text": "3.10 ODS: the Output Delivery System\nODS controls the type and format of the output your SAS code produces: how SAS displays and saves results.\n\nods trace on; writes the name of every output table to the log.\nods select table-name; keeps only that table in the results.\n\nExercise: use ods trace and ods select to output only the Extreme Observations table for Damage. Start here, then check the log:\n\nods trace on;\nproc univariate data=ma505.ow_stats;\n    var Damage;\nrun;\n\n\n\n\n\n/* the log lists \"Name: ExtremeObs\" for the Extreme Observations table */\nods trace off;\n\nods select ExtremeObs;\nproc univariate data=ma505.ow_stats;\n    var Damage;\nrun;\n\n\nThe UNIVARIATE Procedure\nVariable: Damage\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n773\n75\n11480\n1\n\n\n1015\n79\n12204\n87\n\n\n1166\n13\n13201\n25\n\n\n1445\n64\n13538\n32\n\n\n1506\n80\n14824\n34",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#filtering-rows-with-where",
+    "href": "chapters/03-procedures.html#filtering-rows-with-where",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.11 Filtering rows with WHERE",
+    "text": "3.11 Filtering rows with WHERE\n\n\nPROC procedure-name … ;\n    WHERE expression;\nRUN;\n\nWorks in PROC PRINT, MEANS, FREQ, and UNIVARIATE: the procedure only uses rows where the expression is true.\n\n\n\n\n\n\nOperator\nSymbol\nMnemonic\n\n\n\n\nEquals\n=\nEQ\n\n\nNot equal\n^= or ~=\nNE\n\n\nGreater than\n&gt;\nGT\n\n\nLess than\n&lt;\nLT\n\n\nGreater than or equal to\n&gt;=\nGE\n\n\nLess than or equal to\n&lt;=\nLE",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#more-where-operators",
+    "href": "chapters/03-procedures.html#more-where-operators",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.12 More WHERE operators",
+    "text": "3.12 More WHERE operators\n\nAND / OR: combine expressions\nwhere Type = \"SUV\" and MSRP &lt;= 30000;\nIN / NOT IN: match any value in a list\nwhere Type in (\"SUV\", \"Truck\");\nIS MISSING / IS NOT MISSING\nwhere Cylinders is missing;\nBETWEEN … AND: an inclusive range\nwhere MSRP between 36000 and 50000;\nDates: use a SAS date constant (Day 2)\nwhere Date &gt; \"01NOV2016\"d;\n\n\nCharacter values are case-sensitive: \"suv\" does not match \"SUV\".",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#where-try-it",
+    "href": "chapters/03-procedures.html#where-try-it",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.13 WHERE: try it",
+    "text": "3.13 WHERE: try it\n\n/* SUVs that cost $30,000 or less */\nproc print data=sashelp.cars;\n    where Type = \"SUV\" and MSRP &lt;= 30000;\n    var Make Model Type MSRP;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nMake\nModel\nType\nMSRP\n\n\n\n\n48\nBuick\nRendezvous CX\nSUV\n$26,545\n\n\n67\nChevrolet\nTracker\nSUV\n$20,255\n\n\n121\nFord\nExplorer XLT V6\nSUV\n$29,670\n\n\n122\nFord\nEscape XLS\nSUV\n$22,515\n\n\n152\nHonda\nPilot LX\nSUV\n$27,560\n\n\n153\nHonda\nCR-V LX\nSUV\n$19,860\n\n\n154\nHonda\nElement LX\nSUV\n$18,690\n\n\n168\nHyundai\nSanta Fe GLS\nSUV\n$21,589\n\n\n189\nIsuzu\nRodeo S\nSUV\n$20,449\n\n\n202\nJeep\nGrand Cherokee Laredo\nSUV\n$27,905\n\n\n203\nJeep\nLiberty Sport\nSUV\n$20,130\n\n\n204\nJeep\nWrangler Sahara convertible 2dr\nSUV\n$25,520\n\n\n205\nKia\nSorento LX\nSUV\n$19,635\n\n\n218\nLand Rover\nFreelander SE\nSUV\n$25,995\n\n\n241\nMazda\nTribute DX 2.0\nSUV\n$21,087\n\n\n278\nMercury\nMountaineer\nSUV\n$29,995\n\n\n289\nMitsubishi\nOutlander LS\nSUV\n$18,892\n\n\n301\nNissan\nPathfinder SE\nSUV\n$27,339\n\n\n302\nNissan\nXterra XE V6\nSUV\n$20,939\n\n\n320\nPontiac\nAztekt\nSUV\n$21,595\n\n\n345\nSaturn\nVUE\nSUV\n$20,585\n\n\n366\nSuzuki\nXL-7 EX\nSUV\n$23,699\n\n\n367\nSuzuki\nVitara LX\nSUV\n$17,163\n\n\n376\nToyota\n4Runner SR5 V6\nSUV\n$27,710\n\n\n377\nToyota\nHighlander V6\nSUV\n$27,930\n\n\n379\nToyota\nRAV4\nSUV\n$20,290",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#where-with-a-date",
+    "href": "chapters/03-procedures.html#where-with-a-date",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.14 WHERE with a date",
+    "text": "3.14 WHERE with a date\nsashelp.stocks has a Date column, so we filter it with a date constant.\n\n/* IBM's monthly stock prices in 2005 */\nproc print data=sashelp.stocks;\n    where Stock = \"IBM\" and Date &gt;= \"01JAN2005\"d;\n    var Stock Date Open Close;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nStock\nDate\nOpen\nClose\n\n\n\n\n1\nIBM\n01DEC05\n$89.15\n$82.20\n\n\n2\nIBM\n01NOV05\n$81.85\n$88.90\n\n\n3\nIBM\n03OCT05\n$80.22\n$81.88\n\n\n4\nIBM\n01SEP05\n$80.16\n$80.22\n\n\n5\nIBM\n01AUG05\n$83.00\n$80.62\n\n\n6\nIBM\n01JUL05\n$74.30\n$83.46\n\n\n7\nIBM\n01JUN05\n$75.57\n$74.20\n\n\n8\nIBM\n02MAY05\n$76.88\n$75.55\n\n\n9\nIBM\n01APR05\n$91.49\n$76.38\n\n\n10\nIBM\n01MAR05\n$92.64\n$91.38\n\n\n11\nIBM\n01FEB05\n$93.67\n$92.58\n\n\n12\nIBM\n03JAN05\n$98.97\n$93.42",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#sas-macro-variables",
+    "href": "chapters/03-procedures.html#sas-macro-variables",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.15 SAS macro variables",
+    "text": "3.15 SAS macro variables\nA macro variable is a placeholder: a name that stores a value you can reuse throughout a program. It makes code dynamic, reusable, and flexible: change the value once, and every place that uses it changes too.\n\nproc print data=sashelp.cars;\n    where Make = \"Kia\";\n    var Type Make Model MSRP;\nrun;\n\nproc freq data=sashelp.cars;\n    where Make = \"Kia\";\n    tables Origin;\nrun;\n\n/* set a macro variable */\n%let CarMake = Kia;\n\nproc print data=sashelp.cars;\n    where Make = \"&CarMake\";\n    var Type Make Model MSRP;\nrun;\n\nproc freq data=sashelp.cars;\n    where Make = \"&CarMake\";\n    tables Origin;\nrun;\n\n\n%let creates it; & uses it. Use double quotes: \"&CarMake\" works, '&CarMake' does not.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#macro-variables-try-it",
+    "href": "chapters/03-procedures.html#macro-variables-try-it",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.16 Macro variables: try it",
+    "text": "3.16 Macro variables: try it\nChange Kia to Toyota on the first line and run it again.\n\n%let CarMake = Kia;\n\nproc print data=sashelp.cars;\n    where Make = \"&CarMake\";\n    var Type Make Model MSRP;\nrun;\n\nproc freq data=sashelp.cars;\n    where Make = \"&CarMake\";\n    tables Origin;\nrun;\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nType\nMake\nModel\nMSRP\n\n\n\n\n205\nSUV\nKia\nSorento LX\n$19,635\n\n\n206\nSedan\nKia\nOptima LX 4dr\n$16,040\n\n\n207\nSedan\nKia\nRio 4dr manual\n$10,280\n\n\n208\nSedan\nKia\nRio 4dr auto\n$11,155\n\n\n209\nSedan\nKia\nSpectra 4dr\n$12,360\n\n\n210\nSedan\nKia\nSpectra GS 4dr hatch\n$13,580\n\n\n211\nSedan\nKia\nSpectra GSX 4dr hatch\n$14,630\n\n\n212\nSedan\nKia\nOptima LX V6 4dr\n$18,435\n\n\n213\nSedan\nKia\nAmanti 4dr\n$26,000\n\n\n214\nSedan\nKia\nSedona LX\n$20,615\n\n\n215\nWagon\nKia\nRio Cinco\n$11,905\n\n\n\n\n\nThe FREQ Procedure\n\n\n\n\n\nOrigin\nFrequency\nPercent\nCumulative\nFrequency\nCumulative\nPercent\n\n\n\n\nAsia\n11\n100.00\n11\n100.00",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/03-procedures.html#exercise-1",
+    "href": "chapters/03-procedures.html#exercise-1",
+    "title": "3  Exploring Data with Procedures",
+    "section": "3.17 Exercise",
+    "text": "3.17 Exercise\nUse ma505.ow_stats:\n\nFor Player 1, in the maps Busan, Nepal, Junkertown, and Oasis, find:\n\nthe average number of eliminations and deaths\nthe top 5 values for damage\n\nDo the same for Player 2.\n\nHint: a macro variable means you only change one line for Player 2.\n\n\n\n\n%let player = player1;    /* change to player2 and re-run */\n%let maps = \"Busan\", \"Nepal\", \"Junkertown\", \"Oasis\";\n\n/* a. average eliminations and deaths */\nproc means data=ma505.ow_stats mean;\n    where Player = \"&player\" and Map in (&maps);\n    var Elimination Deaths;\nrun;\n\n/* b. top 5 damage values: just the Extreme Observations table */\nods select ExtremeObs;\nproc univariate data=ma505.ow_stats;\n    where Player = \"&player\" and Map in (&maps);\n    var Damage;\nrun;\n\nplayer1\n\nThe Means Procedure\n\n\n\n\n\nVariable\nMean\n\n\n\n\n\n\nElimination\n\n\nDeaths\n\n\n\n\n12.2857143\n\n\n6.8571429\n\n\n\n\n\n\n\nThe UNIVARIATE Procedure\nVariable: Damage\n\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n2458\n48\n4307\n18\n\n\n2509\n20\n5320\n54\n\n\n4307\n18\n6301\n12\n\n\n5320\n54\n8196\n37\n\n\n6301\n12\n10948\n8\n\n\n\n\n\n\nplayer2\n\nThe MEANS Procedure\n\n\n\n\n\nVariable\nMean\n\n\n\n\n\n\nElimination\n\n\nDeaths\n\n\n\n\n16.0000000\n\n\n7.0000000\n\n\n\n\n\n\n\nThe UNIVARIATE Procedure\nVariable: Damage\n\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n2949\n73\n2949\n73\n\n\n3349\n59\n3349\n59\n\n\n4602\n86\n4602\n86\n\n\n\n\n\n\n\n\nOutput shown for both players (the code above, run once with player1 and once with player2).\n\nplayer1 (7 games on those maps): averages 12.29 eliminations and 6.86 deaths; top 5 damage: 10948, 8196, 6301, 5320, 4307.\nplayer2: averages 16 eliminations and 7 deaths; only 3 games on those maps, so PROC UNIVARIATE can list just 3 values: 4602, 3349, 2949.",
+    "crumbs": [
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
     ]
   }
 ]

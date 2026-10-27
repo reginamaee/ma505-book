@@ -39,3 +39,6 @@
 /* PROC CONTENTS on slides: hide the Engine/Host table (still in the book) and enlarge the other two */
 .reveal .sas-output.wide .sas-tables > table:nth-of-type(2) { display: none; }
 .reveal .sas-output.wide table { font-size: .5em; }
+/* Multi-table output (UNIVARIATE, PRINT + FREQ): code on top, tables side by side underneath */
+.reveal section .cell:has(.sas-output.multi) { display: block; }
+.reveal .sas-output.multi table { font-size: .5em; }

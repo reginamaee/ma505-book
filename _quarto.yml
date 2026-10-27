@@ -12,6 +12,7 @@ book:
     - index.qmd
     - chapters/01-intro-to-sas.ipynb
     - chapters/02-tables-libraries.ipynb
+    - chapters/03-procedures.ipynb
     # To publish a draft: move it from _drafts/ into chapters/ and list it here
 
 # Notebooks are NOT re-run when the book is built.
