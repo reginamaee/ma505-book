@@ -510,11 +510,11 @@
     ]
   },
   {
-    "objectID": "chapters/03-procedures.html#where-try-it",
-    "href": "chapters/03-procedures.html#where-try-it",
+    "objectID": "chapters/03-procedures.html#where",
+    "href": "chapters/03-procedures.html#where",
     "title": "3  Exploring Data with Procedures",
-    "section": "3.13 WHERE: try it",
-    "text": "3.13 WHERE: try it\n\n/* SUVs that cost $30,000 or less */\nproc print data=sashelp.cars;\n    where Type = \"SUV\" and MSRP &lt;= 30000;\n    var Make Model Type MSRP;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nMake\nModel\nType\nMSRP\n\n\n\n\n48\nBuick\nRendezvous CX\nSUV\n$26,545\n\n\n67\nChevrolet\nTracker\nSUV\n$20,255\n\n\n121\nFord\nExplorer XLT V6\nSUV\n$29,670\n\n\n122\nFord\nEscape XLS\nSUV\n$22,515\n\n\n152\nHonda\nPilot LX\nSUV\n$27,560\n\n\n153\nHonda\nCR-V LX\nSUV\n$19,860\n\n\n154\nHonda\nElement LX\nSUV\n$18,690\n\n\n168\nHyundai\nSanta Fe GLS\nSUV\n$21,589\n\n\n189\nIsuzu\nRodeo S\nSUV\n$20,449\n\n\n202\nJeep\nGrand Cherokee Laredo\nSUV\n$27,905\n\n\n203\nJeep\nLiberty Sport\nSUV\n$20,130\n\n\n204\nJeep\nWrangler Sahara convertible 2dr\nSUV\n$25,520\n\n\n205\nKia\nSorento LX\nSUV\n$19,635\n\n\n218\nLand Rover\nFreelander SE\nSUV\n$25,995\n\n\n241\nMazda\nTribute DX 2.0\nSUV\n$21,087\n\n\n278\nMercury\nMountaineer\nSUV\n$29,995\n\n\n289\nMitsubishi\nOutlander LS\nSUV\n$18,892\n\n\n301\nNissan\nPathfinder SE\nSUV\n$27,339\n\n\n302\nNissan\nXterra XE V6\nSUV\n$20,939\n\n\n320\nPontiac\nAztekt\nSUV\n$21,595\n\n\n345\nSaturn\nVUE\nSUV\n$20,585\n\n\n366\nSuzuki\nXL-7 EX\nSUV\n$23,699\n\n\n367\nSuzuki\nVitara LX\nSUV\n$17,163\n\n\n376\nToyota\n4Runner SR5 V6\nSUV\n$27,710\n\n\n377\nToyota\nHighlander V6\nSUV\n$27,930\n\n\n379\nToyota\nRAV4\nSUV\n$20,290",
+    "section": "3.13 WHERE",
+    "text": "3.13 WHERE\n\n/* SUVs that cost $30,000 or less */\nproc print data=sashelp.cars;\n    where Type = \"SUV\" and MSRP &lt;= 30000;\n    var Make Model Type MSRP;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nMake\nModel\nType\nMSRP\n\n\n\n\n48\nBuick\nRendezvous CX\nSUV\n$26,545\n\n\n67\nChevrolet\nTracker\nSUV\n$20,255\n\n\n121\nFord\nExplorer XLT V6\nSUV\n$29,670\n\n\n122\nFord\nEscape XLS\nSUV\n$22,515\n\n\n152\nHonda\nPilot LX\nSUV\n$27,560\n\n\n153\nHonda\nCR-V LX\nSUV\n$19,860\n\n\n154\nHonda\nElement LX\nSUV\n$18,690\n\n\n168\nHyundai\nSanta Fe GLS\nSUV\n$21,589\n\n\n189\nIsuzu\nRodeo S\nSUV\n$20,449\n\n\n202\nJeep\nGrand Cherokee Laredo\nSUV\n$27,905\n\n\n203\nJeep\nLiberty Sport\nSUV\n$20,130\n\n\n204\nJeep\nWrangler Sahara convertible 2dr\nSUV\n$25,520\n\n\n205\nKia\nSorento LX\nSUV\n$19,635\n\n\n218\nLand Rover\nFreelander SE\nSUV\n$25,995\n\n\n241\nMazda\nTribute DX 2.0\nSUV\n$21,087\n\n\n278\nMercury\nMountaineer\nSUV\n$29,995\n\n\n289\nMitsubishi\nOutlander LS\nSUV\n$18,892\n\n\n301\nNissan\nPathfinder SE\nSUV\n$27,339\n\n\n302\nNissan\nXterra XE V6\nSUV\n$20,939\n\n\n320\nPontiac\nAztekt\nSUV\n$21,595\n\n\n345\nSaturn\nVUE\nSUV\n$20,585\n\n\n366\nSuzuki\nXL-7 EX\nSUV\n$23,699\n\n\n367\nSuzuki\nVitara LX\nSUV\n$17,163\n\n\n376\nToyota\n4Runner SR5 V6\nSUV\n$27,710\n\n\n377\nToyota\nHighlander V6\nSUV\n$27,930\n\n\n379\nToyota\nRAV4\nSUV\n$20,290",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
     ]
@@ -540,11 +540,11 @@
     ]
   },
   {
-    "objectID": "chapters/03-procedures.html#macro-variables-try-it",
-    "href": "chapters/03-procedures.html#macro-variables-try-it",
+    "objectID": "chapters/03-procedures.html#macro-variables",
+    "href": "chapters/03-procedures.html#macro-variables",
     "title": "3  Exploring Data with Procedures",
-    "section": "3.16 Macro variables: try it",
-    "text": "3.16 Macro variables: try it\nChange Kia to Toyota on the first line and run it again.\n\n%let CarMake = Kia;\n\nproc print data=sashelp.cars;\n    where Make = \"&CarMake\";\n    var Type Make Model MSRP;\nrun;\n\nproc freq data=sashelp.cars;\n    where Make = \"&CarMake\";\n    tables Origin;\nrun;\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nType\nMake\nModel\nMSRP\n\n\n\n\n205\nSUV\nKia\nSorento LX\n$19,635\n\n\n206\nSedan\nKia\nOptima LX 4dr\n$16,040\n\n\n207\nSedan\nKia\nRio 4dr manual\n$10,280\n\n\n208\nSedan\nKia\nRio 4dr auto\n$11,155\n\n\n209\nSedan\nKia\nSpectra 4dr\n$12,360\n\n\n210\nSedan\nKia\nSpectra GS 4dr hatch\n$13,580\n\n\n211\nSedan\nKia\nSpectra GSX 4dr hatch\n$14,630\n\n\n212\nSedan\nKia\nOptima LX V6 4dr\n$18,435\n\n\n213\nSedan\nKia\nAmanti 4dr\n$26,000\n\n\n214\nSedan\nKia\nSedona LX\n$20,615\n\n\n215\nWagon\nKia\nRio Cinco\n$11,905\n\n\n\n\n\nThe FREQ Procedure\n\n\n\n\n\nOrigin\nFrequency\nPercent\nCumulative\nFrequency\nCumulative\nPercent\n\n\n\n\nAsia\n11\n100.00\n11\n100.00",
+    "section": "3.16 Macro variables",
+    "text": "3.16 Macro variables\nChange Kia to Toyota on the first line and run it again.\n\n%let CarMake = Kia;\n\nproc print data=sashelp.cars;\n    where Make = \"&CarMake\";\n    var Type Make Model MSRP;\nrun;\n\nproc freq data=sashelp.cars;\n    where Make = \"&CarMake\";\n    tables Origin;\nrun;\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nType\nMake\nModel\nMSRP\n\n\n\n\n205\nSUV\nKia\nSorento LX\n$19,635\n\n\n206\nSedan\nKia\nOptima LX 4dr\n$16,040\n\n\n207\nSedan\nKia\nRio 4dr manual\n$10,280\n\n\n208\nSedan\nKia\nRio 4dr auto\n$11,155\n\n\n209\nSedan\nKia\nSpectra 4dr\n$12,360\n\n\n210\nSedan\nKia\nSpectra GS 4dr hatch\n$13,580\n\n\n211\nSedan\nKia\nSpectra GSX 4dr hatch\n$14,630\n\n\n212\nSedan\nKia\nOptima LX V6 4dr\n$18,435\n\n\n213\nSedan\nKia\nAmanti 4dr\n$26,000\n\n\n214\nSedan\nKia\nSedona LX\n$20,615\n\n\n215\nWagon\nKia\nRio Cinco\n$11,905\n\n\n\n\n\nThe FREQ Procedure\n\n\n\n\n\nOrigin\nFrequency\nPercent\nCumulative\nFrequency\nCumulative\nPercent\n\n\n\n\nAsia\n11\n100.00\n11\n100.00",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
     ]

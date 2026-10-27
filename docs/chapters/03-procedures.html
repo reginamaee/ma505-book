@@ -157,10 +157,10 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#ods-the-output-delivery-system" id="toc-ods-the-output-delivery-system" class="nav-link" data-scroll-target="#ods-the-output-delivery-system"><span class="header-section-number">3.10</span> ODS: the Output Delivery System</a></li>
   <li><a href="#filtering-rows-with-where" id="toc-filtering-rows-with-where" class="nav-link" data-scroll-target="#filtering-rows-with-where"><span class="header-section-number">3.11</span> Filtering rows with <code>WHERE</code></a></li>
   <li><a href="#more-where-operators" id="toc-more-where-operators" class="nav-link" data-scroll-target="#more-where-operators"><span class="header-section-number">3.12</span> More <code>WHERE</code> operators</a></li>
-  <li><a href="#where-try-it" id="toc-where-try-it" class="nav-link" data-scroll-target="#where-try-it"><span class="header-section-number">3.13</span> <code>WHERE</code>: try it</a></li>
+  <li><a href="#where" id="toc-where" class="nav-link" data-scroll-target="#where"><span class="header-section-number">3.13</span> <code>WHERE</code></a></li>
   <li><a href="#where-with-a-date" id="toc-where-with-a-date" class="nav-link" data-scroll-target="#where-with-a-date"><span class="header-section-number">3.14</span> <code>WHERE</code> with a date</a></li>
   <li><a href="#sas-macro-variables" id="toc-sas-macro-variables" class="nav-link" data-scroll-target="#sas-macro-variables"><span class="header-section-number">3.15</span> SAS macro variables</a></li>
-  <li><a href="#macro-variables-try-it" id="toc-macro-variables-try-it" class="nav-link" data-scroll-target="#macro-variables-try-it"><span class="header-section-number">3.16</span> Macro variables: try it</a></li>
+  <li><a href="#macro-variables" id="toc-macro-variables" class="nav-link" data-scroll-target="#macro-variables"><span class="header-section-number">3.16</span> Macro variables</a></li>
   <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">3.17</span> Exercise</a></li>
   </ul>
 </nav>
@@ -1100,8 +1100,8 @@ run;</code></pre>
 <p>Character values are <strong>case-sensitive</strong>: <code>"suv"</code> does not match <code>"SUV"</code>.</p>
 </div>
 </section>
-<section id="where-try-it" class="level2" data-number="3.13">
-<h2 data-number="3.13" class="anchored" data-anchor-id="where-try-it"><span class="header-section-number">3.13</span> <code>WHERE</code>: try it</h2>
+<section id="where" class="level2" data-number="3.13">
+<h2 data-number="3.13" class="anchored" data-anchor-id="where"><span class="header-section-number">3.13</span> <code>WHERE</code></h2>
 <div id="d3-27" class="cell">
 <pre class="sas cell-code"><code>/* SUVs that cost $30,000 or less */
 proc print data=sashelp.cars;
@@ -1458,8 +1458,8 @@ run;</code></pre>
 <p><code>%let</code> creates it; <code>&amp;</code> uses it. Use <strong>double quotes</strong>: <code>"&amp;CarMake"</code> works, <code>'&amp;CarMake'</code> does not.</p>
 </div>
 </section>
-<section id="macro-variables-try-it" class="level2" data-number="3.16">
-<h2 data-number="3.16" class="anchored" data-anchor-id="macro-variables-try-it"><span class="header-section-number">3.16</span> Macro variables: try it</h2>
+<section id="macro-variables" class="level2" data-number="3.16">
+<h2 data-number="3.16" class="anchored" data-anchor-id="macro-variables"><span class="header-section-number">3.16</span> Macro variables</h2>
 <p>Change <code>Kia</code> to <code>Toyota</code> on the first line and run it again.</p>
 <div id="d3-32" class="cell">
 <pre class="sas cell-code"><code>%let CarMake = Kia;
