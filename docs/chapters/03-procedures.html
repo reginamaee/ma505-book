@@ -859,8 +859,9 @@ Percent</th>
 
 </div>
 <div id="d3-18" class="cell">
-<pre class="sas cell-code"><code>/* 1. import the CSV into the ma505 library (use your own user ID) */
-proc import datafile="/home/u63936157/overwatch_stats.csv"
+<pre class="sas cell-code"><code>/* 1. import the CSV into the ma505 library */
+libname ma505 "~";    /* ~ is your home folder; skip if your autoexec does this */
+proc import datafile="~/overwatch_stats.csv"
     out=ma505.ow_stats
     dbms=csv
     replace;
@@ -952,7 +953,9 @@ Percent</th>
 </ul>
 <p><strong>Exercise:</strong> use <code>ods trace</code> and <code>ods select</code> to output <strong>only</strong> the Extreme Observations table for <code>Damage</code>. Start here, then check the log:</p>
 <div id="d3-21" class="cell">
-<pre class="sas cell-code"><code>ods trace on;
+<pre class="sas cell-code"><code>libname ma505 "~";    /* ~ is your home folder; skip if your autoexec does this */
+
+ods trace on;
 proc univariate data=ma505.ow_stats;
     var Damage;
 run;</code></pre>
@@ -1085,16 +1088,26 @@ run;</code></pre>
 <section id="more-where-operators" class="level2" data-number="3.12">
 <h2 data-number="3.12" class="anchored" data-anchor-id="more-where-operators"><span class="header-section-number">3.12</span> More <code>WHERE</code> operators</h2>
 <div class="where-list">
-<div class="fragment"><b>AND</b> / <b>OR</b>: combine expressions
-<pre class="anno-code"><span class="kw">where</span> Type = "SUV" <span class="red-text">and</span> MSRP &lt;= 30000;</pre></div>
-<div class="fragment"><b>IN</b> / <b>NOT IN</b>: match any value in a list
-<pre class="anno-code"><span class="kw">where</span> Type <span class="red-text">in</span> ("SUV", "Truck");</pre></div>
-<div class="fragment"><b>IS MISSING</b> / <b>IS NOT MISSING</b>
-<pre class="anno-code"><span class="kw">where</span> Cylinders <span class="red-text">is missing</span>;</pre></div>
-<div class="fragment"><b>BETWEEN … AND</b>: an inclusive range
-<pre class="anno-code"><span class="kw">where</span> MSRP <span class="red-text">between</span> 36000 <span class="red-text">and</span> 50000;</pre></div>
-<div class="fragment"><b>Dates</b>: use a SAS date constant (Day 2)
-<pre class="anno-code"><span class="kw">where</span> Date &gt; "01NOV2016"<span class="red-text">d</span>;</pre></div>
+<div class="fragment"><b>AND / OR: combine expressions</b>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.cars;
+    <span class="kw">where</span> Type = "SUV" <span class="red-text">and</span> MSRP &lt;= 30000;
+<span class="kw">run</span>;</pre></div></div></div>
+<div class="fragment"><b>IN / NOT IN: match any value in a list</b>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.cars;
+    <span class="kw">where</span> Type <span class="red-text">in</span> ("SUV", "Truck");
+<span class="kw">run</span>;</pre></div></div></div>
+<div class="fragment"><b>IS MISSING / IS NOT MISSING</b>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.cars;
+    <span class="kw">where</span> Cylinders <span class="red-text">is missing</span>;
+<span class="kw">run</span>;</pre></div></div></div>
+<div class="fragment"><b>BETWEEN … AND: an inclusive range</b>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.cars;
+    <span class="kw">where</span> MSRP <span class="red-text">between</span> 36000 <span class="red-text">and</span> 50000;
+<span class="kw">run</span>;</pre></div></div></div>
+<div class="fragment"><b>Dates: use a SAS date constant (Day 2)</b>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.stocks;
+    <span class="kw">where</span> Date &gt; "01NOV2005"<span class="red-text">d</span>;
+<span class="kw">run</span>;</pre></div></div></div>
 </div>
 <div class="fragment red-text">
 <p>Character values are <strong>case-sensitive</strong>: <code>"suv"</code> does not match <code>"SUV"</code>.</p>
@@ -1617,7 +1630,9 @@ Percent</th>
 
 </div>
 <div id="d3-34" class="cell">
-<pre class="sas cell-code"><code>%let player = player1;    /* change to player2 and re-run */
+<pre class="sas cell-code"><code>libname ma505 "~";    /* ~ is your home folder; skip if your autoexec does this */
+
+%let player = player1;    /* change to player2 and re-run */
 %let maps = "Busan", "Nepal", "Junkertown", "Oasis";
 
 /* a. average eliminations and deaths */
@@ -1958,6 +1973,92 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+</script>
+
+<!-- SAS syntax highlighting for code cells (Quarto has no SAS highlighter) -->
+<style>
+code .sas-kw  { color: #0b3d91; font-weight: 700; }
+code .sas-cmt { color: #1a7f37; font-style: italic; }
+code .sas-str { color: #a31515; }
+code .sas-num { color: #098658; }
+code .sas-mac { color: #8250df; font-weight: 600; }
+</style>
+<script>
+(function () {
+  var KW = ('data set run proc quit by descending var tables where if then else do end to label title footnote ' +
+    'libname filename input datalines cards format informat length keep drop output retain merge class ' +
+    'ods select exclude trace on off and or not in is missing between like out dbms replace datafile obs ' +
+    'noprint nway varnum mean n sum min max std median').split(' ');
+  var KWSET = {}; KW.forEach(function (k) { KWSET[k] = 1; });
+  var TOKEN = /(\/\*)|("(?:[^"]|"")*"|'(?:[^']|'')*')(dt|d|t)?|(&\w+\.?)|(%\w+)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_]\w*\b)/g;
+
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function wrap(cls, s) { return '<span class="' + cls + '">' + esc(s) + '</span>'; }
+
+  // Highlight one line of text. st = { inComment, afterProc, stmtStart } carries across lines.
+  function line(text, st) {
+    var out = '', i = 0;
+    if (!st.inComment && st.stmtStart && /^\s*\*/.test(text)) {          // * comment ;
+      var semi = text.indexOf(';');
+      var end = semi < 0 ? text.length : semi + 1;
+      out += wrap('sas-cmt', text.slice(0, end)); i = end; st.stmtStart = semi >= 0;
+    }
+    while (i < text.length) {
+      if (st.inComment) {
+        var c = text.indexOf('*/', i);
+        var e = c < 0 ? text.length : c + 2;
+        out += wrap('sas-cmt', text.slice(i, e)); i = e;
+        if (c >= 0) st.inComment = false;
+        continue;
+      }
+      TOKEN.lastIndex = i;
+      var m = TOKEN.exec(text);
+      if (!m) { out += esc(text.slice(i)); break; }
+      var before = text.slice(i, m.index);
+      out += esc(before);
+      if (/;/.test(before)) st.stmtStart = true;
+      i = m.index + m[0].length;
+      if (m[1]) { st.inComment = true; i = m.index; continue; }
+      if (m[2]) { out += wrap('sas-str', m[0]); st.stmtStart = false; continue; }
+      if (m[4] || m[5]) { out += wrap('sas-mac', m[0]); st.stmtStart = false; continue; }
+      if (m[6]) { out += wrap('sas-num', m[0]); st.stmtStart = false; continue; }
+      var w = m[7], lw = w.toLowerCase();
+      if (st.afterProc) { out += wrap('sas-kw', w); st.afterProc = false; }
+      else if (KWSET[lw]) { out += wrap('sas-kw', w); if (lw === 'proc') st.afterProc = true; }
+      else out += esc(w);
+      st.stmtStart = false;
+    }
+    if (/;\s*$/.test(text)) st.stmtStart = true;
+    return out;
+  }
+
+  function replaceText(node, html) {
+    var t = document.createElement('template'); t.innerHTML = html;
+    node.parentNode.replaceChild(t.content, node);
+  }
+
+  function highlight(code) {
+    if (code.dataset.sasHl) return; code.dataset.sasHl = '1';
+    var st = { inComment: false, afterProc: false, stmtStart: true };
+    var lines = code.querySelectorAll(':scope > span[id]');
+    if (lines.length) {                       // slides / numbered: one <span id="cbN-k"> per line
+      lines.forEach(function (ln) {
+        Array.prototype.slice.call(ln.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) replaceText(n, line(n.nodeValue, st));
+        });
+      });
+    } else {                                  // book: plain text inside <code>
+      Array.prototype.slice.call(code.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) replaceText(n, n.nodeValue.split('\n').map(function (l) { return line(l, st); }).join('\n'));
+      });
+    }
+  }
+
+  function run() {
+    document.querySelectorAll('pre.sas code, .cell-code pre code, pre.cell-code code').forEach(highlight);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

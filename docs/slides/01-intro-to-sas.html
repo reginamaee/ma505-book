@@ -3230,6 +3230,92 @@ window.QuartoSupport = function () {
       }
     });
     </script>
+
+    <!-- SAS syntax highlighting for code cells (Quarto has no SAS highlighter) -->
+    <style>
+code .sas-kw { color: #0b3d91; font-weight: 700; }
+code .sas-cmt { color: #1a7f37; font-style: italic; }
+code .sas-str { color: #a31515; }
+code .sas-num { color: #098658; }
+code .sas-mac { color: #8250df; font-weight: 600; }
+</style>
+    <script>
+    (function () {
+      var KW = ('data set run proc quit by descending var tables where if then else do end to label title footnote ' +
+        'libname filename input datalines cards format informat length keep drop output retain merge class ' +
+        'ods select exclude trace on off and or not in is missing between like out dbms replace datafile obs ' +
+        'noprint nway varnum mean n sum min max std median').split(' ');
+      var KWSET = {}; KW.forEach(function (k) { KWSET[k] = 1; });
+      var TOKEN = /(\/\*)|("(?:[^"]|"")*"|'(?:[^']|'')*')(dt|d|t)?|(&\w+\.?)|(%\w+)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_]\w*\b)/g;
+
+      function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+      function wrap(cls, s) { return '<span class="' + cls + '">' + esc(s) + '</span>'; }
+
+      // Highlight one line of text. st = { inComment, afterProc, stmtStart } carries across lines.
+      function line(text, st) {
+        var out = '', i = 0;
+        if (!st.inComment && st.stmtStart && /^\s*\*/.test(text)) {          // * comment ;
+          var semi = text.indexOf(';');
+          var end = semi < 0 ? text.length : semi + 1;
+          out += wrap('sas-cmt', text.slice(0, end)); i = end; st.stmtStart = semi >= 0;
+        }
+        while (i < text.length) {
+          if (st.inComment) {
+            var c = text.indexOf('*/', i);
+            var e = c < 0 ? text.length : c + 2;
+            out += wrap('sas-cmt', text.slice(i, e)); i = e;
+            if (c >= 0) st.inComment = false;
+            continue;
+          }
+          TOKEN.lastIndex = i;
+          var m = TOKEN.exec(text);
+          if (!m) { out += esc(text.slice(i)); break; }
+          var before = text.slice(i, m.index);
+          out += esc(before);
+          if (/;/.test(before)) st.stmtStart = true;
+          i = m.index + m[0].length;
+          if (m[1]) { st.inComment = true; i = m.index; continue; }
+          if (m[2]) { out += wrap('sas-str', m[0]); st.stmtStart = false; continue; }
+          if (m[4] || m[5]) { out += wrap('sas-mac', m[0]); st.stmtStart = false; continue; }
+          if (m[6]) { out += wrap('sas-num', m[0]); st.stmtStart = false; continue; }
+          var w = m[7], lw = w.toLowerCase();
+          if (st.afterProc) { out += wrap('sas-kw', w); st.afterProc = false; }
+          else if (KWSET[lw]) { out += wrap('sas-kw', w); if (lw === 'proc') st.afterProc = true; }
+          else out += esc(w);
+          st.stmtStart = false;
+        }
+        if (/;\s*$/.test(text)) st.stmtStart = true;
+        return out;
+      }
+
+      function replaceText(node, html) {
+        var t = document.createElement('template'); t.innerHTML = html;
+        node.parentNode.replaceChild(t.content, node);
+      }
+
+      function highlight(code) {
+        if (code.dataset.sasHl) return; code.dataset.sasHl = '1';
+        var st = { inComment: false, afterProc: false, stmtStart: true };
+        var lines = code.querySelectorAll(':scope > span[id]');
+        if (lines.length) {                       // slides / numbered: one <span id="cbN-k"> per line
+          lines.forEach(function (ln) {
+            Array.prototype.slice.call(ln.childNodes).forEach(function (n) {
+              if (n.nodeType === 3) replaceText(n, line(n.nodeValue, st));
+            });
+          });
+        } else {                                  // book: plain text inside <code>
+          Array.prototype.slice.call(code.childNodes).forEach(function (n) {
+            if (n.nodeType === 3) replaceText(n, n.nodeValue.split('\n').map(function (l) { return line(l, st); }).join('\n'));
+          });
+        }
+      }
+
+      function run() {
+        document.querySelectorAll('pre.sas code, .cell-code pre code, pre.cell-code code').forEach(highlight);
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+    })();
+    </script>
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
