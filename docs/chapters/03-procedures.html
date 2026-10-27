@@ -793,10 +793,9 @@ run;</code></pre>
 </div>
 <p><strong>Reading the output</strong></p>
 <ul>
-<li><strong>Skewness = 1.25</strong>: is the distribution lopsided? 0 is symmetric; <strong>positive</strong> means a long tail to the <strong>right</strong> (a few very high values), negative a long tail to the left. Beyond ±1 counts as strongly skewed, so highway MPG is clearly right-skewed. You can also see it in the mean (26.84) sitting above the median (26).</li>
-<li><strong>Kurtosis = 6.05</strong>: how heavy the tails are compared with a normal bell curve, where a normal curve scores 0. <strong>Positive</strong> means more extreme values than a normal curve would produce, and 6 is a strong hint of outliers. Extreme Observations confirms it: the top value, 66, is 15 MPG above the next car.</li>
-<li><strong>Tests for Location (Mu0=0)</strong>: tests of whether the center is <strong>0</strong>. <em>Student’s t</em> tests the mean (t = mean ÷ std error = 96.7); <em>Sign</em> and <em>Signed Rank</em> test the median without assuming normal data. Every p-value is below .0001, so we reject “the average MPG is 0”, which is obvious and not useful. To test a real question, set the value yourself: <code>proc univariate data=sashelp.cars mu0=25;</code> tests whether the mean differs from 25.</li>
-<li><strong>Also handy</strong>: <em>Std Deviation</em> (5.74) is the typical distance from the mean; <em>Std Error Mean</em> (0.28) is how precisely the mean is estimated; <em>Interquartile Range</em> (5) is the spread of the middle half (Q1 = 24 to Q3 = 29).</li>
+<li><strong>Skewness (1.25)</strong> tells us if the data is lopsided. 0 means symmetric. A positive value means a long tail to the right (a few really high values), and a negative value means a long tail to the left. Anything past ±1 is pretty skewed, so highway MPG is skewed right. Notice the mean (26.84) is a bit higher than the median (26).</li>
+<li><strong>Kurtosis (6.05)</strong> tells us how heavy the tails are compared to a normal bell curve (normal = 0). A positive value means more extreme values than we’d expect, so a 6 means we probably have some outliers.</li>
+<li><strong>Tests for Location (Mu0=0)</strong> test whether the center of the data is 0. <em>Student’s t</em> tests the mean (t = mean ÷ std error = 96.7). <em>Sign</em> and <em>Signed Rank</em> test the median and don’t assume the data is normal. All the p-values are below .0001, so we reject that the average MPG is 0, which we already knew! To test something useful, change the value with <code>mu0=</code>: <code>proc univariate data=sashelp.cars mu0=25;</code> tests whether the average is different from 25.</li>
 </ul>
 </section>
 <section id="proc-freq" class="level2" data-number="3.8">
