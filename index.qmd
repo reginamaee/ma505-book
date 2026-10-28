@@ -11,3 +11,4 @@ All code runs in **SAS OnDemand for Academics**, a free version of SAS Studio th
 - [Day 1: Introduction to SAS](slides/01-intro-to-sas.html)
 - [Day 2: SAS Tables and Libraries](slides/02-tables-libraries.html)
 - [Day 3: Exploring Data with Procedures](slides/03-procedures.html)
+- [Day 4: Formats, Sorting, and the DATA Step](slides/04-format-sort-datastep.html)

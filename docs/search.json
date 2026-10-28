@@ -14,7 +14,7 @@
     "href": "index.html#slides",
     "title": "Introduction to SAS",
     "section": "Slides",
-    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures",
+    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures\nDay 4: Formats, Sorting, and the DATA Step",
     "crumbs": [
       "Welcome"
     ]
@@ -557,6 +557,206 @@
     "text": "3.17 Exercise\nUse ma505.ow_stats:\n\nFor Player 1, in the maps Busan, Nepal, Junkertown, and Oasis, find:\n\nthe average number of eliminations and deaths\nthe top 5 values for damage\n\nDo the same for Player 2.\n\nHint: a macro variable means you only change one line for Player 2.\n\n\n\n\nlibname ma505 \"~\";    /* ~ is your home folder; skip if your autoexec does this */\n\n%let player = player1;    /* change to player2 and re-run */\n%let maps = \"Busan\", \"Nepal\", \"Junkertown\", \"Oasis\";\n\n/* a. average eliminations and deaths */\nproc means data=ma505.ow_stats mean;\n    where Player = \"&player\" and Map in (&maps);\n    var Elimination Deaths;\nrun;\n\n/* b. top 5 damage values: just the Extreme Observations table */\nods select ExtremeObs;\nproc univariate data=ma505.ow_stats;\n    where Player = \"&player\" and Map in (&maps);\n    var Damage;\nrun;\n\nplayer1\n\nThe Means Procedure\n\n\n\n\n\nVariable\nMean\n\n\n\n\n\n\nElimination\n\n\nDeaths\n\n\n\n\n12.2857143\n\n\n6.8571429\n\n\n\n\n\n\n\nThe UNIVARIATE Procedure\nVariable: Damage\n\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n2458\n48\n4307\n18\n\n\n2509\n20\n5320\n54\n\n\n4307\n18\n6301\n12\n\n\n5320\n54\n8196\n37\n\n\n6301\n12\n10948\n8\n\n\n\n\n\n\nplayer2\n\nThe MEANS Procedure\n\n\n\n\n\nVariable\nMean\n\n\n\n\n\n\nElimination\n\n\nDeaths\n\n\n\n\n16.0000000\n\n\n7.0000000\n\n\n\n\n\n\n\nThe UNIVARIATE Procedure\nVariable: Damage\n\n\n\n\n\nExtreme Observations\n\n\nLowest\nHighest\n\n\nValue\nObs\nValue\nObs\n\n\n\n\n2949\n73\n2949\n73\n\n\n3349\n59\n3349\n59\n\n\n4602\n86\n4602\n86\n\n\n\n\n\n\n\n\nOutput shown for both players (the code above, run once with player1 and once with player2).\n\nplayer1 (7 games on those maps): averages 12.29 eliminations and 6.86 deaths; top 5 damage: 10948, 8196, 6301, 5320, 4307.\nplayer2: averages 16 eliminations and 7 deaths; only 3 games on those maps, so PROC UNIVARIATE can list just 3 values: 4602, 3349, 2949.",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html",
+    "href": "chapters/04-format-sort-datastep.html",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "",
+    "text": "4.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#agenda",
+    "href": "chapters/04-format-sort-datastep.html#agenda",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "",
+    "text": "Macro variables: when to use quotes\nFormatting values with FORMAT\nSorting and removing duplicates with PROC SORT\nPreparing data with the DATA step: filter, subset, compute\nFunctions",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#macro-variables-no-quotes-in-let",
+    "href": "chapters/04-format-sort-datastep.html#macro-variables-no-quotes-in-let",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.2 Macro variables: no quotes in %LET",
+    "text": "4.2 Macro variables: no quotes in %LET\nFrom last class’s exercise: a macro variable is always text, so you don’t need quotes in %LET. If you add them, the quotes become part of the value: they are taken literally.\n\n/* quotes are part of the value */\n%let p = \"player1\";\n\nwhere Player = \"&p\";\n/* becomes: Player = \"\"player1\"\" */\n\n/* no quotes: just the text */\n%let p = player1;\n\nwhere Player = \"&p\";\n/* becomes: Player = \"player1\" */\n\n\nLeave the quotes off in %LET, and add them where you use the macro variable.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#using-a-macro-variable",
+    "href": "chapters/04-format-sort-datastep.html#using-a-macro-variable",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.3 Using a macro variable",
+    "text": "4.3 Using a macro variable\n%LET macrovar=value;\n    numvar=&macrovar;   /* number */\n    charvar=\"&macrovar\";   /* character */\n    datevar=\"&macrovar\"d;   /* date */\n\n\nA macro variable stores a text string that is substituted into your program.\n%LET names the macro variable and assigns its value. Names follow the usual SAS naming rules.\nReference it with an & (ampersand) in front of the name.\nInside quotation marks, use double quotes: \"&macrovar\".\n\n\n\n%let start_date = 01JAN2005;\n\nproc print data=sashelp.stocks (obs=5);\n    where Date &gt;= \"&start_date\"d;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nStock\nDate\nOpen\nHigh\nLow\nClose\nVolume\nAdjClose\n\n\n\n\n1\nIBM\n01DEC05\n$89.15\n$89.92\n$81.56\n$82.20\n5,976,252\n$81.37\n\n\n2\nIBM\n01NOV05\n$81.85\n$89.94\n$80.64\n$88.90\n5,556,471\n$88.01\n\n\n3\nIBM\n03OCT05\n$80.22\n$84.60\n$78.70\n$81.88\n7,019,666\n$80.86\n\n\n4\nIBM\n01SEP05\n$80.16\n$82.11\n$76.93\n$80.22\n5,772,280\n$79.22\n\n\n5\nIBM\n01AUG05\n$83.00\n$84.20\n$79.87\n$80.62\n4,801,386\n$79.62",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#format",
+    "href": "chapters/04-format-sort-datastep.html#format",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.4 FORMAT",
+    "text": "4.4 FORMAT\nA format changes how a value is displayed, not the value that is stored: 12345.678 → 12,345.7.\nproc print data=...;\n    format col-name(s) format;&lt;$&gt;format-name&lt;w&gt;.&lt;d&gt;$: character formatw: total width of the formatted valued: number of decimal places (numeric formats)\nrun;\n\n\n\nNumeric values\n\n\n\nFormat\nValue\nApplied\nDisplays\n\n\n\n\nw.d\n20435.86\n5.\n20436\n\n\nCOMMAw.d\n20435.86\nCOMMA8.1\n20,435.9\n\n\nDOLLARw.d\n20435.86\nDOLLAR10.\n$20,436\n\n\n\n\nDate values (days since Jan 1, 1960)\n\n\n\nValue\nApplied\nDisplays\n\n\n\n\n21199\nDATE7.\n15JAN18\n\n\n21199\nMMDDYY10.\n01/15/2018\n\n\n21199\nWEEKDATE.\nMonday, January 15, 2018\n\n\n\n\n\nMore formats: SAS formats by category",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#format-numbers",
+    "href": "chapters/04-format-sort-datastep.html#format-numbers",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.5 FORMAT: numbers",
+    "text": "4.5 FORMAT: numbers\nAdd commas to Damage and Heals in the Overwatch stats from last class.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc print data=ma505.ow_stats (obs=10);\n    format Damage comma10. Heals comma10.;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nElimination\nAssists\nDeaths\nDamage\nHeals\nMitigation\n\n\n\n\n1\nplayer1\n08/15/2024\n1\nSuravasa\nAssault\nDamage\n28\n0\n5\n11,480\n2,484\n0\n\n\n2\nplayer1\n08/15/2024\n1\nKing's Row\nAttack Escort\nDamage\n17\n3\n4\n6,713\n0\n245\n\n\n3\nplayer1\n08/15/2024\n0\nNew Queen Street\nRobot\nTank\n27\n4\n7\n5,776\n122\n2082\n\n\n4\nplayer1\n08/15/2024\n0\nMidtown\nAttack Escort\nDamage\n8\n3\n6\n7,138\n8\n828\n\n\n5\nplayer1\n08/15/2024\n1\nIlios\nAttack\nSupport\n10\n3\n4\n2,163\n4,849\n0\n\n\n6\nplayer1\n08/15/2024\n1\nHavana\nEscort\nTank\n7\n2\n9\n4,416\n2,498\n1068\n\n\n7\nplayer1\n08/14/2024\n0\nBlizzard World\nAttack Escort\nTank\n22\n6\n9\n7,538\n0\n5654\n\n\n8\nplayer1\n08/14/2024\n1\nJunkertown\nEscort\nTank\n15\n3\n7\n10,948\n2,260\n6078\n\n\n9\nplayer1\n08/14/2024\n1\nNew Junk City\nAssault\nTank\n27\n8\n4\n9,735\n225\n2012\n\n\n10\nplayer1\n08/14/2024\n1\nParaiso\nAttack Escort\nDamage\n8\n5\n1\n4,102\n0\n0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#format-dates",
+    "href": "chapters/04-format-sort-datastep.html#format-dates",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.6 FORMAT: dates",
+    "text": "4.6 FORMAT: dates\nDate is stored as a number. The format only changes how it looks.\n\nproc print data=ma505.ow_stats (obs=5);\n    var Player Date;\n    format Date weekdate.;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nPlayer\nDate\n\n\n\n\n1\nplayer1\nThursday, August 15, 2024\n\n\n2\nplayer1\nThursday, August 15, 2024\n\n\n3\nplayer1\nThursday, August 15, 2024\n\n\n4\nplayer1\nThursday, August 15, 2024\n\n\n5\nplayer1\nThursday, August 15, 2024",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#sorting-data-proc-sort",
+    "href": "chapters/04-format-sort-datastep.html#sorting-data-proc-sort",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.7 Sorting data: PROC SORT",
+    "text": "4.7 Sorting data: PROC SORT\nproc sort data=input-table out=output-table;If you leave out OUT=, SAS overwrites the input table with the sorted version.\n    by &lt;descending&gt;Sorting is ascending by default. DESCENDING flips it for the column right after it.\n        col-name(s);\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#proc-sort-example",
+    "href": "chapters/04-format-sort-datastep.html#proc-sort-example",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.8 PROC SORT: example",
+    "text": "4.8 PROC SORT: example\nout=test_sort creates a new table so we do not overwrite the original one. When sorting, descending only applies to Age. If there is a tie in Age, then it sorts by Name.\n\nproc sort data=sashelp.class out=test_sort;\n    by descending Age Name;\nrun;\n\nproc print data=test_sort;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\n\n\n\n\n1\nPhilip\nM\n16\n72.0\n150.0\n\n\n2\nJanet\nF\n15\n62.5\n112.5\n\n\n3\nMary\nF\n15\n66.5\n112.0\n\n\n4\nRonald\nM\n15\n67.0\n133.0\n\n\n5\nWilliam\nM\n15\n66.5\n112.0\n\n\n6\nAlfred\nM\n14\n69.0\n112.5\n\n\n7\nCarol\nF\n14\n62.8\n102.5\n\n\n8\nHenry\nM\n14\n63.5\n102.5\n\n\n9\nJudy\nF\n14\n64.3\n90.0\n\n\n10\nAlice\nF\n13\n56.5\n84.0\n\n\n11\nBarbara\nF\n13\n65.3\n98.0\n\n\n12\nJeffrey\nM\n13\n62.5\n84.0\n\n\n13\nJames\nM\n12\n57.3\n83.0\n\n\n14\nJane\nF\n12\n59.8\n84.5\n\n\n15\nJohn\nM\n12\n59.0\n99.5\n\n\n16\nLouise\nF\n12\n56.3\n77.0\n\n\n17\nRobert\nM\n12\n64.8\n128.0\n\n\n18\nJoyce\nF\n11\n51.3\n50.5\n\n\n19\nThomas\nM\n11\n57.5\n85.0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#removing-duplicate-rows",
+    "href": "chapters/04-format-sort-datastep.html#removing-duplicate-rows",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.9 Removing duplicate rows",
+    "text": "4.9 Removing duplicate rows\nproc sort data=input-table out=output-table\n    nodupkeyRemoves rows with duplicate BY values that sit next to each other, keeping only the first one.\n    &lt;dupout=dup-table&gt;;Optional: a table that collects the duplicates that were removed.\n    by _all_;Sorts by all columns, so identical rows end up next to each other. You can also list one or more columns.\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#removing-duplicates-example",
+    "href": "chapters/04-format-sort-datastep.html#removing-duplicates-example",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.10 Removing duplicates: example",
+    "text": "4.10 Removing duplicates: example\nFirst, make a copy of sashelp.class with two rows (Jane and Judy) repeated. Just run this; we’ll learn the DATA step later today.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* setup: sashelp.class plus 2 duplicate rows (21 rows) */\ndata ma505.class;\n    set sashelp.class sashelp.class(where=(Name in (\"Jane\", \"Judy\")));\nrun;\n\nNow remove the duplicates. ma505.clean gets 19 unique rows and ma505.duplicates gets the 2 removed rows.\n\nproc sort data=ma505.class out=ma505.clean\n    nodupkey\n    dupout=ma505.duplicates;\n    by _all_;\nrun;\n\nproc print data=ma505.duplicates;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\n\n\n\n\n1\nJane\nF\n12\n59.8\n84.5\n\n\n2\nJudy\nF\n14\n64.3\n90.0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#exercise",
+    "href": "chapters/04-format-sort-datastep.html#exercise",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.11 Exercise",
+    "text": "4.11 Exercise\nUse the Overwatch heroes table ma505.overwatch from Day 2 (re-run the Day 2 import if it’s missing).\n\nSort it by Player, Date, Win, Map, Role, and Percent Played (descending). Save the result as ma505.ow_hrsrt.\n\nPercent Played has a space, so type it as a name literal: \"Percent Played\"n\n\nUsing the sorted data, remove duplicate rows by Player, Date, Win, Map, and Role only.\nWhat hero is in observation 14 of the de-duplicated data?\n\nTip: proc print data=... (firstobs=14 obs=14); prints just row 14.\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* 1. sort, highest Percent Played first within each game */\nproc sort data=ma505.overwatch out=ma505.ow_hrsrt;\n    by Player Date Win Map Role descending \"Percent Played\"n;\nrun;\n\n/* 2. keep the first row of each Player/Date/Win/Map/Role */\nproc sort data=ma505.ow_hrsrt out=ma505.hero_clean\n    nodupkey\n    dupout=ma505.hr_dup;\n    by Player Date Win Map Role;\nrun;\n\n/* 3. print only row 14 */\nproc print data=ma505.hero_clean (firstobs=14 obs=14);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nPercent Played\nHero\n\n\n\n\n14\nplayer1\n08/13/2024\n0\nWatchpoint: Gibr\nEscort\nDamage\n56\nHanzo\n\n\n\n\n\n\n\n\nObservation 14 of the de-duplicated data is Hanzo (player1, 08/13/2024, Watchpoint: Gibraltar, Damage, 56% played).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#preparing-data-with-the-data-step",
+    "href": "chapters/04-format-sort-datastep.html#preparing-data-with-the-data-step",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.12 Preparing data with the DATA step",
+    "text": "4.12 Preparing data with the DATA step\nWhat we want to do with our data:\n\n\nmanipulate\nfilter\nprocess\ncompute",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#the-data-step-creates-a-sas-table",
+    "href": "chapters/04-format-sort-datastep.html#the-data-step-creates-a-sas-table",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.13 The DATA step creates a SAS table",
+    "text": "4.13 The DATA step creates a SAS table\ndata output-table;the table to create\n    set input-table;the table to read\nrun;\n\n/* creating a NEW table using a DATA step */\ndata cln_class;\n    set ma505.clean;\nrun;\n\nThis reads the de-duplicated ma505.clean table and writes a copy called cln_class. There’s no libref, so it goes in the work library. Check the log: 19 observations read, and WORK.CLN_CLASS has 19 observations.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#how-does-the-data-step-process",
+    "href": "chapters/04-format-sort-datastep.html#how-does-the-data-step-process",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.14 How does the DATA step process?",
+    "text": "4.14 How does the DATA step process?\n\n  CompilationChecks for syntax errorsIdentifies the column attributesEstablishes the table metadata\n  \n  ExecutionReads and writes dataPerforms calculations and manipulations\n\n\nDuring execution, the DATA step loops once per row:\n\nReads a row from the input table (ma505.clean)\nProcesses each statement, top to bottom\nWrites the row to the output table\nLoops back to the top to read the next row",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#filtering-rows-in-the-data-step",
+    "href": "chapters/04-format-sort-datastep.html#filtering-rows-in-the-data-step",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.15 Filtering rows in the DATA step",
+    "text": "4.15 Filtering rows in the DATA step\nDATA output-table;\n    SET input-table;\n    WHERE expression;\nRUN;\nSame WHERE as in the procedures, but now the result is saved as a new table.\n\n/* keep only students older than 14 */\ndata cln_class;\n    set ma505.clean;\n    where Age &gt; 14;\nrun;\n\nproc print data=cln_class;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\n\n\n\n\n1\nJanet\nF\n15\n62.5\n112.5\n\n\n2\nMary\nF\n15\n66.5\n112.0\n\n\n3\nPhilip\nM\n16\n72.0\n150.0\n\n\n4\nRonald\nM\n15\n67.0\n133.0\n\n\n5\nWilliam\nM\n15\n66.5\n112.0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#keeping-or-dropping-columns",
+    "href": "chapters/04-format-sort-datastep.html#keeping-or-dropping-columns",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.16 Keeping or dropping columns",
+    "text": "4.16 Keeping or dropping columns\nDATA output-table;\n    SET input-table;\n    DROP col-name(s);  /* columns to remove */\n    KEEP col-name(s);  /* columns to keep */\nRUN;\nUse one or the other: KEEP when you want a few columns, DROP when you want to lose a few.\n\n/* older than 14, and only three columns */\ndata cln_class;\n    set ma505.clean;\n    where Age &gt; 14;\n    keep Name Age Weight;\nrun;\n\nproc print data=cln_class;\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\n\n\n\n\n1\nJanet\n15\n112.5\n\n\n2\nMary\n15\n112.0\n\n\n3\nPhilip\n16\n150.0\n\n\n4\nRonald\n15\n133.0\n\n\n5\nWilliam\n15\n112.0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#computing-new-columns",
+    "href": "chapters/04-format-sort-datastep.html#computing-new-columns",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.17 Computing new columns",
+    "text": "4.17 Computing new columns\nDATA output-table;\n    SET input-table;\n    newcol = expression;\nRUN;\nA new column can be a calculation (Profit) or a constant (Source). FORMAT works inside the DATA step too, and it’s saved with the table.\n\n/* computing new columns in the DATA step */\ndata cars_new;\n    set sashelp.cars;\n    where Origin ne \"USA\";\n    Profit = MSRP - Invoice;\n    Source = \"Non-US Cars\";\n    format Profit dollar10.;\n    keep Make Model Profit Source;\nrun;\n\nproc print data=cars_new (obs=10);\nrun;\n\n\nThe Print Procedure\n\n\n\n\nObs\nMake\nModel\nProfit\nSource\n\n\n\n\n1\nAcura\nMDX\n$3,608\nNon-US Cars\n\n\n2\nAcura\nRSX Type S 2dr\n$2,059\nNon-US Cars\n\n\n3\nAcura\nTSX 4dr\n$2,343\nNon-US Cars\n\n\n4\nAcura\nTL 4dr\n$2,896\nNon-US Cars\n\n\n5\nAcura\n3.5 RL 4dr\n$4,741\nNon-US Cars\n\n\n6\nAcura\n3.5 RL w/Navigation 4dr\n$5,000\nNon-US Cars\n\n\n7\nAcura\nNSX coupe 2dr manual S\n$9,787\nNon-US Cars\n\n\n8\nAudi\nA4 1.8T 4dr\n$2,432\nNon-US Cars\n\n\n9\nAudi\nA41.8T convertible 2dr\n$3,434\nNon-US Cars\n\n\n10\nAudi\nA4 3.0 4dr\n$2,994\nNon-US Cars",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#functions",
+    "href": "chapters/04-format-sort-datastep.html#functions",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.18 Functions",
+    "text": "4.18 Functions\nDATA output-table;\n    SET input-table;\n    newcol = function(arguments);\nRUN;\n\n\n\n\n\n\nNumeric\n\n\n\n\nSUM\n\n\nMEAN\n\n\nMEDIAN\n\n\nRANGE\n\n\nMIN / MAX\n\n\nNMISS\n\n\n\n\n\n\n\nCharacter\n\n\n\n\n\nUPCASE\nall uppercase\n\n\nLOWCASE\nall lowercase\n\n\nPROPCASE\nFirst Letter Of Each Word\n\n\nCATS\njoins strings together\n\n\nSUBSTR\npart of a string\n\n\n\n\n\n\n\nDate\n\n\n\n\n\nMONTH\nmonth, 1–12\n\n\nYEAR\nfour-digit year\n\n\nDAY\nday of the month, 1–31\n\n\nWEEKDAY\nday of the week, 1–7\n\n\nQTR\nquarter, 1–4\n\n\nTODAY()\ntoday’s date\n\n\nMDY\ndate from month, day, year",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/04-format-sort-datastep.html#functions-example",
+    "href": "chapters/04-format-sort-datastep.html#functions-example",
+    "title": "4  Formats, Sorting, and the DATA Step",
+    "section": "4.19 Functions: example",
+    "text": "4.19 Functions: example\n\n/* using functions */\ndata cars_new;\n    set sashelp.cars;\n    MPG = sum(MPG_City, MPG_Highway);\n    MPGavg = mean(MPG_City, MPG_Highway);\n    Make = upcase(Make);\n    Type = upcase(Type);\nrun;\n\nproc print data=cars_new (obs=10);\n    var Make Model Type MPG_City MPG_Highway MPG MPGavg;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nMake\nModel\nType\nMPG_City\nMPG_Highway\nMPG\nMPGavg\n\n\n\n\n1\nACURA\nMDX\nSUV\n17\n23\n40\n20.0\n\n\n2\nACURA\nRSX Type S 2dr\nSEDAN\n24\n31\n55\n27.5\n\n\n3\nACURA\nTSX 4dr\nSEDAN\n22\n29\n51\n25.5\n\n\n4\nACURA\nTL 4dr\nSEDAN\n20\n28\n48\n24.0\n\n\n5\nACURA\n3.5 RL 4dr\nSEDAN\n18\n24\n42\n21.0\n\n\n6\nACURA\n3.5 RL w/Navigation 4dr\nSEDAN\n18\n24\n42\n21.0\n\n\n7\nACURA\nNSX coupe 2dr manual S\nSPORTS\n17\n24\n41\n20.5\n\n\n8\nAUDI\nA4 1.8T 4dr\nSEDAN\n22\n31\n53\n26.5\n\n\n9\nAUDI\nA41.8T convertible 2dr\nSEDAN\n23\n30\n53\n26.5\n\n\n10\nAUDI\nA4 3.0 4dr\nSEDAN\n20\n28\n48\n24.0",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
     ]
   }
 ]

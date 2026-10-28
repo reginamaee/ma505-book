@@ -781,6 +781,21 @@ border-left: 12px solid #e53935; border-top: 7.5px solid transparent; border-bot
 
 .sas-output.multi .sas-tables { display: flex; flex-wrap: wrap; gap: .8em; align-items: flex-start; }
 .sas-output.multi .sas-tables table { margin: 0; }
+
+
+.ds-phases { display: flex; align-items: center; gap: .8em; margin: .8em 0; }
+.ds-box { flex: 1 1 0; border-radius: 18px; padding: .6em 1em; color: #fff; font-size: .85em; }
+.ds-box h4 { margin: 0 0 .3em 0; color: #fff; font-size: 1.3em; }
+.ds-box ul { margin: 0; padding-left: 1.2em; }
+.ds-box.comp { background: #5aa9d0; }
+.ds-box.exec { background: #e8826f; }
+.ds-arrow { flex: 0 0 60px; display: flex; align-items: center; }
+
+.anno-inline { display: inline-flex; align-items: center; vertical-align: middle; margin-left: .4em;
+white-space: normal; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 400; }
+.anno-inline .arrow-left { flex: 0 0 40px; margin: 0 8px 0 4px; }
+.anno-inline-text { font-size: .8em; line-height: 1.3; max-width: 24em; color: #111; }
+.anno-inline-text .mono { font-family: SFMono-Regular, Menlo, Consolas, monospace; font-size: .95em; color: #5b3db5; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -3215,7 +3230,7 @@ window.QuartoSupport = function () {
       }
       function clean(pre) {
         var c = pre.cloneNode(true);
-        c.querySelectorAll('.sas-code-tools, .code-copy-button').forEach(function (x) { x.remove(); });
+        c.querySelectorAll('.sas-code-tools, .code-copy-button, .anno-inline').forEach(function (x) { x.remove(); });
         // reveal.js line numbers live in separate elements; textContent of <code> skips them
         var code = c.querySelector('code') || c;
         return code.textContent.replace(/^\n+|\n+$/g, '');

@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function clean(pre) {
     var c = pre.cloneNode(true);
-    c.querySelectorAll('.sas-code-tools, .code-copy-button').forEach(function (x) { x.remove(); });
+    c.querySelectorAll('.sas-code-tools, .code-copy-button, .anno-inline').forEach(function (x) { x.remove(); });
     // reveal.js line numbers live in separate elements; textContent of <code> skips them
     var code = c.querySelector('code') || c;
     return code.textContent.replace(/^\n+|\n+$/g, '');

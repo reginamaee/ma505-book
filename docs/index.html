@@ -132,6 +132,12 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring Data with Procedures</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/04-format-sort-datastep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Formats, Sorting, and the DATA Step</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -183,6 +189,7 @@ ul.task-list li input[type="checkbox"] {
 <li><a href="slides/01-intro-to-sas.html">Day 1: Introduction to SAS</a></li>
 <li><a href="slides/02-tables-libraries.html">Day 2: SAS Tables and Libraries</a></li>
 <li><a href="slides/03-procedures.html">Day 3: Exploring Data with Procedures</a></li>
+<li><a href="slides/04-format-sort-datastep.html">Day 4: Formats, Sorting, and the DATA Step</a></li>
 </ul>
 
 
@@ -261,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   function clean(pre) {
     var c = pre.cloneNode(true);
-    c.querySelectorAll('.sas-code-tools, .code-copy-button').forEach(function (x) { x.remove(); });
+    c.querySelectorAll('.sas-code-tools, .code-copy-button, .anno-inline').forEach(function (x) { x.remove(); });
     // reveal.js line numbers live in separate elements; textContent of <code> skips them
     var code = c.querySelector('code') || c;
     return code.textContent.replace(/^\n+|\n+$/g, '');
