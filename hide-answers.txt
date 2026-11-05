@@ -1,0 +1,5 @@
+# Chapters whose exercise solutions are NOT published yet.
+# ./build.sh leaves their solutions out of the book and the slides on the site.
+# After you teach the day: delete (or put a # in front of) its line, run ./build.sh, and push.
+# To present with the answers, use a preview build: ./build.sh chapters/NN-name.ipynb
+#   (opens as preview/NN-name.html, which is never pushed).

@@ -4,6 +4,8 @@
 #                                     (Book -> docs/   Slides -> slides/ and docs/slides/)
 #   ./build.sh _drafts/02-name.ipynb  Preview one notebook's slides without publishing
 #                                     (saved to preview/, which git ignores)
+#   Answers: chapters listed in hide-answers.txt are published WITHOUT their exercise solutions.
+#            Preview builds always include the solutions (use those to present).
 #   ./build.sh --only chapters/04-name.ipynb
 #                                     Quick rebuild of ONE published chapter (its slides + book page).
 #                                     Use after editing that notebook only. After changing shared files
@@ -27,10 +29,32 @@ render_slides() {   # $1 = notebook, $2 = output folder
   echo "Slides: $out/$name.html"
 }
 
+# Hide solutions for chapters listed in hide-answers.txt (published builds only).
+# Each listed notebook is backed up, stripped for the build, and always restored afterwards.
+BACKUP=$(mktemp -d)
+restore_notebooks() {
+  for f in "$BACKUP"/*.ipynb; do
+    [ -e "$f" ] || continue
+    cp "$f" "chapters/$(basename "$f")"
+  done
+  rm -rf "$BACKUP"
+}
+trap restore_notebooks EXIT INT TERM
+hide_answers() {
+  [ -f hide-answers.txt ] || return 0
+  { grep -vE '^[[:space:]]*(#|$)' hide-answers.txt || true; } | while read -r nb; do
+    nb=$(echo "$nb" | sed -E 's/[[:space:]]+$//')
+    [ -f "$nb" ] || { echo "hide-answers.txt: not found: $nb"; continue; }
+    cp "$nb" "$BACKUP/"
+    python3 tools/hide_answers.py "$nb"
+  done
+}
+
 # Quick mode: rebuild only the given chapter(s), slides and book page
 if [ "${1:-}" = "--only" ]; then
   shift
   [ $# -gt 0 ] || { echo "Usage: ./build.sh --only chapters/NN-name.ipynb"; exit 1; }
+  hide_answers
   for nb in "$@"; do
     [ -f "$nb" ] || { echo "Not found: $nb"; exit 1; }
     grep -q "$nb" _quarto.yml || { echo "$nb is not listed in _quarto.yml; run ./build.sh instead"; exit 1; }
@@ -48,6 +72,8 @@ if [ $# -gt 0 ]; then
   for nb in "$@"; do render_slides "$nb" preview; done
   exit 0
 fi
+
+hide_answers
 
 # 1) Slides for the chapters listed (not commented out) in _quarto.yml
 rm -rf slides && mkdir slides

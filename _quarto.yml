@@ -14,6 +14,7 @@ book:
     - chapters/02-tables-libraries.ipynb
     - chapters/03-procedures.ipynb
     - chapters/04-format-sort-datastep.ipynb
+    - chapters/05-conditional-plotting.ipynb
     # To publish a draft: move it from _drafts/ into chapters/ and list it here
 
 # Notebooks are NOT re-run when the book is built.

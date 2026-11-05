@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Conditional Processing and Plotting – Introduction to SAS</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/04-format-sort-datastep.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-ea07c801963e0f738b5ea27386c64fa2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../annotations.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/05-conditional-plotting.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional Processing and Plotting</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">Introduction to SAS</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Welcome</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/01-intro-to-sas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction to SAS</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/02-tables-libraries.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">SAS Tables and Libraries</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/03-procedures.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Exploring Data with Procedures</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/04-format-sort-datastep.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Formats, Sorting, and the DATA Step</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/05-conditional-plotting.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional Processing and Plotting</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#agenda" id="toc-agenda" class="nav-link active" data-scroll-target="#agenda"><span class="header-section-number">5.1</span> Agenda</a></li>
+  <li><a href="#recall" id="toc-recall" class="nav-link" data-scroll-target="#recall"><span class="header-section-number">5.2</span> Recall</a></li>
+  <li><a href="#conditional-processing" id="toc-conditional-processing" class="nav-link" data-scroll-target="#conditional-processing"><span class="header-section-number">5.3</span> Conditional processing</a></li>
+  <li><a href="#ifthen-example" id="toc-ifthen-example" class="nav-link" data-scroll-target="#ifthen-example"><span class="header-section-number">5.4</span> <code>IF</code>/<code>THEN</code>: example</a></li>
+  <li><a href="#ifthen-setting-the-length" id="toc-ifthen-setting-the-length" class="nav-link" data-scroll-target="#ifthen-setting-the-length"><span class="header-section-number">5.5</span> <code>IF</code>/<code>THEN</code>: setting the length</a></li>
+  <li><a href="#more-than-one-statement-do-and-end" id="toc-more-than-one-statement-do-and-end" class="nav-link" data-scroll-target="#more-than-one-statement-do-and-end"><span class="header-section-number">5.6</span> More than one statement: <code>DO</code> and <code>END</code></a></li>
+  <li><a href="#do-and-end-example" id="toc-do-and-end-example" class="nav-link" data-scroll-target="#do-and-end-example"><span class="header-section-number">5.7</span> <code>DO</code> and <code>END</code>: example</a></li>
+  <li><a href="#exercise" id="toc-exercise" class="nav-link" data-scroll-target="#exercise"><span class="header-section-number">5.8</span> Exercise</a></li>
+  <li><a href="#plotting-data-with-proc-steps" id="toc-plotting-data-with-proc-steps" class="nav-link" data-scroll-target="#plotting-data-with-proc-steps"><span class="header-section-number">5.9</span> Plotting data with PROC steps</a></li>
+  <li><a href="#proc-freq-with-a-plot" id="toc-proc-freq-with-a-plot" class="nav-link" data-scroll-target="#proc-freq-with-a-plot"><span class="header-section-number">5.10</span> <code>PROC FREQ</code> with a plot</a></li>
+  <li><a href="#two-way-frequency-table" id="toc-two-way-frequency-table" class="nav-link" data-scroll-target="#two-way-frequency-table"><span class="header-section-number">5.11</span> Two-way frequency table</a></li>
+  <li><a href="#stacked-bar-chart" id="toc-stacked-bar-chart" class="nav-link" data-scroll-target="#stacked-bar-chart"><span class="header-section-number">5.12</span> Stacked bar chart</a></li>
+  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1"><span class="header-section-number">5.13</span> Exercise</a></li>
+  <li><a href="#proc-sgplot" id="toc-proc-sgplot" class="nav-link" data-scroll-target="#proc-sgplot"><span class="header-section-number">5.14</span> <code>PROC SGPLOT</code></a></li>
+  <li><a href="#proc-sgplot-syntax" id="toc-proc-sgplot-syntax" class="nav-link" data-scroll-target="#proc-sgplot-syntax"><span class="header-section-number">5.15</span> <code>PROC SGPLOT</code> syntax</a></li>
+  <li><a href="#plot-statements" id="toc-plot-statements" class="nav-link" data-scroll-target="#plot-statements"><span class="header-section-number">5.16</span> Plot statements</a></li>
+  <li><a href="#proc-sgplot-a-simple-bar-chart" id="toc-proc-sgplot-a-simple-bar-chart" class="nav-link" data-scroll-target="#proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.17</span> <code>PROC SGPLOT</code>: a simple bar chart</a></li>
+  <li><a href="#adding-a-response-variable" id="toc-adding-a-response-variable" class="nav-link" data-scroll-target="#adding-a-response-variable"><span class="header-section-number">5.18</span> Adding a response variable</a></li>
+  <li><a href="#choosing-the-statistic" id="toc-choosing-the-statistic" class="nav-link" data-scroll-target="#choosing-the-statistic"><span class="header-section-number">5.19</span> Choosing the statistic</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">5.20</span> Exercise</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Conditional Processing and Plotting</span></h1>
+<p class="subtitle lead">MA505 · Day 5</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="agenda" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="agenda"><span class="header-section-number">5.1</span> Agenda</h2>
+<ol type="1">
+<li>Recall: <code>FORMAT</code>, <code>PROC SORT</code>, and the DATA step</li>
+<li>Conditional processing with <code>IF</code>/<code>THEN</code>/<code>ELSE</code></li>
+<li>Running more than one statement with <code>DO</code> and <code>END</code></li>
+<li>Plotting frequencies with <code>PROC FREQ</code></li>
+<li>Plotting with <code>PROC SGPLOT</code></li>
+</ol>
+</section>
+<section id="recall" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="recall"><span class="header-section-number">5.2</span> Recall</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong><code>FORMAT</code></strong></td>
+<td>tells SAS how to display numeric, character, date, or datetime values when we print or output our data</td>
+</tr>
+<tr class="even">
+<td><strong><code>PROC SORT</code></strong></td>
+<td>sorts our data, and is a way to remove duplicates from our data</td>
+</tr>
+<tr class="odd">
+<td><strong>DATA step</strong></td>
+<td>creates new SAS tables, filters rows, computes new columns, and uses SAS functions</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="conditional-processing" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="conditional-processing"><span class="header-section-number">5.3</span> Conditional processing</h2>
+<div class="syntax-box"><b>DATA</b> <i>output-table</i>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>SET</b> <i>input-table</i>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<u><b>IF</b> <i>expression</i> <b>THEN</b> <i>statement</i>;</u><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="fragment">&lt;<b>ELSE IF</b> <i>expression</i> <b>THEN</b> <i>statement</i>;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<b>ELSE</b> <i>statement</i>;&gt;</span><br>
+<b>RUN;</b></div>
+<ul>
+<li><code>IF</code> checks each row. If the expression is true, SAS runs the statement after <code>THEN</code>.</li>
+<li><code>ELSE IF</code> and <code>ELSE</code> are optional. SAS stops at the first one that is true.</li>
+</ul>
+</section>
+<section id="ifthen-example" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="ifthen-example"><span class="header-section-number">5.4</span> <code>IF</code>/<code>THEN</code>: example</h2>
+<p>Let’s label each car as <code>Okay</code> or <code>Too High</code> based on its price.</p>
+<div id="d5-05" class="cell">
+<pre class="sas cell-code"><code>/* if-then in a data step */
+data cars_new;
+    set sashelp.cars;
+    if MSRP &lt; 30000 then Cost = "Okay";
+    if MSRP &gt;= 30000 then Cost = "Too High";
+    keep Make Model Type MSRP Cost;
+run;
+
+proc print data=cars_new (obs=10);
+run;</code></pre>
+</div>
+<div class="note" style="display:inline-block">
+<p>Look at <code>Cost</code>. It says <strong>Too</strong> instead of <strong>Too High</strong>. SAS sets the length of a new column from the <strong>first</strong> value it sees. Here that is <code>"Okay"</code>, so <code>Cost</code> only has room for 4 characters.</p>
+</div>
+</section>
+<section id="ifthen-setting-the-length" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="ifthen-setting-the-length"><span class="header-section-number">5.5</span> <code>IF</code>/<code>THEN</code>: setting the length</h2>
+<p>We fix this with a <code>LENGTH</code> statement <strong>before</strong> the column is used. <code>$</code> means character, and <code>10</code> is the number of characters.</p>
+<div id="d5-08" class="cell">
+<pre class="sas cell-code"><code>/* if-then in a data step */
+data cars_new;
+    set sashelp.cars;
+    length Cost $ 10;
+    if MSRP &lt; 30000 then Cost = "Okay";
+    else Cost = "Too High";
+    keep Make Model Type MSRP Cost;
+run;
+
+proc print data=cars_new (obs=10);
+run;</code></pre>
+</div>
+<p>We also changed the second <code>IF</code> to <code>ELSE</code>. Every car that is not under 30,000 must be 30,000 or more, so we don’t need to check again.</p>
+</section>
+<section id="more-than-one-statement-do-and-end" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="more-than-one-statement-do-and-end"><span class="header-section-number">5.6</span> More than one statement: <code>DO</code> and <code>END</code></h2>
+<div class="syntax-box"><b>DATA</b> <i>output-table</i>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>SET</b> <i>input-table</i>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>IF</b> <i>expression</i> <b>THEN DO</b>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<i>multiple statements</i>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>END</b>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<b>ELSE IF</b> <i>expression</i> <b>THEN DO</b>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<i>multiple statements</i>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>END</b>;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;<b>ELSE DO</b>;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;<i>multiple statements</i>&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>END</b>;&gt;<br>
+<b>RUN;</b></div>
+<p><code>THEN</code> only runs <strong>one</strong> statement. To run more than one, wrap them in <code>DO;</code> … <code>END;</code>.</p>
+</section>
+<section id="do-and-end-example" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="do-and-end-example"><span class="header-section-number">5.7</span> <code>DO</code> and <code>END</code>: example</h2>
+<p>We can also write rows to <strong>different tables</strong>. List all the tables on the <code>DATA</code> statement, then use <code>OUTPUT</code> to say where each row goes.</p>
+<div id="d5-12" class="cell">
+<pre class="sas cell-code"><code>/* if-then extension */
+data under40 over40;
+    set sashelp.cars;
+    keep Make Model MSRP Cost;
+    if MSRP &lt; 20000 then do;
+        Cost = 1;
+        output under40;
+    end;
+    else if MSRP &lt; 40000 then do;
+        Cost = 2;
+        output under40;
+    end;
+    else do;
+        Cost = 3;
+        output over40;
+    end;
+run;</code></pre>
+</div>
+<p>Check the log to see how many rows went to each table. You can also open <strong>WORK.UNDER40</strong> and <strong>WORK.OVER40</strong> in the Libraries pane.</p>
+<div class="note" style="display:inline-block">
+<p>Once we use <code>OUTPUT</code>, SAS only writes a row when it reaches an <code>OUTPUT</code> statement.</p>
+</div>
+</section>
+<section id="exercise" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="exercise"><span class="header-section-number">5.8</span> Exercise</h2>
+<p>Use the Overwatch stats table <code>ma505.ow_stats</code> (not the heroes table).</p>
+<ol type="1">
+<li><p>Create a new column <code>HighestVal</code> with the highest value of <code>Damage</code>, <code>Heals</code>, and <code>Mitigation</code>. Create another column <code>Category</code> that says which one it was.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Damage</th>
+<th>Heals</th>
+<th>Mitigation</th>
+<th>HighestVal</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10432</td>
+<td>2345</td>
+<td>985</td>
+<td>10432</td>
+<td>DAMAGE</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Change the code so that rows where <code>Category</code> is DAMAGE go to a new table called <code>damage</code>, HEALS to a table called <code>heals</code>, and MITIGATION to a table called <code>mitigation</code>.</p>
+<ol type="a">
+<li>How many observations are in each new table?</li>
+</ol></li>
+</ol>
+<p>Save the full table with <code>Category</code> as <code>ma505.ow_cat</code>. We will use it in the next exercise.</p>
+<div class="solution-start">
+
+</div>
+<div id="d5-16" class="cell">
+<pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
+
+data ma505.ow_cat damage heals mitigation;
+    set ma505.ow_stats;
+    length Category $ 10;
+    HighestVal = max(Damage, Heals, Mitigation);
+    if HighestVal = Damage then do;
+        Category = "DAMAGE";
+        output damage;
+    end;
+    else if HighestVal = Heals then do;
+        Category = "HEALS";
+        output heals;
+    end;
+    else do;
+        Category = "MITIGATION";
+        output mitigation;
+    end;
+    output ma505.ow_cat;    /* every row also goes to the full table */
+run;
+
+/* how many rows in each category? */
+proc freq data=ma505.ow_cat;
+    tables Category;
+run;</code></pre>
+</div>
+</section>
+<section id="plotting-data-with-proc-steps" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="plotting-data-with-proc-steps"><span class="header-section-number">5.9</span> Plotting data with PROC steps</h2>
+<p>So far our procedures have given us <strong>tables</strong>. Many of them can also make <strong>plots</strong>.</p>
+<p>We will start with <code>PROC FREQ</code>, then move to <code>PROC SGPLOT</code>.</p>
+</section>
+<section id="proc-freq-with-a-plot" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="proc-freq-with-a-plot"><span class="header-section-number">5.10</span> <code>PROC FREQ</code> with a plot</h2>
+<div class="syntax-box"><b>PROC FREQ DATA</b>=<i>input-table</i> &lt;<i>proc-options</i>&gt;;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<b>TABLES</b> <i>col-name(s)</i> &lt;/ <i>options</i>&gt;;<br>
+<b>RUN;</b></div>
+<p>Recall: what does this code do? Let’s extend it by adding a plot of the frequencies.</p>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="libref-circle"><span class="kw">ods graphics on</span></span>;<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">ODS Graphics needs to be on to make plots. It stays on until the end of the session.</span></span>
+
+<span class="kw">proc freq</span> data=sashelp.cars;
+    <span class="kw">tables</span> Origin /
+        plots=freqplot(<span class="libref-circle">orient=horizontal</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates a horizontal bar plot</span></span>
+                       <span class="libref-circle">scale=percent</span>);<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">shows percents instead of counts</span></span>
+<span class="kw">run</span>;</pre></div></div>
+<div id="d5-19" class="cell">
+<pre class="sas cell-code"><code>/* creating a frequency plot */
+ods graphics on;
+
+proc freq data=sashelp.cars;
+    tables Origin /
+        plots=freqplot(orient=horizontal scale=percent);
+run;</code></pre>
+</div>
+</section>
+<section id="two-way-frequency-table" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="two-way-frequency-table"><span class="header-section-number">5.11</span> Two-way frequency table</h2>
+<p>Use <code>*</code> between two columns to count every <strong>combination</strong> of their values.</p>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc freq</span> data=sashelp.cars;
+    <span class="kw">tables</span> <span class="libref-circle">Origin*Type</span> /<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates a two-way frequency table</span></span>
+        plots=freqplot(<span class="libref-circle">orient=vertical</span>);<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">vertical bar chart. We did not set <span class="mono">scale=</span>, so the plot shows counts.</span></span>
+<span class="kw">run</span>;</pre></div></div>
+<p>We don’t need <code>ods graphics on</code> again, since it is still on from the last code.</p>
+<div id="d5-21" class="cell">
+<pre class="sas cell-code"><code>/* creating a vertical bar freq plot */
+proc freq data=sashelp.cars;
+    tables Origin*Type /
+        plots=freqplot(orient=vertical);
+run;</code></pre>
+</div>
+</section>
+<section id="stacked-bar-chart" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="stacked-bar-chart"><span class="header-section-number">5.12</span> Stacked bar chart</h2>
+<p><code>twoway=stacked</code> puts the bars for each <code>Origin</code> on top of each other.</p>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="libref-circle"><span class="kw">title1</span> 'Origin of Cars by Type';</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text"><span class="mono">TITLE</span> and <span class="mono">FOOTNOTE</span> add text to the whole report, not just the table or plot.</span></span>
+<span class="kw">title2</span> 'Sedan, SUV, Truck';
+<span class="kw">footnote</span> 'Other types not included: Hybrid, Sports, Wagon';
+<span class="kw">proc freq</span> data=sashelp.cars;
+    <span class="kw">tables</span> Origin*Type /
+        plots=freqplot(<span class="libref-circle">twoway=stacked</span> orient=horizontal);
+    <span class="kw">where</span> Type in ("Sedan", "SUV", "Truck");
+<span class="kw">run</span>;
+<span class="libref-circle"><span class="kw">title</span>; <span class="kw">footnote</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">Titles stay on until we clear them. This clears them.</span></span></pre></div></div>
+<div id="d5-23" class="cell">
+<pre class="sas cell-code"><code>/* creating a stacked bar */
+title1 'Origin of Cars by Type';
+title2 'Sedan, SUV, Truck';
+footnote 'Other types not included: Hybrid, Sports, Wagon';
+
+proc freq data=sashelp.cars;
+    tables Origin*Type /
+        plots=freqplot(twoway=stacked orient=horizontal);
+    where Type in ("Sedan", "SUV", "Truck");
+run;
+
+title;
+footnote;</code></pre>
+</div>
+</section>
+<section id="exercise-1" class="level2" data-number="5.13">
+<h2 data-number="5.13" class="anchored" data-anchor-id="exercise-1"><span class="header-section-number">5.13</span> Exercise</h2>
+<ol type="1">
+<li>Using <code>ma505.ow_cat</code> from the last exercise, create a <strong>clustered</strong> vertical bar chart of each player’s <code>Category</code>.
+<ol type="a">
+<li>Set it up like the stacked bar chart, but change <code>stacked</code> to <code>cluster</code>.</li>
+</ol></li>
+<li>What do the 4 values in each cell of the frequency table mean?</li>
+</ol>
+<div class="solution-start">
+
+</div>
+<div id="d5-25" class="cell">
+<pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
+
+proc freq data=ma505.ow_cat;
+    tables Player*Category /
+        plots=freqplot(orient=vertical twoway=cluster);
+run;</code></pre>
+</div>
+<p>Each cell of a two-way table has 4 values, in this order:</p>
+<ul>
+<li><strong>Frequency</strong>: the number of games for that player and category.</li>
+<li><strong>Percent</strong>: that count out of <strong>all</strong> games.</li>
+<li><strong>Row Pct</strong>: out of that <strong>player’s</strong> games (each row adds to 100).</li>
+<li><strong>Col Pct</strong>: out of that <strong>category’s</strong> games (each column adds to 100).</li>
+</ul>
+</section>
+<section id="proc-sgplot" class="level2" data-number="5.14">
+<h2 data-number="5.14" class="anchored" data-anchor-id="proc-sgplot"><span class="header-section-number">5.14</span> <code>PROC SGPLOT</code></h2>
+<p><code>PROC SGPLOT</code> makes many kinds of statistical graphics: scatter plots, bar charts, line plots, histograms, box plots, and more. It is part of SAS ODS Graphics.</p>
+<p>Compared to the plots in <code>PROC FREQ</code>, it gives us:</p>
+<ul>
+<li><strong>more flexibility</strong> over how the plot looks</li>
+<li><strong>layering</strong>: more than one plot on the same axes</li>
+</ul>
+</section>
+<section id="proc-sgplot-syntax" class="level2" data-number="5.15">
+<h2 data-number="5.15" class="anchored" data-anchor-id="proc-sgplot-syntax"><span class="header-section-number">5.15</span> <code>PROC SGPLOT</code> syntax</h2>
+<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc sgplot</span> data=<i>input-table</i> &lt;<i>options</i>&gt;;
+    <span class="libref-circle"><i>plot statement(s)</i> / &lt;<i>options</i>&gt;;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">what plot to add (one plot or layered plots), and options for that plot</span></span>
+    <span class="libref-circle">&lt;<i>appearance statements</i>&gt;;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">legend, appearance, axes, symbols</span></span>
+    <span class="libref-circle">&lt;<i>additional filtering/formatting/etc.</i>&gt;;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">any extra data processing, like <span class="mono">WHERE</span> or <span class="mono">FORMAT</span></span></span>
+<span class="kw">run</span>;</pre></div></div>
+</section>
+<section id="plot-statements" class="level2" data-number="5.16">
+<h2 data-number="5.16" class="anchored" data-anchor-id="plot-statements"><span class="header-section-number">5.16</span> Plot statements</h2>
+<div class="attr-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr));">
+  <div class="attr-col"><h4 style="color:#1565c0" class="anchored">Basic</h4><div class="attr-card a">BAND, BUBBLE, BLOCK, DROPLINE, ELLIPSEPARM, FRINGE, <mark>HBARPARM</mark>, HEATMAP, HEATMAPPARM, HIGHLOW, LINEPARM, NEEDLE, POLYGON, REFLINE, SCATTER, SERIES, SPLINE, STEP, TEXT, VBARPARM, VECTOR</div></div>
+  <div class="attr-col"><h4 style="color:#c62828" class="anchored">Distribution</h4><div class="attr-card b">DENSITY, HBOX, HISTOGRAM, VBOX</div></div>
+  <div class="attr-col"><h4 style="color:#e65100" class="anchored">Fit and Confidence</h4><div class="attr-card b">ELLIPSE, LOESS, PBSPLINE, REG</div></div>
+  <div class="attr-col"><h4 style="color:#2e7d32" class="anchored">Categorization</h4><div class="attr-card a">DOT, <mark>HBAR</mark>, HBARBASIC, HLINE, VBAR, VBARBASIC, VLINE, WATERFALL</div></div>
+</div>
+<div class="fragment">
+<p>Only certain groups can be <strong>layered</strong> together: Basic with Fit and Confidence, Distribution with Distribution, and Categorization with Categorization.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><code>HBARPARM</code> assumes the data is <strong>already summarized</strong> (one row per bar).</li>
+<li><code>HBAR</code> assumes the data is <strong>not summarized</strong> (many rows per bar). SAS does the counting or adding for us.</li>
+</ul>
+</div>
+</section>
+<section id="proc-sgplot-a-simple-bar-chart" class="level2" data-number="5.17">
+<h2 data-number="5.17" class="anchored" data-anchor-id="proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.17</span> <code>PROC SGPLOT</code>: a simple bar chart</h2>
+<p>With only a category column, <code>HBAR</code> counts the rows for each value.</p>
+<div id="d5-31" class="cell">
+<pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
+
+proc sgplot data=ma505.ow_stats;
+    hbar Map;
+run;</code></pre>
+</div>
+</section>
+<section id="adding-a-response-variable" class="level2" data-number="5.18">
+<h2 data-number="5.18" class="anchored" data-anchor-id="adding-a-response-variable"><span class="header-section-number">5.18</span> Adding a response variable</h2>
+<p><code>response=</code> tells SAS what to measure for each bar. By default it <strong>adds up</strong> (sums) the response.</p>
+<div id="d5-33" class="cell">
+<pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
+    hbar Map / response=Damage;
+run;</code></pre>
+</div>
+</section>
+<section id="choosing-the-statistic" class="level2" data-number="5.19">
+<h2 data-number="5.19" class="anchored" data-anchor-id="choosing-the-statistic"><span class="header-section-number">5.19</span> Choosing the statistic</h2>
+<p><code>stat=</code> changes how the response is summarized, like <code>stat=mean</code> for the average.</p>
+<div id="d5-35" class="cell">
+<pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
+    hbar Map / response=Damage stat=mean;
+run;</code></pre>
+</div>
+</section>
+<section id="exercise-2" class="level2" data-number="5.20">
+<h2 data-number="5.20" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">5.20</span> Exercise</h2>
+<ol type="1">
+<li>Using <code>ma505.ow_stats</code>, make a bar chart of the <strong>sum of <code>Damage</code> by <code>Date</code></strong> two ways: with <code>VBAR</code> and with <code>VBARPARM</code>. Compare the outputs.
+<ol type="a">
+<li>Are the results what you expected? Why or why not?</li>
+</ol></li>
+</ol>
+<div class="solution-start">
+
+</div>
+<div id="d5-37" class="cell">
+<pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
+
+/* VBAR: SAS adds up Damage for each date */
+proc sgplot data=ma505.ow_stats;
+    vbar Date / response=Damage stat=sum;
+run;
+
+/* VBARPARM: expects one row per date, so it does not add anything up */
+proc sgplot data=ma505.ow_stats;
+    vbarparm category=Date response=Damage;
+run;</code></pre>
+</div>
+<p><code>VBAR</code> gives the sum of <code>Damage</code> for each date. <code>VBARPARM</code> does not. It is a <strong>Basic</strong> plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use <code>VBARPARM</code> here, we would need to summarize the data first.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+// Adds two small icons to the top-right of every SAS code panel:
+//   [download .sas]  [copy to clipboard]
+// Works for the annotated blocks (boxes/arrows) and for plain code cells.
+document.addEventListener('DOMContentLoaded', function () {
+  // Book only: everything after a <div class="solution-start"></div> marker
+  // (in the same section) goes behind a "Show solution" toggle
+  if (!document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('.solution-start').forEach(function (m) {
+      var d = document.createElement('details'); d.className = 'solution-toggle';
+      var sm = document.createElement('summary'); sm.textContent = 'Show solution'; d.appendChild(sm);
+      var n = m.nextElementSibling;
+      while (n) { var next = n.nextElementSibling; d.appendChild(n); n = next; }
+      m.parentNode.replaceChild(d, m);
+    });
+  } else {
+    document.querySelectorAll('.solution-start').forEach(function (m) { m.remove(); });  // slides: no empty click
+  }
+
+  var ICON_COPY = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>';
+  var ICON_DOWNLOAD = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>';
+  var ICON_DONE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/></svg>';
+  var GREY = '#57606a', DARK = '#24292f', GREEN = '#1a7f37';
+
+  function makeButton(icon, label, onClick) {
+    var b = document.createElement('button');
+    b.type = 'button'; b.title = label; b.setAttribute('aria-label', label); b.innerHTML = icon;
+    // inline styles so the look never depends on a cached stylesheet
+    b.style.cssText = 'width:30px;height:30px;padding:0;margin:0;display:flex;align-items:center;justify-content:center;' +
+      'border:1px solid #d0d7de;border-radius:6px;background:#ffffff;color:' + GREY + ';cursor:pointer;opacity:.85;line-height:0;box-shadow:none;';
+    b.addEventListener('mouseenter', function () { b.style.opacity = '1'; b.style.color = DARK; });
+    b.addEventListener('mouseleave', function () { b.style.opacity = '.85'; b.style.color = GREY; });
+    b.addEventListener('click', function () { onClick(b, icon, label); });
+    return b;
+  }
+  function flash(b, icon, label) {
+    b.innerHTML = ICON_DONE; b.style.color = GREEN;
+    setTimeout(function () { b.innerHTML = icon; b.style.color = GREY; b.title = label; }, 1500);
+  }
+  function fileName(host) {
+    var page = (location.pathname.split('/').pop() || 'code').replace(/\.html?$/, '');
+    var sec = host.closest('section[id]');
+    return page + (sec ? '_' + sec.id : '') + '.sas';
+  }
+  function addTools(host, getText) {
+    var bar = document.createElement('div');
+    bar.className = 'sas-code-tools';
+    bar.style.cssText = 'position:absolute;top:6px;right:6px;z-index:2;display:flex;gap:6px;';
+    bar.appendChild(makeButton(ICON_DOWNLOAD, 'Download .sas file', function (b, icon, label) {
+      var blob = new Blob([getText() + '\n'], { type: 'text/plain' });
+      var a = document.createElement('a');
+      a.href = URL.createObjectURL(blob); a.download = fileName(host);
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
+      flash(b, icon, label);
+    }));
+    bar.appendChild(makeButton(ICON_COPY, 'Copy code', function (b, icon, label) {
+      var text = getText();
+      var done = function () { flash(b, icon, label); };
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(done);
+      } else {
+        var ta = document.createElement('textarea'); ta.value = text; document.body.appendChild(ta);
+        ta.select(); document.execCommand('copy'); ta.remove(); done();
+      }
+    }));
+    host.style.position = 'relative';
+    host.appendChild(bar);
+  }
+  function clean(pre) {
+    var c = pre.cloneNode(true);
+    c.querySelectorAll('.sas-code-tools, .code-copy-button, .anno-inline').forEach(function (x) { x.remove(); });
+    // reveal.js line numbers live in separate elements; textContent of <code> skips them
+    var code = c.querySelector('code') || c;
+    return code.textContent.replace(/^\n+|\n+$/g, '');
+  }
+  // annotated blocks: one pair of icons for the whole code panel
+  document.querySelectorAll('.anno').forEach(function (block) {
+    var pres = block.querySelectorAll('pre.anno-code');
+    if (!pres.length) return;
+    addTools(pres[0], function () { return Array.prototype.map.call(pres, clean).join('\n\n'); });
+  });
+  // plain code cells (replace Quarto's own copy button, if any, so every panel looks the same)
+  var seen = [];
+  document.querySelectorAll('.cell-code').forEach(function (el) {
+    var pre = el.tagName === 'PRE' ? el : el.querySelector('pre');
+    if (!pre) return;
+    var host = pre.closest('div.sourceCode') || pre;
+    if (seen.indexOf(host) !== -1) return; seen.push(host);
+    // newer Quarto puts its own copy button next to the code (in a wrapper), not inside it
+    var wrap = pre.closest('.code-copy-outer-scaffold') || host;
+    wrap.querySelectorAll('.code-copy-button').forEach(function (x) { x.style.display = 'none'; });
+    addTools(host, function () { return clean(pre); });
+  });
+
+  // Scratchpads: Tab inserts spaces; keys typed here never move the slides
+  document.querySelectorAll('.scratchpad').forEach(function (pad) {
+    var ta = pad.querySelector('textarea');
+    ta.addEventListener('keydown', function (e) {
+      e.stopPropagation();
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        var s = ta.selectionStart, t = ta.selectionEnd;
+        ta.value = ta.value.slice(0, s) + '    ' + ta.value.slice(t);
+        ta.selectionStart = ta.selectionEnd = s + 4;
+      }
+    });
+    var clear = pad.querySelector('button.clear');
+    if (clear) clear.addEventListener('click', function () { ta.value = ''; ta.focus(); });
+  });
+
+  // Slides only: on slides that have SAS code, reveal each piece on click,
+  // in order: text -> code -> output
+  if (document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
+      if (!sec.querySelector('.cell')) return;
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
+        if (el.classList.contains('cell')) {
+          var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
+          if (code) code.classList.add('fragment');
+          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+        } else {
+          el.classList.add('fragment');
+        }
+      });
+    });
+    if (window.Reveal && Reveal.isReady && Reveal.isReady()) Reveal.sync();
+  }
+
+  // Book only: sections marked {.solution} are hidden behind a "Show solution" toggle
+  if (!document.querySelector('.reveal .slides')) {
+    document.querySelectorAll('section.solution').forEach(function (sec) {
+      var h = sec.querySelector(':scope > h1, :scope > h2, :scope > h3');
+      var d = document.createElement('details'); d.className = 'solution-toggle';
+      var sm = document.createElement('summary');
+      sm.textContent = (h && /answer/i.test(h.textContent)) ? 'Show answers' : 'Show solution';
+      d.appendChild(sm);
+      Array.prototype.slice.call(sec.children).forEach(function (x) { if (x !== h) d.appendChild(x); });
+      sec.appendChild(d);
+    });
+  }
+});
+</script>
+
+<!-- SAS syntax highlighting for code cells (Quarto has no SAS highlighter) -->
+<style>
+code .sas-kw  { color: #0b3d91; font-weight: 700; }
+code .sas-cmt { color: #1a7f37; font-style: italic; }
+code .sas-str { color: #a31515; }
+code .sas-num { color: #098658; }
+code .sas-mac { color: #8250df; font-weight: 600; }
+</style>
+<script>
+(function () {
+  var KW = ('data set run proc quit by descending var tables where if then else do end to label title footnote ' +
+    'libname filename input datalines cards format informat length keep drop output retain merge class ' +
+    'ods select exclude trace on off and or not in is missing between like out dbms replace datafile obs ' +
+    'noprint nway varnum mean n sum min max std median').split(' ');
+  var KWSET = {}; KW.forEach(function (k) { KWSET[k] = 1; });
+  var TOKEN = /(\/\*)|("(?:[^"]|"")*"|'(?:[^']|'')*')(dt|d|t)?|(&\w+\.?)|(%\w+)|(\b\d+(?:\.\d+)?\b)|(\b[A-Za-z_]\w*\b)/g;
+
+  function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+  function wrap(cls, s) { return '<span class="' + cls + '">' + esc(s) + '</span>'; }
+
+  // Highlight one line of text. st = { inComment, afterProc, stmtStart } carries across lines.
+  function line(text, st) {
+    var out = '', i = 0;
+    if (!st.inComment && st.stmtStart && /^\s*\*/.test(text)) {          // * comment ;
+      var semi = text.indexOf(';');
+      var end = semi < 0 ? text.length : semi + 1;
+      out += wrap('sas-cmt', text.slice(0, end)); i = end; st.stmtStart = semi >= 0;
+    }
+    while (i < text.length) {
+      if (st.inComment) {
+        var c = text.indexOf('*/', i);
+        var e = c < 0 ? text.length : c + 2;
+        out += wrap('sas-cmt', text.slice(i, e)); i = e;
+        if (c >= 0) st.inComment = false;
+        continue;
+      }
+      TOKEN.lastIndex = i;
+      var m = TOKEN.exec(text);
+      if (!m) { out += esc(text.slice(i)); break; }
+      var before = text.slice(i, m.index);
+      out += esc(before);
+      if (/;/.test(before)) st.stmtStart = true;
+      i = m.index + m[0].length;
+      if (m[1]) { st.inComment = true; i = m.index; continue; }
+      if (m[2]) { out += wrap('sas-str', m[0]); st.stmtStart = false; continue; }
+      if (m[4] || m[5]) { out += wrap('sas-mac', m[0]); st.stmtStart = false; continue; }
+      if (m[6]) { out += wrap('sas-num', m[0]); st.stmtStart = false; continue; }
+      var w = m[7], lw = w.toLowerCase();
+      if (st.afterProc) { out += wrap('sas-kw', w); st.afterProc = false; }
+      else if (KWSET[lw]) { out += wrap('sas-kw', w); if (lw === 'proc') st.afterProc = true; }
+      else out += esc(w);
+      st.stmtStart = false;
+    }
+    if (/;\s*$/.test(text)) st.stmtStart = true;
+    return out;
+  }
+
+  function replaceText(node, html) {
+    var t = document.createElement('template'); t.innerHTML = html;
+    node.parentNode.replaceChild(t.content, node);
+  }
+
+  function highlight(code) {
+    if (code.dataset.sasHl) return; code.dataset.sasHl = '1';
+    var st = { inComment: false, afterProc: false, stmtStart: true };
+    var lines = code.querySelectorAll(':scope > span[id]');
+    if (lines.length) {                       // slides / numbered: one <span id="cbN-k"> per line
+      lines.forEach(function (ln) {
+        Array.prototype.slice.call(ln.childNodes).forEach(function (n) {
+          if (n.nodeType === 3) replaceText(n, line(n.nodeValue, st));
+        });
+      });
+    } else {                                  // book: plain text inside <code>
+      Array.prototype.slice.call(code.childNodes).forEach(function (n) {
+        if (n.nodeType === 3) replaceText(n, n.nodeValue.split('\n').map(function (l) { return line(l, st); }).join('\n'));
+      });
+    }
+  }
+
+  function run() {
+    document.querySelectorAll('pre.sas code, .cell-code pre code, pre.cell-code code').forEach(highlight);
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../chapters/04-format-sort-datastep.html" class="pagination-link" aria-label="Formats, Sorting, and the DATA Step">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Formats, Sorting, and the DATA Step</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

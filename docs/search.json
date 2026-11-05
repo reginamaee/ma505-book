@@ -14,7 +14,7 @@
     "href": "index.html#slides",
     "title": "Introduction to SAS",
     "section": "Slides",
-    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures\nDay 4: Formats, Sorting, and the DATA Step",
+    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures\nDay 4: Formats, Sorting, and the DATA Step\nDay 5: Conditional Processing and Plotting",
     "crumbs": [
       "Welcome"
     ]
@@ -757,6 +757,216 @@
     "text": "4.19 Functions: example\n\n/* using functions */\ndata cars_new;\n    set sashelp.cars;\n    MPG = sum(MPG_City, MPG_Highway);\n    MPGavg = mean(MPG_City, MPG_Highway);\n    Make = upcase(Make);\n    Type = upcase(Type);\nrun;\n\nproc print data=cars_new (obs=10);\n    var Make Model Type MPG_City MPG_Highway MPG MPGavg;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nMake\nModel\nType\nMPG_City\nMPG_Highway\nMPG\nMPGavg\n\n\n\n\n1\nACURA\nMDX\nSUV\n17\n23\n40\n20.0\n\n\n2\nACURA\nRSX Type S 2dr\nSEDAN\n24\n31\n55\n27.5\n\n\n3\nACURA\nTSX 4dr\nSEDAN\n22\n29\n51\n25.5\n\n\n4\nACURA\nTL 4dr\nSEDAN\n20\n28\n48\n24.0\n\n\n5\nACURA\n3.5 RL 4dr\nSEDAN\n18\n24\n42\n21.0\n\n\n6\nACURA\n3.5 RL w/Navigation 4dr\nSEDAN\n18\n24\n42\n21.0\n\n\n7\nACURA\nNSX coupe 2dr manual S\nSPORTS\n17\n24\n41\n20.5\n\n\n8\nAUDI\nA4 1.8T 4dr\nSEDAN\n22\n31\n53\n26.5\n\n\n9\nAUDI\nA41.8T convertible 2dr\nSEDAN\n23\n30\n53\n26.5\n\n\n10\nAUDI\nA4 3.0 4dr\nSEDAN\n20\n28\n48\n24.0",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html",
+    "href": "chapters/05-conditional-plotting.html",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "",
+    "text": "5.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#agenda",
+    "href": "chapters/05-conditional-plotting.html#agenda",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "",
+    "text": "Recall: FORMAT, PROC SORT, and the DATA step\nConditional processing with IF/THEN/ELSE\nRunning more than one statement with DO and END\nPlotting frequencies with PROC FREQ\nPlotting with PROC SGPLOT",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#recall",
+    "href": "chapters/05-conditional-plotting.html#recall",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.2 Recall",
+    "text": "5.2 Recall\n\n\n\n\n\n\n\nFORMAT\ntells SAS how to display numeric, character, date, or datetime values when we print or output our data\n\n\nPROC SORT\nsorts our data, and is a way to remove duplicates from our data\n\n\nDATA step\ncreates new SAS tables, filters rows, computes new columns, and uses SAS functions",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#conditional-processing",
+    "href": "chapters/05-conditional-plotting.html#conditional-processing",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.3 Conditional processing",
+    "text": "5.3 Conditional processing\nDATA output-table;\n    SET input-table;\n    IF expression THEN statement;\n    &lt;ELSE IF expression THEN statement;&gt;\n    &lt;ELSE statement;&gt;\nRUN;\n\nIF checks each row. If the expression is true, SAS runs the statement after THEN.\nELSE IF and ELSE are optional. SAS stops at the first one that is true.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#ifthen-example",
+    "href": "chapters/05-conditional-plotting.html#ifthen-example",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.4 IF/THEN: example",
+    "text": "5.4 IF/THEN: example\nLet’s label each car as Okay or Too High based on its price.\n\n/* if-then in a data step */\ndata cars_new;\n    set sashelp.cars;\n    if MSRP &lt; 30000 then Cost = \"Okay\";\n    if MSRP &gt;= 30000 then Cost = \"Too High\";\n    keep Make Model Type MSRP Cost;\nrun;\n\nproc print data=cars_new (obs=10);\nrun;\n\n\nLook at Cost. It says Too instead of Too High. SAS sets the length of a new column from the first value it sees. Here that is \"Okay\", so Cost only has room for 4 characters.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#ifthen-setting-the-length",
+    "href": "chapters/05-conditional-plotting.html#ifthen-setting-the-length",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.5 IF/THEN: setting the length",
+    "text": "5.5 IF/THEN: setting the length\nWe fix this with a LENGTH statement before the column is used. $ means character, and 10 is the number of characters.\n\n/* if-then in a data step */\ndata cars_new;\n    set sashelp.cars;\n    length Cost $ 10;\n    if MSRP &lt; 30000 then Cost = \"Okay\";\n    else Cost = \"Too High\";\n    keep Make Model Type MSRP Cost;\nrun;\n\nproc print data=cars_new (obs=10);\nrun;\n\nWe also changed the second IF to ELSE. Every car that is not under 30,000 must be 30,000 or more, so we don’t need to check again.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#more-than-one-statement-do-and-end",
+    "href": "chapters/05-conditional-plotting.html#more-than-one-statement-do-and-end",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.6 More than one statement: DO and END",
+    "text": "5.6 More than one statement: DO and END\nDATA output-table;\n    SET input-table;\n    IF expression THEN DO;\n        &lt;multiple statements&gt;\n    END;\n    &lt;ELSE IF expression THEN DO;\n        &lt;multiple statements&gt;\n    END;&gt;\n    &lt;ELSE DO;\n        &lt;multiple statements&gt;\n    END;&gt;\nRUN;\nTHEN only runs one statement. To run more than one, wrap them in DO; … END;.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#do-and-end-example",
+    "href": "chapters/05-conditional-plotting.html#do-and-end-example",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.7 DO and END: example",
+    "text": "5.7 DO and END: example\nWe can also write rows to different tables. List all the tables on the DATA statement, then use OUTPUT to say where each row goes.\n\n/* if-then extension */\ndata under40 over40;\n    set sashelp.cars;\n    keep Make Model MSRP Cost;\n    if MSRP &lt; 20000 then do;\n        Cost = 1;\n        output under40;\n    end;\n    else if MSRP &lt; 40000 then do;\n        Cost = 2;\n        output under40;\n    end;\n    else do;\n        Cost = 3;\n        output over40;\n    end;\nrun;\n\nCheck the log to see how many rows went to each table. You can also open WORK.UNDER40 and WORK.OVER40 in the Libraries pane.\n\nOnce we use OUTPUT, SAS only writes a row when it reaches an OUTPUT statement.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#exercise",
+    "href": "chapters/05-conditional-plotting.html#exercise",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.8 Exercise",
+    "text": "5.8 Exercise\nUse the Overwatch stats table ma505.ow_stats (not the heroes table).\n\nCreate a new column HighestVal with the highest value of Damage, Heals, and Mitigation. Create another column Category that says which one it was.\n\n\n\nDamage\nHeals\nMitigation\nHighestVal\nCategory\n\n\n\n\n10432\n2345\n985\n10432\nDAMAGE\n\n\n\nChange the code so that rows where Category is DAMAGE go to a new table called damage, HEALS to a table called heals, and MITIGATION to a table called mitigation.\n\nHow many observations are in each new table?\n\n\nSave the full table with Category as ma505.ow_cat. We will use it in the next exercise.\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\ndata ma505.ow_cat damage heals mitigation;\n    set ma505.ow_stats;\n    length Category $ 10;\n    HighestVal = max(Damage, Heals, Mitigation);\n    if HighestVal = Damage then do;\n        Category = \"DAMAGE\";\n        output damage;\n    end;\n    else if HighestVal = Heals then do;\n        Category = \"HEALS\";\n        output heals;\n    end;\n    else do;\n        Category = \"MITIGATION\";\n        output mitigation;\n    end;\n    output ma505.ow_cat;    /* every row also goes to the full table */\nrun;\n\n/* how many rows in each category? */\nproc freq data=ma505.ow_cat;\n    tables Category;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#plotting-data-with-proc-steps",
+    "href": "chapters/05-conditional-plotting.html#plotting-data-with-proc-steps",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.9 Plotting data with PROC steps",
+    "text": "5.9 Plotting data with PROC steps\nSo far our procedures have given us tables. Many of them can also make plots.\nWe will start with PROC FREQ, then move to PROC SGPLOT.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#proc-freq-with-a-plot",
+    "href": "chapters/05-conditional-plotting.html#proc-freq-with-a-plot",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.10 PROC FREQ with a plot",
+    "text": "5.10 PROC FREQ with a plot\nPROC FREQ DATA=input-table &lt;proc-options&gt;;\n    TABLES col-name(s) &lt;/ options&gt;;\nRUN;\nRecall: what does this code do? Let’s extend it by adding a plot of the frequencies.\nods graphics on;ODS Graphics needs to be on to make plots. It stays on until the end of the session.\n\nproc freq data=sashelp.cars;\n    tables Origin /\n        plots=freqplot(orient=horizontalcreates a horizontal bar plot\n                       scale=percent);shows percents instead of counts\nrun;\n\n/* creating a frequency plot */\nods graphics on;\n\nproc freq data=sashelp.cars;\n    tables Origin /\n        plots=freqplot(orient=horizontal scale=percent);\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#two-way-frequency-table",
+    "href": "chapters/05-conditional-plotting.html#two-way-frequency-table",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.11 Two-way frequency table",
+    "text": "5.11 Two-way frequency table\nUse * between two columns to count every combination of their values.\nproc freq data=sashelp.cars;\n    tables Origin*Type /creates a two-way frequency table\n        plots=freqplot(orient=vertical);vertical bar chart. We did not set scale=, so the plot shows counts.\nrun;\nWe don’t need ods graphics on again, since it is still on from the last code.\n\n/* creating a vertical bar freq plot */\nproc freq data=sashelp.cars;\n    tables Origin*Type /\n        plots=freqplot(orient=vertical);\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#stacked-bar-chart",
+    "href": "chapters/05-conditional-plotting.html#stacked-bar-chart",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.12 Stacked bar chart",
+    "text": "5.12 Stacked bar chart\ntwoway=stacked puts the bars for each Origin on top of each other.\ntitle1 'Origin of Cars by Type';TITLE and FOOTNOTE add text to the whole report, not just the table or plot.\ntitle2 'Sedan, SUV, Truck';\nfootnote 'Other types not included: Hybrid, Sports, Wagon';\nproc freq data=sashelp.cars;\n    tables Origin*Type /\n        plots=freqplot(twoway=stacked orient=horizontal);\n    where Type in (\"Sedan\", \"SUV\", \"Truck\");\nrun;\ntitle; footnote;Titles stay on until we clear them. This clears them.\n\n/* creating a stacked bar */\ntitle1 'Origin of Cars by Type';\ntitle2 'Sedan, SUV, Truck';\nfootnote 'Other types not included: Hybrid, Sports, Wagon';\n\nproc freq data=sashelp.cars;\n    tables Origin*Type /\n        plots=freqplot(twoway=stacked orient=horizontal);\n    where Type in (\"Sedan\", \"SUV\", \"Truck\");\nrun;\n\ntitle;\nfootnote;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#exercise-1",
+    "href": "chapters/05-conditional-plotting.html#exercise-1",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.13 Exercise",
+    "text": "5.13 Exercise\n\nUsing ma505.ow_cat from the last exercise, create a clustered vertical bar chart of each player’s Category.\n\nSet it up like the stacked bar chart, but change stacked to cluster.\n\nWhat do the 4 values in each cell of the frequency table mean?\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc freq data=ma505.ow_cat;\n    tables Player*Category /\n        plots=freqplot(orient=vertical twoway=cluster);\nrun;\n\nEach cell of a two-way table has 4 values, in this order:\n\nFrequency: the number of games for that player and category.\nPercent: that count out of all games.\nRow Pct: out of that player’s games (each row adds to 100).\nCol Pct: out of that category’s games (each column adds to 100).",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#proc-sgplot",
+    "href": "chapters/05-conditional-plotting.html#proc-sgplot",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.14 PROC SGPLOT",
+    "text": "5.14 PROC SGPLOT\nPROC SGPLOT makes many kinds of statistical graphics: scatter plots, bar charts, line plots, histograms, box plots, and more. It is part of SAS ODS Graphics.\nCompared to the plots in PROC FREQ, it gives us:\n\nmore flexibility over how the plot looks\nlayering: more than one plot on the same axes",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#proc-sgplot-syntax",
+    "href": "chapters/05-conditional-plotting.html#proc-sgplot-syntax",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.15 PROC SGPLOT syntax",
+    "text": "5.15 PROC SGPLOT syntax\nproc sgplot data=input-table &lt;options&gt;;\n    plot statement(s) / &lt;options&gt;;what plot to add (one plot or layered plots), and options for that plot\n    &lt;appearance statements&gt;;legend, appearance, axes, symbols\n    &lt;additional filtering/formatting/etc.&gt;;any extra data processing, like WHERE or FORMAT\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#plot-statements",
+    "href": "chapters/05-conditional-plotting.html#plot-statements",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.16 Plot statements",
+    "text": "5.16 Plot statements\n\n  BasicBAND, BUBBLE, BLOCK, DROPLINE, ELLIPSEPARM, FRINGE, HBARPARM, HEATMAP, HEATMAPPARM, HIGHLOW, LINEPARM, NEEDLE, POLYGON, REFLINE, SCATTER, SERIES, SPLINE, STEP, TEXT, VBARPARM, VECTOR\n  DistributionDENSITY, HBOX, HISTOGRAM, VBOX\n  Fit and ConfidenceELLIPSE, LOESS, PBSPLINE, REG\n  CategorizationDOT, HBAR, HBARBASIC, HLINE, VBAR, VBARBASIC, VLINE, WATERFALL\n\n\nOnly certain groups can be layered together: Basic with Fit and Confidence, Distribution with Distribution, and Categorization with Categorization.\n\n\n\nHBARPARM assumes the data is already summarized (one row per bar).\nHBAR assumes the data is not summarized (many rows per bar). SAS does the counting or adding for us.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#proc-sgplot-a-simple-bar-chart",
+    "href": "chapters/05-conditional-plotting.html#proc-sgplot-a-simple-bar-chart",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.17 PROC SGPLOT: a simple bar chart",
+    "text": "5.17 PROC SGPLOT: a simple bar chart\nWith only a category column, HBAR counts the rows for each value.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#adding-a-response-variable",
+    "href": "chapters/05-conditional-plotting.html#adding-a-response-variable",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.18 Adding a response variable",
+    "text": "5.18 Adding a response variable\nresponse= tells SAS what to measure for each bar. By default it adds up (sums) the response.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#choosing-the-statistic",
+    "href": "chapters/05-conditional-plotting.html#choosing-the-statistic",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.19 Choosing the statistic",
+    "text": "5.19 Choosing the statistic\nstat= changes how the response is summarized, like stat=mean for the average.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage stat=mean;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#exercise-2",
+    "href": "chapters/05-conditional-plotting.html#exercise-2",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.20 Exercise",
+    "text": "5.20 Exercise\n\nUsing ma505.ow_stats, make a bar chart of the sum of Damage by Date two ways: with VBAR and with VBARPARM. Compare the outputs.\n\nAre the results what you expected? Why or why not?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* VBAR: SAS adds up Damage for each date */\nproc sgplot data=ma505.ow_stats;\n    vbar Date / response=Damage stat=sum;\nrun;\n\n/* VBARPARM: expects one row per date, so it does not add anything up */\nproc sgplot data=ma505.ow_stats;\n    vbarparm category=Date response=Damage;\nrun;\n\nVBAR gives the sum of Damage for each date. VBARPARM does not. It is a Basic plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use VBARPARM here, we would need to summarize the data first.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
   }
 ]
