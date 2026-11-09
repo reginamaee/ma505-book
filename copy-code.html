@@ -228,3 +228,45 @@ code .sas-mac { color: #8250df; font-weight: 600; }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
 })();
 </script>
+
+<!-- Slides only: a circled part of the code appears together with its arrow note.
+     Each circle is paired with the note on its own line (or, if its line has none, the note above it). -->
+<style>
+.reveal .libref-circle.anno-wait { border-color: transparent; transition: border-color .2s; }
+</style>
+<script>
+(function () {
+  function setup() {
+    if (!window.Reveal || !document.querySelector('.reveal .anno-inline')) return;
+    document.querySelectorAll('.reveal pre.anno-code').forEach(function (pre) {
+      if (!pre.querySelector('.anno-inline.fragment')) return;
+      var line = 0, circles = [], notes = [];
+      Array.prototype.forEach.call(pre.childNodes, function (n) {
+        if (n.nodeType === 3) { line += (n.nodeValue.match(/\n/g) || []).length; return; }
+        if (n.nodeType !== 1) return;
+        if (n.classList.contains('anno-inline')) notes.push({ el: n, line: line });
+        else if (n.classList.contains('libref-circle')) circles.push({ el: n, line: line });
+        else if (n.querySelector && n.querySelector('.libref-circle')) {
+          n.querySelectorAll('.libref-circle').forEach(function (c) { circles.push({ el: c, line: line }); });
+        }
+        line += (n.textContent.match(/\n/g) || []).length;
+      });
+      circles.forEach(function (c) {
+        var same = notes.filter(function (x) { return x.line === c.line; })[0];
+        var above = notes.filter(function (x) { return x.line < c.line; }).pop();
+        var below = notes.filter(function (x) { return x.line > c.line; })[0];
+        var note = same || above || below;
+        if (note) { c.el.classList.add('anno-wait'); c.el._annoNote = note.el; }
+      });
+    });
+    function sync() {
+      document.querySelectorAll('.reveal .libref-circle').forEach(function (c) {
+        if (c._annoNote) c.classList.toggle('anno-wait', !c._annoNote.classList.contains('visible'));
+      });
+    }
+    ['fragmentshown', 'fragmenthidden', 'slidechanged', 'ready'].forEach(function (ev) { Reveal.on(ev, sync); });
+    sync();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup); else setup();
+})();
+</script>
