@@ -595,6 +595,12 @@ max-height: none !important;
 
 .reveal section .cell:has(.sas-output.multi) { display: block; }
 .reveal .sas-output.multi table { font-size: .5em; }
+
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) { height: auto !important; max-height: 470px; object-fit: contain; }
+.reveal section > .cell:has(+ img[src^="data:image/png"]:not([class*="screenshot"])):not(:has(+ img + img)) { float: left; width: 55%; margin-right: 2%; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -1314,7 +1320,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Formats, Sorting, and the DATA Step</h1>
-  <p class="subtitle">MA505 · Day 4</p>
+  <p class="subtitle">MA505</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -1332,7 +1338,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="macro-variables-no-quotes-in-let" class="slide level2">
 <h2>Macro variables: no quotes in <code>%LET</code></h2>
-<p>From last class’s exercise: a macro variable is <strong>always text</strong>, so you don’t need quotes in <code>%LET</code>. If you add them, the quotes become <strong>part of the value</strong>: they are taken <em>literally</em>.</p>
+<p>A macro variable is <strong>always text</strong>, so you don’t need quotes in <code>%LET</code>. If you add them, the quotes become <strong>part of the value</strong>: they are taken <em>literally</em>.</p>
 <div class="macro-compare">
 <div class="anno"><div class="anno-row"><pre class="anno-code"><span class="cmt">/* quotes are part of the value */</span>
 <span class="kw">%let</span> p = <span class="libref-circle">&quot;player1&quot;</span>;
@@ -1523,7 +1529,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="format-numbers" class="slide level2">
 <h2><code>FORMAT</code>: numbers</h2>
-<p>Add commas to <code>Damage</code> and <code>Heals</code> in the Overwatch stats from last class.</p>
+<p>Add commas to <code>Damage</code> and <code>Heals</code> in the Overwatch stats table <code>ma505.ow_stats</code>.</p>
 <div id="d4-07" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>libname ma505 &quot;~&quot;;    /* skip if your autoexec does this */</span>
 <span id="cb2-2"><a href></a></span>
@@ -2028,7 +2034,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="exercise" class="slide level2 scrollable">
 <h2>Exercise</h2>
-<p>Use the Overwatch heroes table <code>ma505.overwatch</code> from Day 2 (re-run the Day 2 import if it’s missing).</p>
+<p>Use the Overwatch heroes table <code>ma505.overwatch</code> (import <code>overwatch_heros.csv</code> first if it’s missing).</p>
 <ol type="1">
 <li>Sort it by <code>Player</code>, <code>Date</code>, <code>Win</code>, <code>Map</code>, <code>Role</code>, and <code>Percent Played</code> (descending). Save the result as <code>ma505.ow_hrsrt</code>.
 <ol type="a">

@@ -14,7 +14,7 @@
     "href": "index.html#slides",
     "title": "Introduction to SAS",
     "section": "Slides",
-    "text": "Slides\n\nDay 1: Introduction to SAS\nDay 2: SAS Tables and Libraries\nDay 3: Exploring Data with Procedures\nDay 4: Formats, Sorting, and the DATA Step\nDay 5: Conditional Processing and Plotting",
+    "text": "Slides\n\nIntroduction to SAS\nSAS Tables and Libraries\nExploring Data with Procedures\nFormats, Sorting, and the DATA Step\nConditional Processing and Plotting\nMore Plots: SGPLOT, SGPANEL, and Exporting",
     "crumbs": [
       "Welcome"
     ]
@@ -284,7 +284,7 @@
     "href": "chapters/02-tables-libraries.html#the-libraries-pane",
     "title": "2  SAS Tables and Libraries",
     "section": "2.8 The Libraries pane",
-    "text": "2.8 The Libraries pane\nIn SAS Studio, open Libraries in the navigation pane, then My Libraries.\n\n\nWORK: tables you created without a libref, like example. These disappear when you sign out.\nSASHELP: sample datasets. Double-click CLASS to view the table you used on Day 1.\nMA505: appears after you run your LIBNAME statement. Click Refresh if you don’t see it.",
+    "text": "2.8 The Libraries pane\nIn SAS Studio, open Libraries in the navigation pane, then My Libraries.\n\n\nWORK: tables you created without a libref, like example. These disappear when you sign out.\nSASHELP: sample datasets. Double-click CLASS to view the sashelp.class table.\nMA505: appears after you run your LIBNAME statement. Click Refresh if you don’t see it.",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>SAS Tables and Libraries</span>"
     ]
@@ -504,7 +504,7 @@
     "href": "chapters/03-procedures.html#more-where-operators",
     "title": "3  Exploring Data with Procedures",
     "section": "3.12 More WHERE operators",
-    "text": "3.12 More WHERE operators\n\nAND / OR: combine expressions\nproc print data=sashelp.cars;\n    where Type = \"SUV\" and MSRP &lt;= 30000;\nrun;\nIN / NOT IN: match any value in a list\nproc print data=sashelp.cars;\n    where Type in (\"SUV\", \"Truck\");\nrun;\nIS MISSING / IS NOT MISSING\nproc print data=sashelp.cars;\n    where Cylinders is missing;\nrun;\nBETWEEN … AND: an inclusive range\nproc print data=sashelp.cars;\n    where MSRP between 36000 and 50000;\nrun;\nDates: use a SAS date constant (Day 2)\nproc print data=sashelp.stocks;\n    where Date &gt; \"01NOV2005\"d;\nrun;\n\n\nCharacter values are case-sensitive: \"suv\" does not match \"SUV\".",
+    "text": "3.12 More WHERE operators\n\nAND / OR: combine expressions\nproc print data=sashelp.cars;\n    where Type = \"SUV\" and MSRP &lt;= 30000;\nrun;\nIN / NOT IN: match any value in a list\nproc print data=sashelp.cars;\n    where Type in (\"SUV\", \"Truck\");\nrun;\nIS MISSING / IS NOT MISSING\nproc print data=sashelp.cars;\n    where Cylinders is missing;\nrun;\nBETWEEN … AND: an inclusive range\nproc print data=sashelp.cars;\n    where MSRP between 36000 and 50000;\nrun;\nDates: use a SAS date constant\nproc print data=sashelp.stocks;\n    where Date &gt; \"01NOV2005\"d;\nrun;\n\n\nCharacter values are case-sensitive: \"suv\" does not match \"SUV\".",
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Exploring Data with Procedures</span>"
     ]
@@ -584,7 +584,7 @@
     "href": "chapters/04-format-sort-datastep.html#macro-variables-no-quotes-in-let",
     "title": "4  Formats, Sorting, and the DATA Step",
     "section": "4.2 Macro variables: no quotes in %LET",
-    "text": "4.2 Macro variables: no quotes in %LET\nFrom last class’s exercise: a macro variable is always text, so you don’t need quotes in %LET. If you add them, the quotes become part of the value: they are taken literally.\n\n/* quotes are part of the value */\n%let p = \"player1\";\n\nwhere Player = \"&p\";\n/* becomes: Player = \"\"player1\"\" */\n\n/* no quotes: just the text */\n%let p = player1;\n\nwhere Player = \"&p\";\n/* becomes: Player = \"player1\" */\n\n\nLeave the quotes off in %LET, and add them where you use the macro variable.",
+    "text": "4.2 Macro variables: no quotes in %LET\nA macro variable is always text, so you don’t need quotes in %LET. If you add them, the quotes become part of the value: they are taken literally.\n\n/* quotes are part of the value */\n%let p = \"player1\";\n\nwhere Player = \"&p\";\n/* becomes: Player = \"\"player1\"\" */\n\n/* no quotes: just the text */\n%let p = player1;\n\nwhere Player = \"&p\";\n/* becomes: Player = \"player1\" */\n\n\nLeave the quotes off in %LET, and add them where you use the macro variable.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
     ]
@@ -614,7 +614,7 @@
     "href": "chapters/04-format-sort-datastep.html#format-numbers",
     "title": "4  Formats, Sorting, and the DATA Step",
     "section": "4.5 FORMAT: numbers",
-    "text": "4.5 FORMAT: numbers\nAdd commas to Damage and Heals in the Overwatch stats from last class.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc print data=ma505.ow_stats (obs=10);\n    format Damage comma10. Heals comma10.;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nElimination\nAssists\nDeaths\nDamage\nHeals\nMitigation\n\n\n\n\n1\nplayer1\n08/15/2024\n1\nSuravasa\nAssault\nDamage\n28\n0\n5\n11,480\n2,484\n0\n\n\n2\nplayer1\n08/15/2024\n1\nKing's Row\nAttack Escort\nDamage\n17\n3\n4\n6,713\n0\n245\n\n\n3\nplayer1\n08/15/2024\n0\nNew Queen Street\nRobot\nTank\n27\n4\n7\n5,776\n122\n2082\n\n\n4\nplayer1\n08/15/2024\n0\nMidtown\nAttack Escort\nDamage\n8\n3\n6\n7,138\n8\n828\n\n\n5\nplayer1\n08/15/2024\n1\nIlios\nAttack\nSupport\n10\n3\n4\n2,163\n4,849\n0\n\n\n6\nplayer1\n08/15/2024\n1\nHavana\nEscort\nTank\n7\n2\n9\n4,416\n2,498\n1068\n\n\n7\nplayer1\n08/14/2024\n0\nBlizzard World\nAttack Escort\nTank\n22\n6\n9\n7,538\n0\n5654\n\n\n8\nplayer1\n08/14/2024\n1\nJunkertown\nEscort\nTank\n15\n3\n7\n10,948\n2,260\n6078\n\n\n9\nplayer1\n08/14/2024\n1\nNew Junk City\nAssault\nTank\n27\n8\n4\n9,735\n225\n2012\n\n\n10\nplayer1\n08/14/2024\n1\nParaiso\nAttack Escort\nDamage\n8\n5\n1\n4,102\n0\n0",
+    "text": "4.5 FORMAT: numbers\nAdd commas to Damage and Heals in the Overwatch stats table ma505.ow_stats.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc print data=ma505.ow_stats (obs=10);\n    format Damage comma10. Heals comma10.;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nElimination\nAssists\nDeaths\nDamage\nHeals\nMitigation\n\n\n\n\n1\nplayer1\n08/15/2024\n1\nSuravasa\nAssault\nDamage\n28\n0\n5\n11,480\n2,484\n0\n\n\n2\nplayer1\n08/15/2024\n1\nKing's Row\nAttack Escort\nDamage\n17\n3\n4\n6,713\n0\n245\n\n\n3\nplayer1\n08/15/2024\n0\nNew Queen Street\nRobot\nTank\n27\n4\n7\n5,776\n122\n2082\n\n\n4\nplayer1\n08/15/2024\n0\nMidtown\nAttack Escort\nDamage\n8\n3\n6\n7,138\n8\n828\n\n\n5\nplayer1\n08/15/2024\n1\nIlios\nAttack\nSupport\n10\n3\n4\n2,163\n4,849\n0\n\n\n6\nplayer1\n08/15/2024\n1\nHavana\nEscort\nTank\n7\n2\n9\n4,416\n2,498\n1068\n\n\n7\nplayer1\n08/14/2024\n0\nBlizzard World\nAttack Escort\nTank\n22\n6\n9\n7,538\n0\n5654\n\n\n8\nplayer1\n08/14/2024\n1\nJunkertown\nEscort\nTank\n15\n3\n7\n10,948\n2,260\n6078\n\n\n9\nplayer1\n08/14/2024\n1\nNew Junk City\nAssault\nTank\n27\n8\n4\n9,735\n225\n2012\n\n\n10\nplayer1\n08/14/2024\n1\nParaiso\nAttack Escort\nDamage\n8\n5\n1\n4,102\n0\n0",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
     ]
@@ -674,7 +674,7 @@
     "href": "chapters/04-format-sort-datastep.html#exercise",
     "title": "4  Formats, Sorting, and the DATA Step",
     "section": "4.11 Exercise",
-    "text": "4.11 Exercise\nUse the Overwatch heroes table ma505.overwatch from Day 2 (re-run the Day 2 import if it’s missing).\n\nSort it by Player, Date, Win, Map, Role, and Percent Played (descending). Save the result as ma505.ow_hrsrt.\n\nPercent Played has a space, so type it as a name literal: \"Percent Played\"n\n\nUsing the sorted data, remove duplicate rows by Player, Date, Win, Map, and Role only.\nWhat hero is in observation 14 of the de-duplicated data?\n\nTip: proc print data=... (firstobs=14 obs=14); prints just row 14.\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* 1. sort, highest Percent Played first within each game */\nproc sort data=ma505.overwatch out=ma505.ow_hrsrt;\n    by Player Date Win Map Role descending \"Percent Played\"n;\nrun;\n\n/* 2. keep the first row of each Player/Date/Win/Map/Role */\nproc sort data=ma505.ow_hrsrt out=ma505.hero_clean\n    nodupkey\n    dupout=ma505.hr_dup;\n    by Player Date Win Map Role;\nrun;\n\n/* 3. print only row 14 */\nproc print data=ma505.hero_clean (firstobs=14 obs=14);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nPercent Played\nHero\n\n\n\n\n14\nplayer1\n08/13/2024\n0\nWatchpoint: Gibr\nEscort\nDamage\n56\nHanzo\n\n\n\n\n\n\n\n\nObservation 14 of the de-duplicated data is Hanzo (player1, 08/13/2024, Watchpoint: Gibraltar, Damage, 56% played).",
+    "text": "4.11 Exercise\nUse the Overwatch heroes table ma505.overwatch (import overwatch_heros.csv first if it’s missing).\n\nSort it by Player, Date, Win, Map, Role, and Percent Played (descending). Save the result as ma505.ow_hrsrt.\n\nPercent Played has a space, so type it as a name literal: \"Percent Played\"n\n\nUsing the sorted data, remove duplicate rows by Player, Date, Win, Map, and Role only.\nWhat hero is in observation 14 of the de-duplicated data?\n\nTip: proc print data=... (firstobs=14 obs=14); prints just row 14.\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* 1. sort, highest Percent Played first within each game */\nproc sort data=ma505.overwatch out=ma505.ow_hrsrt;\n    by Player Date Win Map Role descending \"Percent Played\"n;\nrun;\n\n/* 2. keep the first row of each Player/Date/Win/Map/Role */\nproc sort data=ma505.ow_hrsrt out=ma505.hero_clean\n    nodupkey\n    dupout=ma505.hr_dup;\n    by Player Date Win Map Role;\nrun;\n\n/* 3. print only row 14 */\nproc print data=ma505.hero_clean (firstobs=14 obs=14);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\n\nObs\nPlayer\nDate\nWin\nMap\nMode\nRole\nPercent Played\nHero\n\n\n\n\n14\nplayer1\n08/13/2024\n0\nWatchpoint: Gibr\nEscort\nDamage\n56\nHanzo\n\n\n\n\n\n\n\n\nObservation 14 of the de-duplicated data is Hanzo (player1, 08/13/2024, Watchpoint: Gibraltar, Damage, 56% played).",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Formats, Sorting, and the DATA Step</span>"
     ]
@@ -967,6 +967,186 @@
     "text": "5.20 Exercise\n\nUsing ma505.ow_stats, make a bar chart of the sum of Damage by Date two ways: with VBAR and with VBARPARM. Compare the outputs.\n\nAre the results what you expected? Why or why not?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* VBAR: SAS adds up Damage for each date */\nproc sgplot data=ma505.ow_stats;\n    vbar Date / response=Damage stat=sum;\nrun;\n\n/* VBARPARM: expects one row per date, so it does not add anything up */\nproc sgplot data=ma505.ow_stats;\n    vbarparm category=Date response=Damage;\nrun;\n\nVBAR gives the sum of Damage for each date. VBARPARM does not. It is a Basic plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use VBARPARM here, we would need to summarize the data first.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html",
+    "href": "chapters/06-sgplot-sgpanel.html",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "",
+    "text": "6.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#agenda",
+    "href": "chapters/06-sgplot-sgpanel.html#agenda",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "",
+    "text": "Recall, and HBAR vs HBARPARM\nChecking the sums with PROC MEANS\nMore PROC SGPLOT: series, scatter, histograms, layering, and colors\nPROC SGPANEL: the same plot for each group\nExporting plots\nExercise",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#recall",
+    "href": "chapters/06-sgplot-sgpanel.html#recall",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.2 Recall",
+    "text": "6.2 Recall\n\n\n\n\n\n\n\nConditionals\nusing IF/ELSE, IF/ELSE IF/ELSE, and DO statements\n\n\nPROC FREQ (for plotting)\ndisplays plots alongside frequency tables\n\n\nPROC SGPLOT\nSAS procedure to create high quality graphs",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#hbar-vs-hbarparm",
+    "href": "chapters/06-sgplot-sgpanel.html#hbar-vs-hbarparm",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.3 HBAR vs HBARPARM",
+    "text": "6.3 HBAR vs HBARPARM\nHere is the sum of Damage by Date plotted two ways, as horizontal bars. xaxis min=0 max=200000 puts both plots on the same scale so we can compare them.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* HBAR: adds up Damage for each date */\nproc sgplot data=ma505.ow_stats;\n    hbar Date / response=Damage;\n    xaxis min=0 max=200000;\nrun;\n\n/* HBARPARM: expects one row per date */\nproc sgplot data=ma505.ow_stats;\n    hbarparm category=Date response=Damage;\n    xaxis min=0 max=200000;\nrun;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe bars are very different. HBAR adds up all the games on each date. HBARPARM assumes the data is already summarized, so it draws one bar per row on top of each other instead of adding them.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#verify-with-proc-means",
+    "href": "chapters/06-sgplot-sgpanel.html#verify-with-proc-means",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.4 Verify with PROC MEANS",
+    "text": "6.4 Verify with PROC MEANS\nLet’s check the HBAR totals by computing the sum of Damage for each date ourselves.\nproc means data=ma505.ow_stats;\n    class Date;the group: one set of statistics for each date\n    var Damage;the value we are interested in\n    output out=ow_sum sum=Total_Damage;creates a new table ow_sum with the sum of Damage for each date, in a column called Total_Damage\nrun;\n\n/* using proc means to sum by group */\nproc means data=ma505.ow_stats;\n    class Date;\n    var Damage;\n    output out=ow_sum sum=Total_Damage;\nrun;\n\nproc print data=ow_sum;\nrun;\n\n\nThe MEANS Procedure\n\n\n\n\nAnalysis Variable : Damage\n\n\nDate\nN Obs\nN\nMean\nStd Dev\nMinimum\nMaximum\n\n\n\n\n08/10/24\n2\n2\n6463.00\n4403.86\n3349.00\n9577.00\n\n\n08/12/24\n8\n8\n4582.50\n2596.79\n1886.00\n9540.00\n\n\n08/13/24\n31\n31\n6107.55\n3729.03\n1015.00\n14824.00\n\n\n08/14/24\n16\n16\n5828.44\n2706.82\n1166.00\n10948.00\n\n\n08/15/24\n20\n20\n4269.45\n2500.85\n773.0000000\n11480.00\n\n\n08/16/24\n2\n2\n3863.50\n593.2625894\n3444.00\n4283.00\n\n\n08/17/24\n8\n8\n3016.38\n1296.08\n1445.00\n5021.00\n\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nDate\n_TYPE_\n_FREQ_\nTotal_Damage\n\n\n\n\n1\n.\n0\n87\n449422\n\n\n2\n08/10/2024\n1\n2\n12926\n\n\n3\n08/12/2024\n1\n8\n36660\n\n\n4\n08/13/2024\n1\n31\n189334\n\n\n5\n08/14/2024\n1\n16\n93255\n\n\n6\n08/15/2024\n1\n20\n85389\n\n\n7\n08/16/2024\n1\n2\n7727\n\n\n8\n08/17/2024\n1\n8\n24131\n\n\n\n\n\n\n\nThe Total_Damage values match the HBAR bars. The first row, with no Date and _TYPE_ = 0, is the total across all dates. _FREQ_ is the number of games in each group.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#documentation",
+    "href": "chapters/06-sgplot-sgpanel.html#documentation",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.5 Documentation",
+    "text": "6.5 Documentation\nEach plot statement has its own page in the SAS documentation, with all of its options and examples.\n\n\n\nStatement\nDocumentation\n\n\n\n\nHBAR\nHBAR statement\n\n\nVBAR\nVBAR statement\n\n\nHBARPARM\nHBARPARM statement\n\n\nVBARPARM\nVBARPARM statement",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#time-series-chart",
+    "href": "chapters/06-sgplot-sgpanel.html#time-series-chart",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.6 Time series chart",
+    "text": "6.6 Time series chart\nSERIES connects the data with a line. It is best for time series or other ordered data.\nproc sgplot data=sashelp.pricedata;\n    series x=Date y=Price /\n        group=ProductNamecreates a different line for each value of this group\n        markers;marks the data points on the line\n    where ProductName in ('Product1', 'Product2', 'Product3');\nrun;\n\nproc sgplot data=sashelp.pricedata;\n    series x=Date y=Price /\n        group=ProductName markers;\n    where ProductName in ('Product1', 'Product2', 'Product3');\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#scatter-plot",
+    "href": "chapters/06-sgplot-sgpanel.html#scatter-plot",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.7 Scatter plot",
+    "text": "6.7 Scatter plot\nSCATTER plots one point for each row. markerattrs=(symbol=circlefilled) fills in the points.\nproc sgplot data=sashelp.class;\n    scatter x=Height y=Weight /\n        group=Age markerattrs=(symbol=circlefilled);fills in the data points\nrun;\n\n/* without markerattrs */\nproc sgplot data=sashelp.class;\n    scatter x=Height y=Weight / group=Age;\nrun;\n\n/* with markerattrs */\nproc sgplot data=sashelp.class;\n    scatter x=Height y=Weight /\n        group=Age markerattrs=(symbol=circlefilled);\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#layering-series-and-scatter",
+    "href": "chapters/06-sgplot-sgpanel.html#layering-series-and-scatter",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.8 Layering: series and scatter",
+    "text": "6.8 Layering: series and scatter\nSERIES ... markers is the same as layering a SERIES and a SCATTER plot. Every plot statement in the same PROC SGPLOT is drawn on the same axes.\n\n/* series and scatter combined */\nproc sgplot data=sashelp.pricedata;\n    series x=Date y=Price / group=ProductName;\n    scatter x=Date y=Price / group=ProductName;\n    where ProductName in ('Product1', 'Product2', 'Product3');\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#layering-histogram",
+    "href": "chapters/06-sgplot-sgpanel.html#layering-histogram",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.9 Layering: histogram",
+    "text": "6.9 Layering: histogram\nHISTOGRAM shows the distribution of a numeric column.\n\nproc sgplot data=sashelp.pricedata;\n    histogram Price;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#layering-adding-density-curves",
+    "href": "chapters/06-sgplot-sgpanel.html#layering-adding-density-curves",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.10 Layering: adding density curves",
+    "text": "6.10 Layering: adding density curves\nproc sgplot data=sashelp.pricedata;\n    histogram Price;\n    density Price;the default is a normal curve\n    density Price / type=kernel;a kernel curve follows the shape of the data (non-parametric)\nrun;\n\nproc sgplot data=sashelp.pricedata;\n    histogram Price;\n    density Price;\n    density Price / type=kernel;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#customization-adding-color",
+    "href": "chapters/06-sgplot-sgpanel.html#customization-adding-color",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.11 Customization: adding color",
+    "text": "6.11 Customization: adding color\nproc sgplot data=sashelp.pricedata;\n    histogram Price / fillattrs=(color=\"yellow\") transparency=0.95;yellow bars that are very see-through\n    density Price / lineattrs=(color=\"green\");the color of each density line\n    density Price / type=kernel lineattrs=(color=\"pink\");\n    title 'Distribution of Price Data for All Products';titles the plot. TITLE stays on until we clear it with title;\nrun;\ntitle;\n\nproc sgplot data=sashelp.pricedata;\n    histogram Price / fillattrs=(color=\"yellow\") transparency=0.95;\n    density Price / lineattrs=(color=\"green\");\n    density Price / type=kernel lineattrs=(color=\"pink\");\n    title 'Distribution of Price Data for All Products';\nrun;\ntitle;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#proc-sgpanel",
+    "href": "chapters/06-sgplot-sgpanel.html#proc-sgpanel",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.12 PROC SGPANEL",
+    "text": "6.12 PROC SGPANEL\nPROC SGPANEL makes multi-panel plots: the same plot for each group, in separate panels in one layout.\nWith PANELBY, we can compare patterns across groups. Each panel shows the same plot type (like a histogram or scatter plot) for a different subset of the data.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#a-scatter-plot-by-region-with-sgplot",
+    "href": "chapters/06-sgplot-sgpanel.html#a-scatter-plot-by-region-with-sgplot",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.13 A scatter plot by region with SGPLOT",
+    "text": "6.13 A scatter plot by region with SGPLOT\nFirst, one scatter plot with every region together. The colors help, but it’s hard to compare regions.\n\nproc sgplot data=sashelp.shoes;\n    scatter x=Sales y=Inventory / group=Region;\n    where Sales &lt; 150000;\n    title 'Shoe Sales vs Inventory';\nrun;\ntitle;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#panel-by-region-with-sgpanel",
+    "href": "chapters/06-sgplot-sgpanel.html#panel-by-region-with-sgpanel",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.14 Panel by region with SGPANEL",
+    "text": "6.14 Panel by region with SGPANEL\nproc sgpanel data=sashelp.shoes;\n    panelby Region / rows=2 columns=5;one panel for each Region, in 2 rows and 5 columns (the layout is optional)\n    scatter x=Sales y=Inventory / group=Region;\n    where Sales &lt; 150000;\nrun;\n\nproc sgpanel data=sashelp.shoes;\n    panelby Region / rows=2 columns=5;\n    scatter x=Sales y=Inventory / group=Region;\n    where Sales &lt; 150000;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#panelby-with-two-variables",
+    "href": "chapters/06-sgplot-sgpanel.html#panelby-with-two-variables",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.15 PANELBY with two variables",
+    "text": "6.15 PANELBY with two variables\nproc sgpanel data=sashelp.shoes;\n    panelby Region Product / layout=lattice rows=8;a grid: one row or column for each variable. Only allowed with two PANELBY variables.\n    histogram Inventory;\n    where Region in ('Pacific', 'United States');\nrun;\n\nproc sgpanel data=sashelp.shoes;\n    panelby Region Product / layout=lattice rows=8;\n    histogram Inventory;\n    where Region in ('Pacific', 'United States');\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#exporting-results",
+    "href": "chapters/06-sgplot-sgpanel.html#exporting-results",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.16 Exporting results",
+    "text": "6.16 Exporting results\nWe can export our plots using ODS Graphics. It can save many kinds of files: PDF, PNG, JPG, SVG, and more.\nods graphics / reset imagename=\"Inventory_Distribution\" imagefmt=png\n    width=800px height=1200px;reset clears other ODS Graphics settings, imagename is the file name, and imagefmt is the file type\nods listing gpath=\"~\";the folder to save to. ~ is your home folder.\n\ntitle 'Shoe Inventory Distribution in the Pacific and United States';\nproc sgpanel data=sashelp.shoes;\n    panelby Region Product / layout=lattice rows=8;\n    histogram Inventory;\n    where Region in ('Pacific', 'United States');\nrun;\n\nods listing close;always close the listing so the file saves properly\nods graphics / reset;\ntitle;\n\nods graphics / reset imagename=\"Inventory_Distribution\" imagefmt=png\n    width=800px height=1200px;\nods listing gpath=\"~\";\n\ntitle 'Shoe Inventory Distribution in the Pacific and United States';\nproc sgpanel data=sashelp.shoes;\n    panelby Region Product / layout=lattice rows=8;\n    histogram Inventory;\n    where Region in ('Pacific', 'United States');\nrun;\n\nods listing close;\nods graphics / reset;    /* back to the default size and names */\ntitle;\n\n\n\n\n\n\n\n\nRefresh Server Files and Folders and look in your home folder for Inventory_Distribution.png.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/06-sgplot-sgpanel.html#exercise",
+    "href": "chapters/06-sgplot-sgpanel.html#exercise",
+    "title": "6  More Plots: SGPLOT, SGPANEL, and Exporting",
+    "section": "6.17 Exercise",
+    "text": "6.17 Exercise\nUse the Overwatch stats table ma505.ow_stats.\n\nMake a scatter plot with Damage on the x-axis and Heals on the y-axis. Color the points by Role and fill in the markers.\nUse PROC SGPANEL to make a histogram of Damage for each Player. Layer a kernel density curve on top.\nGive the panel plot a title, and clear the title after.\n\nWhat do you notice about each player’s damage?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* 1. scatter plot colored by role */\nproc sgplot data=ma505.ow_stats;\n    scatter x=Damage y=Heals /\n        group=Role markerattrs=(symbol=circlefilled);\nrun;\n\n/* 2 and 3. one histogram per player, with a kernel density curve */\ntitle 'Damage by Player';\nproc sgpanel data=ma505.ow_stats;\n    panelby Player;\n    histogram Damage;\n    density Damage / type=kernel;\nrun;\ntitle;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScatter plot: the roles separate clearly. Support games have high heals and lower damage. Damage and Tank games have almost no heals, and Tanks reach the highest damage.\nPanel plot: player1’s damage is spread out, mostly between about 2,500 and 10,000. player2’s damage is bunched tightly around 2,500 to 5,000, with a couple of high games around 10,000 to 12,500. That fits player2 mostly playing Support.",
+    "crumbs": [
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
     ]
   }
 ]

@@ -595,6 +595,12 @@ max-height: none !important;
 
 .reveal section .cell:has(.sas-output.multi) { display: block; }
 .reveal .sas-output.multi table { font-size: .5em; }
+
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) { height: auto !important; max-height: 470px; object-fit: contain; }
+.reveal section > .cell:has(+ img[src^="data:image/png"]:not([class*="screenshot"])):not(:has(+ img + img)) { float: left; width: 55%; margin-right: 2%; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -1314,7 +1320,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Exploring Data with Procedures</h1>
-  <p class="subtitle">MA505 · Day 3</p>
+  <p class="subtitle">MA505</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -2235,7 +2241,7 @@ Percent</th>
 <div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.cars;
     <span class="kw">where</span> MSRP <span class="red-text">between</span> 36000 <span class="red-text">and</span> 50000;
 <span class="kw">run</span>;</pre></div></div></div>
-<div class="fragment"><b>Dates: use a SAS date constant (Day 2)</b>
+<div class="fragment"><b>Dates: use a SAS date constant</b>
 <div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">proc print</span> data=sashelp.stocks;
     <span class="kw">where</span> Date &gt; &quot;01NOV2005&quot;<span class="red-text">d</span>;
 <span class="kw">run</span>;</pre></div></div></div>

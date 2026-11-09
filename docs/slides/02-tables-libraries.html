@@ -595,6 +595,12 @@ max-height: none !important;
 
 .reveal section .cell:has(.sas-output.multi) { display: block; }
 .reveal .sas-output.multi table { font-size: .5em; }
+
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) { height: auto !important; max-height: 470px; object-fit: contain; }
+.reveal section > .cell:has(+ img[src^="data:image/png"]:not([class*="screenshot"])):not(:has(+ img + img)) { float: left; width: 55%; margin-right: 2%; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
+.reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
+.reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -1314,7 +1320,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 
 <section id="title-slide" class="quarto-title-block center">
   <h1 class="title">SAS Tables and Libraries</h1>
-  <p class="subtitle">MA505 · Day 2</p>
+  <p class="subtitle">MA505</p>
 
 <div class="quarto-title-authors">
 </div>
@@ -1407,7 +1413,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <p>In SAS Studio, open <strong>Libraries</strong> in the navigation pane, then <strong>My Libraries</strong>.</p>
 <ol type="1">
 <li class="fragment"><strong>WORK</strong>: tables you created without a libref, like <code>example</code>. These disappear when you sign out.</li>
-<li class="fragment"><strong>SASHELP</strong>: sample datasets. Double-click <strong>CLASS</strong> to view the table you used on Day 1.</li>
+<li class="fragment"><strong>SASHELP</strong>: sample datasets. Double-click <strong>CLASS</strong> to view the <code>sashelp.class</code> table.</li>
 <li class="fragment"><strong>MA505</strong>: appears after you run your <code>LIBNAME</code> statement. Click <strong>Refresh</strong> if you don’t see it.</li>
 </ol>
 </section>
