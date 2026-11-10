@@ -23,7 +23,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/quarto-nav/headroom.min.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
@@ -70,6 +70,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../annotations.css">
@@ -267,6 +270,107 @@ run;
 
 proc print data=cars_new (obs=10);
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The Print Procedure</p>
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Obs</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Make</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Model</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">MSRP</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="data">Acura</td>
+<td class="data">MDX</td>
+<td class="data">SUV</td>
+<td class="r data">$36,945</td>
+<td class="data">Too</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
+<td class="data">Acura</td>
+<td class="data">RSX Type S 2dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$23,820</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
+<td class="data">Acura</td>
+<td class="data">TSX 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$26,990</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
+<td class="data">Acura</td>
+<td class="data">TL 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$33,195</td>
+<td class="data">Too</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
+<td class="data">Acura</td>
+<td class="data">3.5 RL 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$43,755</td>
+<td class="data">Too</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">6</th>
+<td class="data">Acura</td>
+<td class="data">3.5 RL w/Navigation 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$46,100</td>
+<td class="data">Too</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">7</th>
+<td class="data">Acura</td>
+<td class="data">NSX coupe 2dr manual S</td>
+<td class="data">Sports</td>
+<td class="r data">$89,765</td>
+<td class="data">Too</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">8</th>
+<td class="data">Audi</td>
+<td class="data">A4 1.8T 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$25,940</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">9</th>
+<td class="data">Audi</td>
+<td class="data">A41.8T convertible 2dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$35,940</td>
+<td class="data">Too</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">10</th>
+<td class="data">Audi</td>
+<td class="data">A4 3.0 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$31,840</td>
+<td class="data">Too</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <div class="note" style="display:inline-block">
 <p>Look at <code>Cost</code>. It says <strong>Too</strong> instead of <strong>Too High</strong>. SAS sets the length of a new column from the <strong>first</strong> value it sees. Here that is <code>"Okay"</code>, so <code>Cost</code> only has room for 4 characters.</p>
@@ -287,6 +391,107 @@ run;
 
 proc print data=cars_new (obs=10);
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The Print Procedure</p>
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Obs</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Make</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Model</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Type</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">MSRP</th>
+<th class="header" data-quarto-table-cell-role="th" scope="col">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">1</th>
+<td class="data">Acura</td>
+<td class="data">MDX</td>
+<td class="data">SUV</td>
+<td class="r data">$36,945</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">2</th>
+<td class="data">Acura</td>
+<td class="data">RSX Type S 2dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$23,820</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">3</th>
+<td class="data">Acura</td>
+<td class="data">TSX 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$26,990</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">4</th>
+<td class="data">Acura</td>
+<td class="data">TL 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$33,195</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">5</th>
+<td class="data">Acura</td>
+<td class="data">3.5 RL 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$43,755</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">6</th>
+<td class="data">Acura</td>
+<td class="data">3.5 RL w/Navigation 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$46,100</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">7</th>
+<td class="data">Acura</td>
+<td class="data">NSX coupe 2dr manual S</td>
+<td class="data">Sports</td>
+<td class="r data">$89,765</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">8</th>
+<td class="data">Audi</td>
+<td class="data">A4 1.8T 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$25,940</td>
+<td class="data">Okay</td>
+</tr>
+<tr class="odd">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">9</th>
+<td class="data">Audi</td>
+<td class="data">A41.8T convertible 2dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$35,940</td>
+<td class="data">Too High</td>
+</tr>
+<tr class="even">
+<th class="r rowheader" data-quarto-table-cell-role="th" scope="row">10</th>
+<td class="data">Audi</td>
+<td class="data">A4 3.0 4dr</td>
+<td class="data">Sedan</td>
+<td class="r data">$31,840</td>
+<td class="data">Too High</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
 </div>
 <p>We also changed the second <code>IF</code> to <code>ELSE</code>. Every car that is not under 30,000 must be 30,000 or more, so we don’t need to check again.</p>
 </section>
@@ -393,7 +598,44 @@ run;
 proc freq data=ma505.ow_cat;
     tables Category;
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The FREQ Procedure</p>
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Category</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Frequency</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Percent</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Cumulative<br>
+Frequency</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Cumulative<br>
+Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">DAMAGE</th>
+<td class="r data">54</td>
+<td class="r data">62.07</td>
+<td class="r data">54</td>
+<td class="r data">62.07</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">HEALS</th>
+<td class="r data">33</td>
+<td class="r data">37.93</td>
+<td class="r data">87</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+
 </div>
+</div>
+</div>
+<p><strong>DAMAGE</strong> has 54 observations and <strong>HEALS</strong> has 33. The <code>mitigation</code> table has <strong>0</strong> observations: in this data, mitigation is never the highest of the three.</p>
 </section>
 <section id="plotting-data-with-proc-steps" class="level2" data-number="5.9">
 <h2 data-number="5.9" class="anchored" data-anchor-id="plotting-data-with-proc-steps"><span class="header-section-number">5.9</span> Plotting data with PROC steps</h2>
@@ -421,6 +663,56 @@ proc freq data=sashelp.cars;
     tables Origin /
         plots=freqplot(orient=horizontal scale=percent);
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The FREQ Procedure</p>
+
+<table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th class="b header" data-quarto-table-cell-role="th" scope="col">Origin</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Frequency</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Percent</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Cumulative<br>
+Frequency</th>
+<th class="r b header" data-quarto-table-cell-role="th" scope="col">Cumulative<br>
+Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Asia</th>
+<td class="r data">158</td>
+<td class="r data">36.92</td>
+<td class="r data">158</td>
+<td class="r data">36.92</td>
+</tr>
+<tr class="even">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">Europe</th>
+<td class="r data">123</td>
+<td class="r data">28.74</td>
+<td class="r data">281</td>
+<td class="r data">65.65</td>
+</tr>
+<tr class="odd">
+<th class="rowheader" data-quarto-table-cell-role="th" scope="row">USA</th>
+<td class="r data">147</td>
+<td class="r data">34.35</td>
+<td class="r data">428</td>
+<td class="r data">100.00</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-6-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="two-way-frequency-table" class="level2" data-number="5.11">
@@ -437,6 +729,434 @@ proc freq data=sashelp.cars;
     tables Origin*Type /
         plots=freqplot(orient=vertical);
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The FREQ Procedure</p>
+
+<table class="caption-top table table-sm table-striped small" role="presentation">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td class="c t"><table class="table caption-top table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th class="t header" data-quarto-table-cell-role="th" scope="col"><div class="stacked-cell">
+<div class="t">
+Frequency
+</div>
+<div class="t">
+Percent
+</div>
+<div class="t">
+Row Pct
+</div>
+<div class="t">
+Col Pct
+</div>
+</div></th>
+</tr>
+</tbody>
+</table></td>
+<td><table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="8" class="c header" data-quarto-table-cell-role="th" scope="colgroup">Table&nbsp;of&nbsp;Origin&nbsp;by&nbsp;Type</th>
+</tr>
+<tr class="even">
+<th rowspan="2" class="c b header" data-quarto-table-cell-role="th" scope="col">Origin</th>
+<th colspan="7" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Type</th>
+</tr>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Hybrid</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">SUV</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Sedan</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Sports</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Truck</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Wagon</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Asia</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+3
+</div>
+<div class="r t">
+0.70
+</div>
+<div class="r t">
+1.90
+</div>
+<div class="r t">
+100.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+25
+</div>
+<div class="r t">
+5.84
+</div>
+<div class="r t">
+15.82
+</div>
+<div class="r t">
+41.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+94
+</div>
+<div class="r t">
+21.96
+</div>
+<div class="r t">
+59.49
+</div>
+<div class="r t">
+35.88
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+17
+</div>
+<div class="r t">
+3.97
+</div>
+<div class="r t">
+10.76
+</div>
+<div class="r t">
+34.69
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+8
+</div>
+<div class="r t">
+1.87
+</div>
+<div class="r t">
+5.06
+</div>
+<div class="r t">
+33.33
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+11
+</div>
+<div class="r t">
+2.57
+</div>
+<div class="r t">
+6.96
+</div>
+<div class="r t">
+36.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+158
+</div>
+<div class="r t">
+36.92
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Europe</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+0
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+10
+</div>
+<div class="r t">
+2.34
+</div>
+<div class="r t">
+8.13
+</div>
+<div class="r t">
+16.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+78
+</div>
+<div class="r t">
+18.22
+</div>
+<div class="r t">
+63.41
+</div>
+<div class="r t">
+29.77
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+23
+</div>
+<div class="r t">
+5.37
+</div>
+<div class="r t">
+18.70
+</div>
+<div class="r t">
+46.94
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+0
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+12
+</div>
+<div class="r t">
+2.80
+</div>
+<div class="r t">
+9.76
+</div>
+<div class="r t">
+40.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+123
+</div>
+<div class="r t">
+28.74
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">USA</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+0
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+25
+</div>
+<div class="r t">
+5.84
+</div>
+<div class="r t">
+17.01
+</div>
+<div class="r t">
+41.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+90
+</div>
+<div class="r t">
+21.03
+</div>
+<div class="r t">
+61.22
+</div>
+<div class="r t">
+34.35
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+9
+</div>
+<div class="r t">
+2.10
+</div>
+<div class="r t">
+6.12
+</div>
+<div class="r t">
+18.37
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+16
+</div>
+<div class="r t">
+3.74
+</div>
+<div class="r t">
+10.88
+</div>
+<div class="r t">
+66.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+7
+</div>
+<div class="r t">
+1.64
+</div>
+<div class="r t">
+4.76
+</div>
+<div class="r t">
+23.33
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+147
+</div>
+<div class="r t">
+34.35
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Total</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+3
+</div>
+<div class="r t">
+0.70
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+60
+</div>
+<div class="r t">
+14.02
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+262
+</div>
+<div class="r t">
+61.21
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+49
+</div>
+<div class="r t">
+11.45
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+24
+</div>
+<div class="r t">
+5.61
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+30
+</div>
+<div class="r t">
+7.01
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+428
+</div>
+<div class="r t">
+100.00
+</div>
+</div></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="stacked-bar-chart" class="level2" data-number="5.12">
@@ -465,6 +1185,281 @@ run;
 
 title;
 footnote;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The FREQ Procedure</p>
+
+<table class="caption-top table table-sm table-striped small" role="presentation">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td class="c t"><table class="table caption-top table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th class="t header" data-quarto-table-cell-role="th" scope="col"><div class="stacked-cell">
+<div class="t">
+Frequency
+</div>
+<div class="t">
+Percent
+</div>
+<div class="t">
+Row Pct
+</div>
+<div class="t">
+Col Pct
+</div>
+</div></th>
+</tr>
+</tbody>
+</table></td>
+<td><table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="5" class="c header" data-quarto-table-cell-role="th" scope="colgroup">Table&nbsp;of&nbsp;Origin&nbsp;by&nbsp;Type</th>
+</tr>
+<tr class="even">
+<th rowspan="2" class="c b header" data-quarto-table-cell-role="th" scope="col">Origin</th>
+<th colspan="4" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Type</th>
+</tr>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">SUV</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Sedan</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Truck</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Asia</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+25
+</div>
+<div class="r t">
+7.23
+</div>
+<div class="r t">
+19.69
+</div>
+<div class="r t">
+41.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+94
+</div>
+<div class="r t">
+27.17
+</div>
+<div class="r t">
+74.02
+</div>
+<div class="r t">
+35.88
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+8
+</div>
+<div class="r t">
+2.31
+</div>
+<div class="r t">
+6.30
+</div>
+<div class="r t">
+33.33
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+127
+</div>
+<div class="r t">
+36.71
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Europe</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+10
+</div>
+<div class="r t">
+2.89
+</div>
+<div class="r t">
+11.36
+</div>
+<div class="r t">
+16.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+78
+</div>
+<div class="r t">
+22.54
+</div>
+<div class="r t">
+88.64
+</div>
+<div class="r t">
+29.77
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+0
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+<div class="r t">
+0.00
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+88
+</div>
+<div class="r t">
+25.43
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">USA</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+25
+</div>
+<div class="r t">
+7.23
+</div>
+<div class="r t">
+19.08
+</div>
+<div class="r t">
+41.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+90
+</div>
+<div class="r t">
+26.01
+</div>
+<div class="r t">
+68.70
+</div>
+<div class="r t">
+34.35
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+16
+</div>
+<div class="r t">
+4.62
+</div>
+<div class="r t">
+12.21
+</div>
+<div class="r t">
+66.67
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+131
+</div>
+<div class="r t">
+37.86
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Total</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+60
+</div>
+<div class="r t">
+17.34
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+262
+</div>
+<div class="r t">
+75.72
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+24
+</div>
+<div class="r t">
+6.94
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+346
+</div>
+<div class="r t">
+100.00
+</div>
+</div></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="exercise-1" class="level2" data-number="5.13">
@@ -486,6 +1481,185 @@ proc freq data=ma505.ow_cat;
     tables Player*Category /
         plots=freqplot(orient=vertical twoway=cluster);
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div class="sas-output">
+<p class="sas-proctitle">The FREQ Procedure</p>
+
+<table class="caption-top table table-sm table-striped small" role="presentation">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td class="c t"><table class="table caption-top table-sm table-striped small">
+<tbody>
+<tr class="odd">
+<th class="t header" data-quarto-table-cell-role="th" scope="col"><div class="stacked-cell">
+<div class="t">
+Frequency
+</div>
+<div class="t">
+Percent
+</div>
+<div class="t">
+Row Pct
+</div>
+<div class="t">
+Col Pct
+</div>
+</div></th>
+</tr>
+</tbody>
+</table></td>
+<td><table class="table caption-top table-sm table-striped small">
+<thead>
+<tr class="header">
+<th colspan="4" class="c header" data-quarto-table-cell-role="th" scope="colgroup">Table&nbsp;of&nbsp;Player&nbsp;by&nbsp;Category</th>
+</tr>
+<tr class="even">
+<th rowspan="2" class="c b header" data-quarto-table-cell-role="th" scope="col">Player</th>
+<th colspan="3" class="c b header" data-quarto-table-cell-role="th" scope="colgroup">Category</th>
+</tr>
+<tr class="header">
+<th class="r header" data-quarto-table-cell-role="th" scope="col">DAMAGE</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">HEALS</th>
+<th class="r header" data-quarto-table-cell-role="th" scope="col">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">player1</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+48
+</div>
+<div class="r t">
+55.17
+</div>
+<div class="r t">
+85.71
+</div>
+<div class="r t">
+88.89
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+8
+</div>
+<div class="r t">
+9.20
+</div>
+<div class="r t">
+14.29
+</div>
+<div class="r t">
+24.24
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+56
+</div>
+<div class="r t">
+64.37
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="even">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">player2</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+6
+</div>
+<div class="r t">
+6.90
+</div>
+<div class="r t">
+19.35
+</div>
+<div class="r t">
+11.11
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+25
+</div>
+<div class="r t">
+28.74
+</div>
+<div class="r t">
+80.65
+</div>
+<div class="r t">
+75.76
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+31
+</div>
+<div class="r t">
+35.63
+</div>
+<div class="r t">
+&nbsp;
+</div>
+<div class="r t">
+&nbsp;
+</div>
+</div></td>
+</tr>
+<tr class="odd">
+<th class="t rowheader" data-quarto-table-cell-role="th" scope="row">Total</th>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+54
+</div>
+<div class="r t">
+62.07
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+33
+</div>
+<div class="r t">
+37.93
+</div>
+</div></td>
+<td class="r t data"><div class="stacked-cell">
+<div class="r t">
+87
+</div>
+<div class="r t">
+100.00
+</div>
+</div></td>
+</tr>
+</tbody>
+</table></td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p>Each cell of a two-way table has 4 values, in this order:</p>
 <ul>
@@ -539,6 +1713,13 @@ run;</code></pre>
 proc sgplot data=ma505.ow_stats;
     hbar Map;
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="adding-a-response-variable" class="level2" data-number="5.18">
@@ -548,6 +1729,13 @@ run;</code></pre>
 <pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
     hbar Map / response=Damage;
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="choosing-the-statistic" class="level2" data-number="5.19">
@@ -557,6 +1745,13 @@ run;</code></pre>
 <pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
     hbar Map / response=Damage stat=mean;
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="exercise-2" class="level2" data-number="5.20">
@@ -582,6 +1777,20 @@ run;
 proc sgplot data=ma505.ow_stats;
     vbarparm category=Date response=Damage;
 run;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <p><code>VBAR</code> gives the sum of <code>Damage</code> for each date. <code>VBARPARM</code> does not. It is a <strong>Basic</strong> plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use <code>VBARPARM</code> here, we would need to summarize the data first.</p>
 
