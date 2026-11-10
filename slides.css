@@ -50,3 +50,9 @@
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
 .reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
+/* Cells whose code is hidden (remove-input): the output gets the full width */
+.reveal section .cell[data-tags*="remove-input"] { display: block; }
+.reveal section > .cell[data-tags*="remove-input"]:has(+ img) { float: none; width: auto; margin: 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"] { display: block; width: auto !important; max-width: 100%; max-height: 430px; margin: .3em auto 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img + img[src^="data:image/png"],
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"]:has(+ img) { display: inline-block; width: 49% !important; }

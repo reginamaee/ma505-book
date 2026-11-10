@@ -601,6 +601,12 @@ max-height: none !important;
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
 .reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
+
+.reveal section .cell[data-tags*="remove-input"] { display: block; }
+.reveal section > .cell[data-tags*="remove-input"]:has(+ img) { float: none; width: auto; margin: 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"] { display: block; width: auto !important; max-width: 100%; max-height: 430px; margin: .3em auto 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img + img[src^="data:image/png"],
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"]:has(+ img) { display: inline-block; width: 49% !important; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -4139,6 +4145,16 @@ window.QuartoSupport = function () {
           RevealZoom
         ]
       });
+    </script>
+    <!-- Hide the runnable copy of code that is already shown in an annotated box above it
+         (cells tagged remove-input). Runs first, so it never becomes an empty click on the slides. -->
+    <style>.cell[data-tags*="remove-input"] .cell-code, .cell[data-tags*="remove-input"] .code-copy-outer-scaffold { display: none; }</style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.cell[data-tags*="remove-input"]').forEach(function (cell) {
+        cell.querySelectorAll('.code-copy-outer-scaffold, div.sourceCode, pre.cell-code, .cell-code').forEach(function (e) { e.remove(); });
+      });
+    });
     </script>
     <script>
     // Adds two small icons to the top-right of every SAS code panel:

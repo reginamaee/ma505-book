@@ -601,6 +601,12 @@ max-height: none !important;
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
 .reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
+
+.reveal section .cell[data-tags*="remove-input"] { display: block; }
+.reveal section > .cell[data-tags*="remove-input"]:has(+ img) { float: none; width: auto; margin: 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"] { display: block; width: auto !important; max-width: 100%; max-height: 430px; margin: .3em auto 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img + img[src^="data:image/png"],
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"]:has(+ img) { display: inline-block; width: 49% !important; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -1401,8 +1407,11 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <span class="libref-circle"><span class="kw">class</span> Date;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the group: one set of statistics for each date</span></span>
     <span class="libref-circle"><span class="kw">var</span> Damage;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the value we are interested in</span></span>
     <span class="libref-circle"><span class="kw">output</span> out=ow_sum sum=Total_Damage;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates a new table <span class="mono">ow_sum</span> with the sum of <span class="mono">Damage</span> for each date, in a column called <span class="mono">Total_Damage</span></span></span>
+<span class="kw">run</span>;
+
+<span class="kw">proc print</span> data=ow_sum;
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-07" class="cell">
+<div id="d6-07" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>/* using proc means to sum by group */</span>
 <span id="cb2-2"><a href></a>proc means data=ma505.ow_stats;</span>
 <span id="cb2-3"><a href></a>    class Date;</span>
@@ -1614,7 +1623,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
         <span class="libref-circle"><span class="kw">markers</span></span>;<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">marks the data points on the line</span></span>
     <span class="kw">where</span> ProductName in (<span class="sas-str" style="color:#a31515">&#39;Product1&#39;</span>, <span class="sas-str" style="color:#a31515">&#39;Product2&#39;</span>, <span class="sas-str" style="color:#a31515">&#39;Product3&#39;</span>);
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-11" class="cell">
+<div id="d6-11" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb3-1"><a href></a>proc sgplot data=sashelp.pricedata;</span>
 <span id="cb3-2"><a href></a>    series x=Date y=Price /</span>
 <span id="cb3-3"><a href></a>        group=ProductName markers;</span>
@@ -1659,7 +1668,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="layering-series-and-scatter" class="slide level2">
 <h2>Layering: series and scatter</h2>
-<p><code>SERIES ... markers</code> is the same as layering a <code>SERIES</code> and a <code>SCATTER</code> plot. Every plot statement in the same <code>PROC SGPLOT</code> is drawn on the same axes.</p>
+<p>When we put more than one plot statement in the same <code>PROC SGPLOT</code>, SAS draws them on the same axes. This is called layering.</p>
+<p>Here we layer a <code>SERIES</code> plot (the lines) and a <code>SCATTER</code> plot (the points). We get the same plot as <code>series ... / markers</code> from the time series chart.</p>
 <div id="d6-15" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href></a>/* series and scatter combined */</span>
 <span id="cb5-2"><a href></a>proc sgplot data=sashelp.pricedata;</span>
@@ -1687,7 +1697,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <span class="libref-circle"><span class="kw">density</span> Price;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the default is a <b>normal</b> curve</span></span>
     <span class="kw">density</span> Price / <span class="libref-circle">type=kernel</span>;<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">a <b>kernel</b> curve follows the shape of the data (non-parametric)</span></span>
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-19" class="cell">
+<div id="d6-19" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href></a>proc sgplot data=sashelp.pricedata;</span>
 <span id="cb7-2"><a href></a>    histogram Price;</span>
 <span id="cb7-3"><a href></a>    density Price;</span>
@@ -1705,7 +1715,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <span class="libref-circle"><span class="kw">title</span> <span class="sas-str" style="color:#a31515">&#39;Distribution of Price Data for All Products&#39;</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">titles the plot. <span class="mono">TITLE</span> stays on until we clear it with <span class="mono">title;</span></span></span>
 <span class="kw">run</span>;
 <span class="kw">title</span>;</pre></div></div>
-<div id="d6-21" class="cell">
+<div id="d6-21" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a href></a>proc sgplot data=sashelp.pricedata;</span>
 <span id="cb8-2"><a href></a>    histogram Price / fillattrs=(color=&quot;yellow&quot;) transparency=0.95;</span>
 <span id="cb8-3"><a href></a>    density Price / lineattrs=(color=&quot;green&quot;);</span>
@@ -1741,7 +1751,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <span class="kw">scatter</span> x=Sales y=Inventory / group=Region;
     <span class="kw">where</span> Sales &lt; 150000;
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-26" class="cell">
+<div id="d6-26" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb10-1"><a href></a>proc sgpanel data=sashelp.shoes;</span>
 <span id="cb10-2"><a href></a>    panelby Region / rows=2 columns=5;</span>
 <span id="cb10-3"><a href></a>    scatter x=Sales y=Inventory / group=Region;</span>
@@ -1757,7 +1767,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
     <span class="kw">histogram</span> Inventory;
     <span class="kw">where</span> Region in (<span class="sas-str" style="color:#a31515">&#39;Pacific&#39;</span>, <span class="sas-str" style="color:#a31515">&#39;United States&#39;</span>);
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-28" class="cell">
+<div id="d6-28" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a href></a>proc sgpanel data=sashelp.shoes;</span>
 <span id="cb11-2"><a href></a>    panelby Region Product / layout=lattice rows=8;</span>
 <span id="cb11-3"><a href></a>    histogram Inventory;</span>
@@ -1783,7 +1793,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span class="libref-circle"><span class="kw">ods listing close</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">always close the listing so the file saves properly</span></span>
 <span class="kw">ods graphics</span> / reset;
 <span class="kw">title</span>;</pre></div></div>
-<div id="d6-30" class="cell">
+<div id="d6-30" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb12-1"><a href></a>ods graphics / reset imagename=&quot;Inventory_Distribution&quot; imagefmt=png</span>
 <span id="cb12-2"><a href></a>    width=800px height=1200px;</span>
 <span id="cb12-3"><a href></a>ods listing gpath=&quot;~&quot;;</span>
@@ -3029,6 +3039,16 @@ window.QuartoSupport = function () {
           RevealZoom
         ]
       });
+    </script>
+    <!-- Hide the runnable copy of code that is already shown in an annotated box above it
+         (cells tagged remove-input). Runs first, so it never becomes an empty click on the slides. -->
+    <style>.cell[data-tags*="remove-input"] .cell-code, .cell[data-tags*="remove-input"] .code-copy-outer-scaffold { display: none; }</style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.cell[data-tags*="remove-input"]').forEach(function (cell) {
+        cell.querySelectorAll('.code-copy-outer-scaffold, div.sourceCode, pre.cell-code, .cell-code').forEach(function (e) { e.remove(); });
+      });
+    });
     </script>
     <script>
     // Adds two small icons to the top-right of every SAS code panel:

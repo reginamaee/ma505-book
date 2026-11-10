@@ -599,6 +599,12 @@ max-height: none !important;
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]) { width: 43% !important; }
 .reveal section > .cell + img[src^="data:image/png"]:not([class*="screenshot"]):has(+ img), .reveal section > .cell + img + img[src^="data:image/png"]:not([class*="screenshot"]) { display: inline-block; width: 49% !important; }
 .reveal section > img[src^="data:image/png"]:not([class*="screenshot"]) + :not(img) { clear: both; }
+
+.reveal section .cell[data-tags*="remove-input"] { display: block; }
+.reveal section > .cell[data-tags*="remove-input"]:has(+ img) { float: none; width: auto; margin: 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"] { display: block; width: auto !important; max-width: 100%; max-height: 430px; margin: .3em auto 0; }
+.reveal section > .cell[data-tags*="remove-input"] + img + img[src^="data:image/png"],
+.reveal section > .cell[data-tags*="remove-input"] + img[src^="data:image/png"]:has(+ img) { display: inline-block; width: 49% !important; }
 </style>
   <style type="text/css">
 .anno { display: flex; flex-direction: column; gap: 0; margin: .6em 0; font-size: .95em; }
@@ -1516,7 +1522,7 @@ margin-right: 0; }
         plots=freqplot(<span class="libref-circle">orient=horizontal</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates a horizontal bar plot</span></span>
                        <span class="libref-circle">scale=percent</span>);<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">shows percents instead of counts</span></span>
 <span class="kw">run</span>;</pre></div></div>
-<div id="d5-19" class="cell">
+<div id="d5-19" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb5-1"><a href></a>/* creating a frequency plot */</span>
 <span id="cb5-2"><a href></a>ods graphics on;</span>
 <span id="cb5-3"><a href></a></span>
@@ -1534,7 +1540,7 @@ margin-right: 0; }
         plots=freqplot(<span class="libref-circle">orient=vertical</span>);<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">vertical bar chart. We did not set <span class="mono">scale=</span>, so the plot shows counts.</span></span>
 <span class="kw">run</span>;</pre></div></div>
 <p>We don’t need <code>ods graphics on</code> again, since it is still on from the last code.</p>
-<div id="d5-21" class="cell">
+<div id="d5-21" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href></a>/* creating a vertical bar freq plot */</span>
 <span id="cb6-2"><a href></a>proc freq data=sashelp.cars;</span>
 <span id="cb6-3"><a href></a>    tables Origin*Type /</span>
@@ -1554,7 +1560,7 @@ margin-right: 0; }
     <span class="kw">where</span> Type in (&quot;Sedan&quot;, &quot;SUV&quot;, &quot;Truck&quot;);
 <span class="kw">run</span>;
 <span class="libref-circle"><span class="kw">title</span>; <span class="kw">footnote</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">Titles stay on until we clear them. This clears them.</span></span></pre></div></div>
-<div id="d5-23" class="cell">
+<div id="d5-23" class="cell" data-tags="[&quot;remove-input&quot;]">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb7-1"><a href></a>/* creating a stacked bar */</span>
 <span id="cb7-2"><a href></a>title1 &#39;Origin of Cars by Type&#39;;</span>
 <span id="cb7-3"><a href></a>title2 &#39;Sedan, SUV, Truck&#39;;</span>
@@ -2864,6 +2870,16 @@ window.QuartoSupport = function () {
           RevealZoom
         ]
       });
+    </script>
+    <!-- Hide the runnable copy of code that is already shown in an annotated box above it
+         (cells tagged remove-input). Runs first, so it never becomes an empty click on the slides. -->
+    <style>.cell[data-tags*="remove-input"] .cell-code, .cell[data-tags*="remove-input"] .code-copy-outer-scaffold { display: none; }</style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.cell[data-tags*="remove-input"]').forEach(function (cell) {
+        cell.querySelectorAll('.code-copy-outer-scaffold, div.sourceCode, pre.cell-code, .cell-code').forEach(function (e) { e.remove(); });
+      });
+    });
     </script>
     <script>
     // Adds two small icons to the top-right of every SAS code panel:

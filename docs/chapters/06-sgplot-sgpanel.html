@@ -281,8 +281,11 @@ run;</code></pre>
     <span class="libref-circle"><span class="kw">class</span> Date;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the group: one set of statistics for each date</span></span>
     <span class="libref-circle"><span class="kw">var</span> Damage;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the value we are interested in</span></span>
     <span class="libref-circle"><span class="kw">output</span> out=ow_sum sum=Total_Damage;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates a new table <span class="mono">ow_sum</span> with the sum of <span class="mono">Damage</span> for each date, in a column called <span class="mono">Total_Damage</span></span></span>
+<span class="kw">run</span>;
+
+<span class="kw">proc print</span> data=ow_sum;
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-07" class="cell">
+<div id="d6-07" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>/* using proc means to sum by group */
 proc means data=ma505.ow_stats;
     class Date;
@@ -494,7 +497,7 @@ run;</code></pre>
         <span class="libref-circle"><span class="kw">markers</span></span>;<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">marks the data points on the line</span></span>
     <span class="kw">where</span> ProductName in (<span class="sas-str" style="color:#a31515">'Product1'</span>, <span class="sas-str" style="color:#a31515">'Product2'</span>, <span class="sas-str" style="color:#a31515">'Product3'</span>);
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-11" class="cell">
+<div id="d6-11" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>proc sgplot data=sashelp.pricedata;
     series x=Date y=Price /
         group=ProductName markers;
@@ -545,7 +548,8 @@ run;</code></pre>
 </section>
 <section id="layering-series-and-scatter" class="level2" data-number="6.8">
 <h2 data-number="6.8" class="anchored" data-anchor-id="layering-series-and-scatter"><span class="header-section-number">6.8</span> Layering: series and scatter</h2>
-<p><code>SERIES ... markers</code> is the same as layering a <code>SERIES</code> and a <code>SCATTER</code> plot. Every plot statement in the same <code>PROC SGPLOT</code> is drawn on the same axes.</p>
+<p>When we put more than one plot statement in the same <code>PROC SGPLOT</code>, SAS draws them on the same axes. This is called layering.</p>
+<p>Here we layer a <code>SERIES</code> plot (the lines) and a <code>SCATTER</code> plot (the points). We get the same plot as <code>series ... / markers</code> from the time series chart.</p>
 <div id="d6-15" class="cell">
 <pre class="sas cell-code"><code>/* series and scatter combined */
 proc sgplot data=sashelp.pricedata;
@@ -585,7 +589,7 @@ run;</code></pre>
     <span class="libref-circle"><span class="kw">density</span> Price;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">the default is a <b>normal</b> curve</span></span>
     <span class="kw">density</span> Price / <span class="libref-circle">type=kernel</span>;<span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">a <b>kernel</b> curve follows the shape of the data (non-parametric)</span></span>
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-19" class="cell">
+<div id="d6-19" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>proc sgplot data=sashelp.pricedata;
     histogram Price;
     density Price;
@@ -609,7 +613,7 @@ run;</code></pre>
     <span class="libref-circle"><span class="kw">title</span> <span class="sas-str" style="color:#a31515">'Distribution of Price Data for All Products'</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">titles the plot. <span class="mono">TITLE</span> stays on until we clear it with <span class="mono">title;</span></span></span>
 <span class="kw">run</span>;
 <span class="kw">title</span>;</pre></div></div>
-<div id="d6-21" class="cell">
+<div id="d6-21" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>proc sgplot data=sashelp.pricedata;
     histogram Price / fillattrs=(color="yellow") transparency=0.95;
     density Price / lineattrs=(color="green");
@@ -657,7 +661,7 @@ title;</code></pre>
     <span class="kw">scatter</span> x=Sales y=Inventory / group=Region;
     <span class="kw">where</span> Sales &lt; 150000;
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-26" class="cell">
+<div id="d6-26" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>proc sgpanel data=sashelp.shoes;
     panelby Region / rows=2 columns=5;
     scatter x=Sales y=Inventory / group=Region;
@@ -679,7 +683,7 @@ run;</code></pre>
     <span class="kw">histogram</span> Inventory;
     <span class="kw">where</span> Region in (<span class="sas-str" style="color:#a31515">'Pacific'</span>, <span class="sas-str" style="color:#a31515">'United States'</span>);
 <span class="kw">run</span>;</pre></div></div>
-<div id="d6-28" class="cell">
+<div id="d6-28" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>proc sgpanel data=sashelp.shoes;
     panelby Region Product / layout=lattice rows=8;
     histogram Inventory;
@@ -711,7 +715,7 @@ run;</code></pre>
 <span class="libref-circle"><span class="kw">ods listing close</span>;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">always close the listing so the file saves properly</span></span>
 <span class="kw">ods graphics</span> / reset;
 <span class="kw">title</span>;</pre></div></div>
-<div id="d6-30" class="cell">
+<div id="d6-30" class="cell" data-tags="[&quot;remove-input&quot;]">
 <pre class="sas cell-code"><code>ods graphics / reset imagename="Inventory_Distribution" imagefmt=png
     width=800px height=1200px;
 ods listing gpath="~";
@@ -791,6 +795,16 @@ title;</code></pre>
 </section>
 
 </main> <!-- /main -->
+<!-- Hide the runnable copy of code that is already shown in an annotated box above it
+     (cells tagged remove-input). Runs first, so it never becomes an empty click on the slides. -->
+<style>.cell[data-tags*="remove-input"] .cell-code, .cell[data-tags*="remove-input"] .code-copy-outer-scaffold { display: none; }</style>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cell[data-tags*="remove-input"]').forEach(function (cell) {
+    cell.querySelectorAll('.code-copy-outer-scaffold, div.sourceCode, pre.cell-code, .cell-code').forEach(function (e) { e.remove(); });
+  });
+});
+</script>
 <script>
 // Adds two small icons to the top-right of every SAS code panel:
 //   [download .sas]  [copy to clipboard]
