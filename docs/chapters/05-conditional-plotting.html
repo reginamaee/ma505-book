@@ -180,10 +180,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#proc-sgplot" id="toc-proc-sgplot" class="nav-link" data-scroll-target="#proc-sgplot"><span class="header-section-number">5.14</span> <code>PROC SGPLOT</code></a></li>
   <li><a href="#proc-sgplot-syntax" id="toc-proc-sgplot-syntax" class="nav-link" data-scroll-target="#proc-sgplot-syntax"><span class="header-section-number">5.15</span> <code>PROC SGPLOT</code> syntax</a></li>
   <li><a href="#plot-statements" id="toc-plot-statements" class="nav-link" data-scroll-target="#plot-statements"><span class="header-section-number">5.16</span> Plot statements</a></li>
-  <li><a href="#proc-sgplot-a-simple-bar-chart" id="toc-proc-sgplot-a-simple-bar-chart" class="nav-link" data-scroll-target="#proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.17</span> <code>PROC SGPLOT</code>: a simple bar chart</a></li>
-  <li><a href="#adding-a-response-variable" id="toc-adding-a-response-variable" class="nav-link" data-scroll-target="#adding-a-response-variable"><span class="header-section-number">5.18</span> Adding a response variable</a></li>
-  <li><a href="#choosing-the-statistic" id="toc-choosing-the-statistic" class="nav-link" data-scroll-target="#choosing-the-statistic"><span class="header-section-number">5.19</span> Choosing the statistic</a></li>
-  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">5.20</span> Exercise</a></li>
+  <li><a href="#summarized-vs-unsummarized-data" id="toc-summarized-vs-unsummarized-data" class="nav-link" data-scroll-target="#summarized-vs-unsummarized-data"><span class="header-section-number">5.17</span> Summarized vs unsummarized data</a></li>
+  <li><a href="#using-the-right-statement" id="toc-using-the-right-statement" class="nav-link" data-scroll-target="#using-the-right-statement"><span class="header-section-number">5.18</span> Using the right statement</a></li>
+  <li><a href="#using-the-wrong-statement" id="toc-using-the-wrong-statement" class="nav-link" data-scroll-target="#using-the-wrong-statement"><span class="header-section-number">5.19</span> Using the wrong statement</a></li>
+  <li><a href="#proc-sgplot-a-simple-bar-chart" id="toc-proc-sgplot-a-simple-bar-chart" class="nav-link" data-scroll-target="#proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.20</span> <code>PROC SGPLOT</code>: a simple bar chart</a></li>
+  <li><a href="#adding-a-response-variable" id="toc-adding-a-response-variable" class="nav-link" data-scroll-target="#adding-a-response-variable"><span class="header-section-number">5.21</span> Adding a response variable</a></li>
+  <li><a href="#choosing-the-statistic" id="toc-choosing-the-statistic" class="nav-link" data-scroll-target="#choosing-the-statistic"><span class="header-section-number">5.22</span> Choosing the statistic</a></li>
+  <li><a href="#exercise-2" id="toc-exercise-2" class="nav-link" data-scroll-target="#exercise-2"><span class="header-section-number">5.23</span> Exercise</a></li>
   </ul>
 </nav>
     </div>
@@ -1704,8 +1707,147 @@ Col Pct
 </ul>
 </div>
 </section>
-<section id="proc-sgplot-a-simple-bar-chart" class="level2" data-number="5.17">
-<h2 data-number="5.17" class="anchored" data-anchor-id="proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.17</span> <code>PROC SGPLOT</code>: a simple bar chart</h2>
+<section id="summarized-vs-unsummarized-data" class="level2" data-number="5.17">
+<h2 data-number="5.17" class="anchored" data-anchor-id="summarized-vs-unsummarized-data"><span class="header-section-number">5.17</span> Summarized vs unsummarized data</h2>
+<div class="columns">
+<div class="column" style="width:48%;">
+<p><strong>Unsummarized</strong>: one row per game, so each map shows up more than once.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Map</th>
+<th style="text-align: right;">Damage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Busan</td>
+<td style="text-align: right;">3000</td>
+</tr>
+<tr class="even">
+<td>Busan</td>
+<td style="text-align: right;">5000</td>
+</tr>
+<tr class="odd">
+<td>Busan</td>
+<td style="text-align: right;">2000</td>
+</tr>
+<tr class="even">
+<td>Oasis</td>
+<td style="text-align: right;">4000</td>
+</tr>
+<tr class="odd">
+<td>Oasis</td>
+<td style="text-align: right;">1000</td>
+</tr>
+<tr class="even">
+<td>Nepal</td>
+<td style="text-align: right;">7000</td>
+</tr>
+</tbody>
+</table>
+<p>Use <strong><code>HBAR</code></strong>. SAS adds up the rows for each map.</p>
+</div><div class="column" style="width:4%;">
+
+</div><div class="column fragment" style="width:48%;">
+<p><strong>Summarized</strong>: one row per map. The adding is already done.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Map</th>
+<th style="text-align: right;">Total_Damage</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Busan</td>
+<td style="text-align: right;">10000</td>
+</tr>
+<tr class="even">
+<td>Oasis</td>
+<td style="text-align: right;">5000</td>
+</tr>
+<tr class="odd">
+<td>Nepal</td>
+<td style="text-align: right;">7000</td>
+</tr>
+</tbody>
+</table>
+<p>Use <strong><code>HBARPARM</code></strong>. SAS draws each row as one bar.</p>
+</div>
+</div>
+</section>
+<section id="using-the-right-statement" class="level2" data-number="5.18">
+<h2 data-number="5.18" class="anchored" data-anchor-id="using-the-right-statement"><span class="header-section-number">5.18</span> Using the right statement</h2>
+<p><code>HBAR</code> on the unsummarized table and <code>HBARPARM</code> on the summarized table give us the <strong>same</strong> bars. Busan has the most damage. The order is different because <code>HBAR</code> sorts the maps A to Z, and <code>HBARPARM</code> keeps the order of the rows.</p>
+<div id="d5-sum-e" class="cell">
+<pre class="sas cell-code"><code>/* unsummarized data: HBAR adds up the games */
+title 'HBAR with unsummarized data';
+proc sgplot data=games;
+    hbar Map / response=Damage;
+run;
+
+/* summarized data: HBARPARM draws one bar per row */
+title 'HBARPARM with summarized data';
+proc sgplot data=games_sum;
+    hbarparm category=Map response=Total_Damage;
+run;
+title;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="using-the-wrong-statement" class="level2" data-number="5.19">
+<h2 data-number="5.19" class="anchored" data-anchor-id="using-the-wrong-statement"><span class="header-section-number">5.19</span> Using the wrong statement</h2>
+<p>What if we switch them?</p>
+<div id="d5-sum-g" class="cell">
+<pre class="sas cell-code"><code>/* HBARPARM on unsummarized data */
+title 'HBARPARM with unsummarized data';
+proc sgplot data=games;
+    hbarparm category=Map response=Damage;
+run;
+
+/* HBAR on summarized data, with no response= */
+title 'HBAR with summarized data';
+proc sgplot data=games_sum;
+    hbar Map;
+run;
+title;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><strong><code>HBARPARM</code> on unsummarized data:</strong> SAS draws one bar for <strong>each game</strong>, all on top of each other. We only see the longest one, so Busan shows 5000 instead of 10000, and now Nepal looks like it has the most damage.</li>
+<li><strong><code>HBAR</code> on summarized data with no <code>response=</code>:</strong> SAS counts the rows. Each map has one row, so every bar is 1.</li>
+</ul>
+<p>Before we plot, look at the data. Is there one row per bar, or many?</p>
+</section>
+<section id="proc-sgplot-a-simple-bar-chart" class="level2" data-number="5.20">
+<h2 data-number="5.20" class="anchored" data-anchor-id="proc-sgplot-a-simple-bar-chart"><span class="header-section-number">5.20</span> <code>PROC SGPLOT</code>: a simple bar chart</h2>
 <p>With only a category column, <code>HBAR</code> counts the rows for each value.</p>
 <div id="d5-31" class="cell">
 <pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
@@ -1716,14 +1858,14 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="adding-a-response-variable" class="level2" data-number="5.18">
-<h2 data-number="5.18" class="anchored" data-anchor-id="adding-a-response-variable"><span class="header-section-number">5.18</span> Adding a response variable</h2>
+<section id="adding-a-response-variable" class="level2" data-number="5.21">
+<h2 data-number="5.21" class="anchored" data-anchor-id="adding-a-response-variable"><span class="header-section-number">5.21</span> Adding a response variable</h2>
 <p><code>response=</code> tells SAS what to measure for each bar. By default it <strong>adds up</strong> (sums) the response.</p>
 <div id="d5-33" class="cell">
 <pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
@@ -1732,14 +1874,14 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="choosing-the-statistic" class="level2" data-number="5.19">
-<h2 data-number="5.19" class="anchored" data-anchor-id="choosing-the-statistic"><span class="header-section-number">5.19</span> Choosing the statistic</h2>
+<section id="choosing-the-statistic" class="level2" data-number="5.22">
+<h2 data-number="5.22" class="anchored" data-anchor-id="choosing-the-statistic"><span class="header-section-number">5.22</span> Choosing the statistic</h2>
 <p><code>stat=</code> changes how the response is summarized, like <code>stat=mean</code> for the average.</p>
 <div id="d5-35" class="cell">
 <pre class="sas cell-code"><code>proc sgplot data=ma505.ow_stats;
@@ -1748,14 +1890,14 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 </section>
-<section id="exercise-2" class="level2" data-number="5.20">
-<h2 data-number="5.20" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">5.20</span> Exercise</h2>
+<section id="exercise-2" class="level2" data-number="5.23">
+<h2 data-number="5.23" class="anchored" data-anchor-id="exercise-2"><span class="header-section-number">5.23</span> Exercise</h2>
 <ol type="1">
 <li>Using <code>ma505.ow_stats</code>, make a bar chart of the <strong>sum of <code>Damage</code> by <code>Date</code></strong> two ways: with <code>VBAR</code> and with <code>VBARPARM</code>. Compare the outputs.
 <ol type="a">
@@ -1780,14 +1922,14 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>

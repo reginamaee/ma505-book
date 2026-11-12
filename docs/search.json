@@ -933,8 +933,8 @@
     "objectID": "chapters/05-conditional-plotting.html#proc-sgplot-a-simple-bar-chart",
     "href": "chapters/05-conditional-plotting.html#proc-sgplot-a-simple-bar-chart",
     "title": "5  Conditional Processing and Plotting",
-    "section": "5.17 PROC SGPLOT: a simple bar chart",
-    "text": "5.17 PROC SGPLOT: a simple bar chart\nWith only a category column, HBAR counts the rows for each value.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map;\nrun;",
+    "section": "5.20 PROC SGPLOT: a simple bar chart",
+    "text": "5.20 PROC SGPLOT: a simple bar chart\nWith only a category column, HBAR counts the rows for each value.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map;\nrun;",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
@@ -943,8 +943,8 @@
     "objectID": "chapters/05-conditional-plotting.html#adding-a-response-variable",
     "href": "chapters/05-conditional-plotting.html#adding-a-response-variable",
     "title": "5  Conditional Processing and Plotting",
-    "section": "5.18 Adding a response variable",
-    "text": "5.18 Adding a response variable\nresponse= tells SAS what to measure for each bar. By default it adds up (sums) the response.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage;\nrun;",
+    "section": "5.21 Adding a response variable",
+    "text": "5.21 Adding a response variable\nresponse= tells SAS what to measure for each bar. By default it adds up (sums) the response.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage;\nrun;",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
@@ -953,8 +953,8 @@
     "objectID": "chapters/05-conditional-plotting.html#choosing-the-statistic",
     "href": "chapters/05-conditional-plotting.html#choosing-the-statistic",
     "title": "5  Conditional Processing and Plotting",
-    "section": "5.19 Choosing the statistic",
-    "text": "5.19 Choosing the statistic\nstat= changes how the response is summarized, like stat=mean for the average.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage stat=mean;\nrun;",
+    "section": "5.22 Choosing the statistic",
+    "text": "5.22 Choosing the statistic\nstat= changes how the response is summarized, like stat=mean for the average.\n\nproc sgplot data=ma505.ow_stats;\n    hbar Map / response=Damage stat=mean;\nrun;",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
@@ -963,8 +963,8 @@
     "objectID": "chapters/05-conditional-plotting.html#exercise-2",
     "href": "chapters/05-conditional-plotting.html#exercise-2",
     "title": "5  Conditional Processing and Plotting",
-    "section": "5.20 Exercise",
-    "text": "5.20 Exercise\n\nUsing ma505.ow_stats, make a bar chart of the sum of Damage by Date two ways: with VBAR and with VBARPARM. Compare the outputs.\n\nAre the results what you expected? Why or why not?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* VBAR: SAS adds up Damage for each date */\nproc sgplot data=ma505.ow_stats;\n    vbar Date / response=Damage stat=sum;\nrun;\n\n/* VBARPARM: expects one row per date, so it does not add anything up */\nproc sgplot data=ma505.ow_stats;\n    vbarparm category=Date response=Damage;\nrun;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVBAR gives the sum of Damage for each date. VBARPARM does not. It is a Basic plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use VBARPARM here, we would need to summarize the data first.",
+    "section": "5.23 Exercise",
+    "text": "5.23 Exercise\n\nUsing ma505.ow_stats, make a bar chart of the sum of Damage by Date two ways: with VBAR and with VBARPARM. Compare the outputs.\n\nAre the results what you expected? Why or why not?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* VBAR: SAS adds up Damage for each date */\nproc sgplot data=ma505.ow_stats;\n    vbar Date / response=Damage stat=sum;\nrun;\n\n/* VBARPARM: expects one row per date, so it does not add anything up */\nproc sgplot data=ma505.ow_stats;\n    vbarparm category=Date response=Damage;\nrun;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nVBAR gives the sum of Damage for each date. VBARPARM does not. It is a Basic plot that expects the data to be summarized already, with one row per bar. Our table has several games on each date, so the bars are drawn on top of each other and do not show the total. To use VBARPARM here, we would need to summarize the data first.",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
@@ -1147,6 +1147,36 @@
     "text": "6.17 Exercise\nUse the Overwatch stats table ma505.ow_stats.\n\nMake a scatter plot with Damage on the x-axis and Heals on the y-axis. Color the points by Role and fill in the markers.\nUse PROC SGPANEL to make a histogram of Damage for each Player. Layer a kernel density curve on top.\nGive the panel plot a title, and clear the title after.\n\nWhat do you notice about each player’s damage?\n\n\n\n\n\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* 1. scatter plot colored by role */\nproc sgplot data=ma505.ow_stats;\n    scatter x=Damage y=Heals /\n        group=Role markerattrs=(symbol=circlefilled);\nrun;\n\n/* 2 and 3. one histogram per player, with a kernel density curve */\ntitle 'Damage by Player';\nproc sgpanel data=ma505.ow_stats;\n    panelby Player;\n    histogram Damage;\n    density Damage / type=kernel;\nrun;\ntitle;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nScatter plot: the roles separate clearly. Support games have high heals and lower damage. Damage and Tank games have almost no heals, and Tanks reach the highest damage.\nPanel plot: player1’s damage is spread out, mostly between about 2,500 and 10,000. player2’s damage is bunched tightly around 2,500 to 5,000, with a couple of high games around 10,000 to 12,500. That fits player2 mostly playing Support.",
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>More Plots: SGPLOT, SGPANEL, and Exporting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#summarized-vs-unsummarized-data",
+    "href": "chapters/05-conditional-plotting.html#summarized-vs-unsummarized-data",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.17 Summarized vs unsummarized data",
+    "text": "5.17 Summarized vs unsummarized data\n\n\nUnsummarized: one row per game, so each map shows up more than once.\n\n\n\nMap\nDamage\n\n\n\n\nBusan\n3000\n\n\nBusan\n5000\n\n\nBusan\n2000\n\n\nOasis\n4000\n\n\nOasis\n1000\n\n\nNepal\n7000\n\n\n\nUse HBAR. SAS adds up the rows for each map.\n\n\n\nSummarized: one row per map. The adding is already done.\n\n\n\nMap\nTotal_Damage\n\n\n\n\nBusan\n10000\n\n\nOasis\n5000\n\n\nNepal\n7000\n\n\n\nUse HBARPARM. SAS draws each row as one bar.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#using-the-right-statement",
+    "href": "chapters/05-conditional-plotting.html#using-the-right-statement",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.18 Using the right statement",
+    "text": "5.18 Using the right statement\nHBAR on the unsummarized table and HBARPARM on the summarized table give us the same bars. Busan has the most damage. The order is different because HBAR sorts the maps A to Z, and HBARPARM keeps the order of the rows.\n\n/* unsummarized data: HBAR adds up the games */\ntitle 'HBAR with unsummarized data';\nproc sgplot data=games;\n    hbar Map / response=Damage;\nrun;\n\n/* summarized data: HBARPARM draws one bar per row */\ntitle 'HBARPARM with summarized data';\nproc sgplot data=games_sum;\n    hbarparm category=Map response=Total_Damage;\nrun;\ntitle;",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/05-conditional-plotting.html#using-the-wrong-statement",
+    "href": "chapters/05-conditional-plotting.html#using-the-wrong-statement",
+    "title": "5  Conditional Processing and Plotting",
+    "section": "5.19 Using the wrong statement",
+    "text": "5.19 Using the wrong statement\nWhat if we switch them?\n\n/* HBARPARM on unsummarized data */\ntitle 'HBARPARM with unsummarized data';\nproc sgplot data=games;\n    hbarparm category=Map response=Damage;\nrun;\n\n/* HBAR on summarized data, with no response= */\ntitle 'HBAR with summarized data';\nproc sgplot data=games_sum;\n    hbar Map;\nrun;\ntitle;\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHBARPARM on unsummarized data: SAS draws one bar for each game, all on top of each other. We only see the longest one, so Busan shows 5000 instead of 10000, and now Nepal looks like it has the most damage.\nHBAR on summarized data with no response=: SAS counts the rows. Each map has one row, so every bar is 1.\n\nBefore we plot, look at the data. Is there one row per bar, or many?",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Conditional Processing and Plotting</span>"
     ]
   }
 ]
