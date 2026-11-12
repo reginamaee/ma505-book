@@ -1840,9 +1840,25 @@ title;</code></pre>
 </div>
 </div>
 </div>
+<div id="d5-sum-i" class="cell">
+<pre class="sas cell-code"><code>/* HBAR on summarized data, with response= */
+title 'HBAR with summarized data and response=';
+proc sgplot data=games_sum;
+    hbar Map / response=Total_Damage;
+run;
+title;</code></pre>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="05-conditional-plotting_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 <ul>
 <li><strong><code>HBARPARM</code> on unsummarized data:</strong> SAS draws one bar for <strong>each game</strong>, all on top of each other. We only see the longest one, so Busan shows 5000 instead of 10000, and now Nepal looks like it has the most damage.</li>
 <li><strong><code>HBAR</code> on summarized data with no <code>response=</code>:</strong> SAS counts the rows. Each map has one row, so every bar is 1.</li>
+<li><strong><code>HBAR</code> on summarized data with <code>response=</code>:</strong> this works! <code>HBAR</code> adds up the rows for each map, and adding up one row gives the same number. So <code>HBAR</code> works on either kind of data as long as we give it <code>response=</code>, but <code>HBARPARM</code> only works on summarized data.</li>
 </ul>
 <p>Before we plot, look at the data. Is there one row per bar, or many?</p>
 </section>
@@ -1858,7 +1874,7 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1874,7 +1890,7 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1890,7 +1906,7 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
@@ -1922,14 +1938,14 @@ run;</code></pre>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="05-conditional-plotting_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="05-conditional-plotting_files/figure-html/cell-16-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
