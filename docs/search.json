@@ -1264,7 +1264,7 @@
     "href": "chapters/07-pdv.html#execution-the-first-row",
     "title": "7  Inside the DATA Step: the PDV",
     "section": "7.8 Execution: the first row",
-    "text": "7.8 Execution: the first row\nClick through to see the PDV change after each statement.\n\ndata food_survey;    set ma505.food_surv_wide;    Score_Sum = FoodQuality + Service;    Score_Avg = mean(FoodQuality, Service);run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nFoodQualityK\nServiceK\nScore_SumK\nScore_AvgK\n\n\n1\n0\n\n\n\n\n.\n.\n\n\n1\n0\nVince\nKings\n7\n8\n.\n.\n\n\n1\n0\nVince\nKings\n7\n8\n15\n.\n\n\n1\n0\nVince\nKings\n7\n8\n15\n7.5\n\n\n\n\n\n\nAt run;, SAS writes the row to work.food_survey, without _N_ and _ERROR_.",
+    "text": "7.8 Execution: the first row\nClick through to see the PDV change after each statement.\n\ndata food_survey;    set ma505.food_surv_wide;    Score_Sum = FoodQuality + Service;    Score_Avg = mean(FoodQuality, Service);run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nFoodQualityK\nServiceK\nScore_SumK\nScore_AvgK\n\n\n1\n0\n\n\n\n\n.\n.\n\n\n1\n0\nVince\nKings\n7\n8\n.\n.\n\n\n1\n0\nVince\nKings\n7\n8\n15\n.\n\n\n1\n0\nVince\nKings\n7\n8\n15\n7.5\n\n\n\n\n\n\nAt run;, SAS writes the row to work.food_survey, without _N_ and _ERROR_.\n\n\nwork.food_survey after the first row\n\n\n\nStudent\nRestaurant\nFoodQuality\nService\nScore_Sum\nScore_Avg\n\n\nVince\nKings\n7\n8\n15\n7.5",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Inside the DATA Step: the PDV</span>"
     ]
@@ -1274,7 +1274,7 @@
     "href": "chapters/07-pdv.html#execution-the-next-row",
     "title": "7  Inside the DATA Step: the PDV",
     "section": "7.9 Execution: the next row",
-    "text": "7.9 Execution: the next row\nSAS goes back to the top of the DATA step.\n\ndata food_survey;    set ma505.food_surv_wide;    Score_Sum = FoodQuality + Service;    Score_Avg = mean(FoodQuality, Service);run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nFoodQualityK\nServiceK\nScore_SumK\nScore_AvgK\n\n\n2\n0\nVince\nKings\n7\n8\n.\n.\n\n\n2\n0\nVince\nJamaican Grill\n8\n6.5\n.\n.\n\n\n2\n0\nVince\nJamaican Grill\n8\n6.5\n14.5\n7.25\n\n\n\n\n\n\nAt the start of each iteration, columns from the input table keep their values until the next row replaces them. New columns (Score_Sum, Score_Avg) are set back to missing.",
+    "text": "7.9 Execution: the next row\nSAS goes back to the top of the DATA step.\n\ndata food_survey;    set ma505.food_surv_wide;    Score_Sum = FoodQuality + Service;    Score_Avg = mean(FoodQuality, Service);run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nFoodQualityK\nServiceK\nScore_SumK\nScore_AvgK\n\n\n2\n0\nVince\nKings\n7\n8\n.\n.\n\n\n2\n0\nVince\nJamaican Grill\n8\n6.5\n.\n.\n\n\n2\n0\nVince\nJamaican Grill\n8\n6.5\n14.5\n7.25\n\n\n\n\n\n\nAt the start of each iteration, columns from the input table keep their values until the next row replaces them. New columns (Score_Sum, Score_Avg) are set back to missing.\n\n\nwork.food_survey after the first two rows\n\n\n\nStudent\nRestaurant\nFoodQuality\nService\nScore_Sum\nScore_Avg\n\n\nVince\nKings\n7\n8\n15\n7.5\n\n\nVince\nJamaican Grill\n8\n6.5\n14.5\n7.25",
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Inside the DATA Step: the PDV</span>"
     ]

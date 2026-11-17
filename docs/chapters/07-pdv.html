@@ -444,6 +444,30 @@ run;</code></pre>
 <div class="fragment">
 <p>At <code>run;</code>, SAS writes the row to <code>work.food_survey</code>, without <code>_N_</code> and <code>_ERROR_</code>.</p>
 </div>
+<div class="fragment">
+<div class="out-table"><div class="pdv-cap"><code>work.food_survey</code> after the first row</div>
+<table class="mini caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Restaurant</th>
+<th data-quarto-table-cell-role="th">FoodQuality</th>
+<th data-quarto-table-cell-role="th">Service</th>
+<th data-quarto-table-cell-role="th">Score_Sum</th>
+<th data-quarto-table-cell-role="th">Score_Avg</th>
+</tr>
+<tr class="even">
+<td>Vince</td>
+<td>Kings</td>
+<td>7</td>
+<td>8</td>
+<td>15</td>
+<td>7.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </section>
 <section id="execution-the-next-row" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="execution-the-next-row"><span class="header-section-number">7.9</span> Execution: the next row</h2>
@@ -500,6 +524,38 @@ run;</code></pre>
 </div>
 <div class="fragment">
 <p>At the start of each iteration, columns from the input table <strong>keep</strong> their values until the next row replaces them. <strong>New</strong> columns (<code>Score_Sum</code>, <code>Score_Avg</code>) are set back to missing.</p>
+</div>
+<div class="fragment">
+<div class="out-table"><div class="pdv-cap"><code>work.food_survey</code> after the first two rows</div>
+<table class="mini caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Restaurant</th>
+<th data-quarto-table-cell-role="th">FoodQuality</th>
+<th data-quarto-table-cell-role="th">Service</th>
+<th data-quarto-table-cell-role="th">Score_Sum</th>
+<th data-quarto-table-cell-role="th">Score_Avg</th>
+</tr>
+<tr class="even">
+<td>Vince</td>
+<td>Kings</td>
+<td>7</td>
+<td>8</td>
+<td>15</td>
+<td>7.5</td>
+</tr>
+<tr class="odd">
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>8</td>
+<td>6.5</td>
+<td>14.5</td>
+<td>7.25</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </section>
 <section id="when-_error_-is-1" class="level2" data-number="7.10">
