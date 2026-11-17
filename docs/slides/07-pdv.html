@@ -827,6 +827,14 @@ table.mini td { padding: .25em .6em; border: 1px solid #c1c1c1; }
 .join-card span { font-size: .85em; color: #333; }
 
 body:not(.reveal-viewport) table.pdv tr.fragment { opacity: 1; visibility: visible; }
+
+.pdv-code { display: none; }
+.reveal pre.pdv-code { display: block; position: absolute; top: 0; right: 0; width: auto !important; max-width: 44%; box-shadow: none; margin: 0; padding: .4em .7em; white-space: pre;
+font-size: .6em; line-height: 1.45; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; text-align: left; }
+.reveal .pdv-line { display: block; position: relative; padding: 0 .3em; border-radius: 3px; }
+.reveal .pdv-line .pdv-lit { position: absolute; inset: 0; z-index: -1; opacity: 0 !important; visibility: visible !important; }
+.reveal .pdv-line .pdv-lit.current-fragment { opacity: 1 !important; background: #ffe066; border-radius: 3px; }
+.reveal .pdv-code { z-index: 0; isolation: isolate; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1410,6 +1418,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tbody>
 </table>
 <p>Import <code>food_surv_wide.csv</code> into your <code>ma505</code> library as <code>ma505.food_surv_wide</code>, and <code>food_surv.csv</code> as <code>ma505.food_surv</code>.</p>
+<p><code>guessingrows=max</code> tells SAS to look at every row before it decides how long each column is. Without it, SAS only looks at the first 20 rows. Kristian is after row 20 in <code>food_surv.csv</code>, so his name would get cut off to <code>Krist</code>.</p>
 <div id="d7-03" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href></a>libname ma505 &quot;~&quot;;    /* skip if your autoexec does this */</span>
 <span id="cb1-2"><a href></a></span>
@@ -1417,7 +1426,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <span id="cb1-4"><a href></a>run;</span>
 <span id="cb1-5"><a href></a></span>
 <span id="cb1-6"><a href></a>proc import datafile=&quot;~/food_surv.csv&quot; out=ma505.food_surv dbms=csv replace;</span>
-<span id="cb1-7"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href></a>    guessingrows=max;    /* scan every row, so long names are not cut off */</span>
+<span id="cb1-8"><a href></a>run;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="how-does-the-data-step-process" class="slide level2 scrollable">
@@ -1518,8 +1528,9 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="execution-the-first-row" class="slide level2">
 <h2>Execution: the first row</h2>
 <p>Click through to see the PDV change after each statement.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);<span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
-<div class="pdv-cap">start → <code>set</code> → <code>Score_Sum</code> → <code>Score_Avg</code></div>
 
 <table class="pdv caption-top">
 <tbody>
@@ -1533,7 +1544,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="1">
 <td>1</td>
 <td>0</td>
 <td></td>
@@ -1543,7 +1554,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>1</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -1553,7 +1564,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="3">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -1563,7 +1574,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td class="hl">15</td>
 <td>.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="4">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -1576,6 +1587,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tbody>
 </table>
 </div>
+</div>
 <div class="fragment">
 <p>At <code>run;</code>, SAS writes the row to <code>work.food_survey</code>, without <code>_N_</code> and <code>_ERROR_</code>.</p>
 </div>
@@ -1583,6 +1595,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="execution-the-next-row" class="slide level2">
 <h2>Execution: the next row</h2>
 <p>SAS goes back to the top of the DATA step.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top">
@@ -1597,7 +1611,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="1">
 <td>2</td>
 <td>0</td>
 <td>Vince</td>
@@ -1607,7 +1621,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td class="hl">.</td>
 <td class="hl">.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>2</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -1617,7 +1631,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="3">
 <td>2</td>
 <td>0</td>
 <td>Vince</td>
@@ -1629,6 +1643,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="fragment">
 <p>At the start of each iteration, columns from the input table <strong>keep</strong> their values until the next row replaces them. <strong>New</strong> columns (<code>Score_Sum</code>, <code>Score_Avg</code>) are set back to missing.</p>

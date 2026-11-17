@@ -233,3 +233,11 @@ table.mini td { padding: .25em .6em; border: 1px solid #c1c1c1; }
 .join-card span { font-size: .85em; color: #333; }
 /* in the book, show every PDV step at once */
 body:not(.reveal-viewport) table.pdv tr.fragment { opacity: 1; visibility: visible; }
+/* PDV walkthrough: code panel top right (slides only); the running line lights up with its PDV row */
+.pdv-code { display: none; }
+.reveal pre.pdv-code { display: block; position: absolute; top: 0; right: 0; width: auto !important; max-width: 44%; box-shadow: none; margin: 0; padding: .4em .7em; white-space: pre;
+  font-size: .6em; line-height: 1.45; background: #f6f8fa; border: 1px solid #d0d7de; border-radius: 8px; text-align: left; }
+.reveal .pdv-line { display: block; position: relative; padding: 0 .3em; border-radius: 3px; }
+.reveal .pdv-line .pdv-lit { position: absolute; inset: 0; z-index: -1; opacity: 0 !important; visibility: visible !important; }
+.reveal .pdv-line .pdv-lit.current-fragment { opacity: 1 !important; background: #ffe066; border-radius: 3px; }
+.reveal .pdv-code { z-index: 0; isolation: isolate; }

@@ -270,6 +270,7 @@ ul.task-list li input[type="checkbox"] {
 </tbody>
 </table>
 <p>Import <code>food_surv_wide.csv</code> into your <code>ma505</code> library as <code>ma505.food_surv_wide</code>, and <code>food_surv.csv</code> as <code>ma505.food_surv</code>.</p>
+<p><code>guessingrows=max</code> tells SAS to look at every row before it decides how long each column is. Without it, SAS only looks at the first 20 rows. Kristian is after row 20 in <code>food_surv.csv</code>, so his name would get cut off to <code>Krist</code>.</p>
 <div id="d7-03" class="cell">
 <pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
 
@@ -277,6 +278,7 @@ proc import datafile="~/food_surv_wide.csv" out=ma505.food_surv_wide dbms=csv re
 run;
 
 proc import datafile="~/food_surv.csv" out=ma505.food_surv dbms=csv replace;
+    guessingrows=max;    /* scan every row, so long names are not cut off */
 run;</code></pre>
 </div>
 </section>
@@ -379,8 +381,9 @@ run;</code></pre>
 <section id="execution-the-first-row" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="execution-the-first-row"><span class="header-section-number">7.8</span> Execution: the first row</h2>
 <p>Click through to see the PDV change after each statement.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);<span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
-<div class="pdv-cap">start → <code>set</code> → <code>Score_Sum</code> → <code>Score_Avg</code></div>
 
 <table class="pdv caption-top table">
 <tbody>
@@ -394,7 +397,7 @@ run;</code></pre>
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="1">
 <td>1</td>
 <td>0</td>
 <td></td>
@@ -404,7 +407,7 @@ run;</code></pre>
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>1</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -414,7 +417,7 @@ run;</code></pre>
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="3">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -424,7 +427,7 @@ run;</code></pre>
 <td class="hl">15</td>
 <td>.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="4">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -437,6 +440,7 @@ run;</code></pre>
 </tbody>
 </table>
 </div>
+</div>
 <div class="fragment">
 <p>At <code>run;</code>, SAS writes the row to <code>work.food_survey</code>, without <code>_N_</code> and <code>_ERROR_</code>.</p>
 </div>
@@ -444,6 +448,8 @@ run;</code></pre>
 <section id="execution-the-next-row" class="level2" data-number="7.9">
 <h2 data-number="7.9" class="anchored" data-anchor-id="execution-the-next-row"><span class="header-section-number">7.9</span> Execution: the next row</h2>
 <p>SAS goes back to the top of the DATA step.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top table">
@@ -458,7 +464,7 @@ run;</code></pre>
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="1">
 <td>2</td>
 <td>0</td>
 <td>Vince</td>
@@ -468,7 +474,7 @@ run;</code></pre>
 <td class="hl">.</td>
 <td class="hl">.</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>2</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -478,7 +484,7 @@ run;</code></pre>
 <td>.</td>
 <td>.</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="3">
 <td>2</td>
 <td>0</td>
 <td>Vince</td>
@@ -490,6 +496,7 @@ run;</code></pre>
 </tr>
 </tbody>
 </table>
+</div>
 </div>
 <div class="fragment">
 <p>At the start of each iteration, columns from the input table <strong>keep</strong> their values until the next row replaces them. <strong>New</strong> columns (<code>Score_Sum</code>, <code>Score_Avg</code>) are set back to missing.</p>
