@@ -216,3 +216,20 @@ details.solution-toggle[open] > summary { margin-bottom: .6em; }
 .anno-inline-text .mono { font-family: SFMono-Regular, Menlo, Consolas, monospace; font-size: .95em; color: #5b3db5; }
 /* exercise solutions held back until after class (see hide-answers.txt) */
 .answers-later { display: inline-block; margin-top: .4em; padding: .3em .8em; border: 1px dashed #9aa4ae; border-radius: 8px; color: #57606a; font-style: italic; font-size: .9em; }
+/* ---- PDV, small data tables, join diagrams ---- */
+.pdv-wrap { overflow-x: auto; margin: .4em 0; }
+.pdv-cap { font-size: .7em; color: #57606a; margin-bottom: .2em; }
+table.pdv { border-collapse: collapse; font-size: .72em; }
+table.pdv th { background: #e8826f; color: #fff; font-weight: 600; padding: .3em .5em; border: 1px solid #fff; white-space: nowrap; }
+table.pdv th.drop { background: #c9604d; }
+table.pdv .pdv-tag { display: inline-block; margin-left: .4em; padding: 0 .3em; background: #f2c38b; color: #5a3a00; border-radius: 3px; font-size: .8em; }
+table.pdv td { background: #f6dcd6; border: 1px solid #fff; padding: .3em .5em; text-align: center; min-width: 3.2em; }
+table.pdv td.hl { background: #ffe066; font-weight: 600; }
+table.mini { border-collapse: collapse; font-size: .65em; margin: .3em 0; }
+table.mini th { background: #edf2f9; color: #112277; padding: .25em .6em; border: 1px solid #c1c1c1; }
+table.mini td { padding: .25em .6em; border: 1px solid #c1c1c1; }
+.join-row { display: flex; gap: 2em; margin: .6em 0; }
+.join-card { display: flex; flex-direction: column; align-items: center; text-align: center; max-width: 16em; font-size: .85em; }
+.join-card span { font-size: .85em; color: #333; }
+/* in the book, show every PDV step at once */
+body:not(.reveal-viewport) table.pdv tr.fragment { opacity: 1; visibility: visible; }

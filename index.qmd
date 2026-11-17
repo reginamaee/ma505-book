@@ -14,3 +14,4 @@ All code runs in **SAS OnDemand for Academics**, a free version of SAS Studio th
 - [Formats, Sorting, and the DATA Step](slides/04-format-sort-datastep.html)
 - [Conditional Processing and Plotting](slides/05-conditional-plotting.html)
 - [More Plots: SGPLOT, SGPANEL, and Exporting](slides/06-sgplot-sgpanel.html)
+- [Inside the DATA Step: the PDV](slides/07-pdv.html)
