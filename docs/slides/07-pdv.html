@@ -835,6 +835,9 @@ font-size: .6em; line-height: 1.45; background: #f6f8fa; border: 1px solid #d0d7
 .reveal .pdv-line .pdv-lit { position: absolute; inset: 0; z-index: -1; opacity: 0 !important; visibility: visible !important; }
 .reveal .pdv-line .pdv-lit.current-fragment { opacity: 1 !important; background: #ffe066; border-radius: 3px; }
 .reveal .pdv-code { z-index: 0; isolation: isolate; }
+
+.reveal section:has(.pdv-walk) > h2, .reveal section:has(.pdv-walk) > p { max-width: 54%; }
+.reveal section:has(.pdv-walk) .pdv-wrap { clear: both; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -1484,12 +1487,9 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="compilation-building-the-pdv" class="slide level2">
 <h2>Compilation: building the PDV</h2>
-<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">data</span> food_survey;
-    <span class="kw">set</span> ma505.food_surv_wide;
-    Score_Sum = FoodQuality + Service;
-    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);
-<span class="kw">run</span>;</pre></div></div>
 <p>SAS adds the columns from the input table, then any new columns we create.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;</span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;</span><span class="pdv-line">    Score_Sum = FoodQuality + Service;</span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);</span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top">
@@ -1506,7 +1506,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 </tbody>
 </table>
-</div>
+</div></div>
 <div class="fragment">
 <p><code>D</code> means the column is <strong>dropped</strong> (not written to the output table). <code>K</code> means it is <strong>kept</strong>. <code>_N_</code> counts the iterations, and <code>_ERROR_</code> is 1 when there is a data error.</p>
 </div>
@@ -1708,6 +1708,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="when-_error_-is-1" class="slide level2">
 <h2>When <code>_ERROR_</code> is 1</h2>
 <p>Suppose Abi’s service score for Kings was typed as <code>9D</code>. That is not a valid number.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;</span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;</span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);</span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top">
@@ -1722,7 +1724,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="even">
+<tr class="fragment even" data-fragment-index="1">
 <td>4</td>
 <td class="hl">1</td>
 <td>Abi</td>
@@ -1734,7 +1736,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 </tbody>
 </table>
-</div>
+</div></div>
 <ul>
 <li>SAS sets <code>_ERROR_</code> to 1 and writes a note in the log.</li>
 <li>The bad value is set to missing, so <code>Score_Sum</code> is missing too.</li>
@@ -1945,14 +1947,8 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="but-how-would-this-output-look" class="slide level2">
 <h2>But… how would this output look?</h2>
-<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">data</span> food_survey2;
-    <span class="kw">set</span> ma505.food_surv_wide;
-    Score_Sum = FoodQuality + Service;
-    <span class="kw">output</span>;
-    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);
-    <span class="kw">output</span>;
-<span class="kw">run</span>;</pre></div></div>
-<div class="fragment">
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey2;</span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;</span><span class="pdv-line">    Score_Sum = FoodQuality + Service;</span><span class="pdv-line">    <span class="kw">output</span>;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);</span><span class="pdv-line">    <span class="kw">output</span>;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 <div class="pdv-cap">at the first <code>output</code>, then at the second</div>
 
@@ -1968,7 +1964,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <th class="keep" data-quarto-table-cell-role="th">Score_Sum<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Score_Avg<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="even">
+<tr class="fragment even" data-fragment-index="1">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -1978,7 +1974,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td class="hl">15</td>
 <td class="hl">.</td>
 </tr>
-<tr class="odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -1990,8 +1986,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 </tbody>
 </table>
-</div>
-</div>
+</div></div>
 <div class="fragment">
 <p>Each row is written <strong>twice</strong>. The first time, <code>Score_Avg</code> has not been computed yet, so it is missing.</p>
 </div>
@@ -2314,11 +2309,9 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </section>
 <section id="retain-in-the-pdv" class="slide level2">
 <h2><code>RETAIN</code>: in the PDV</h2>
-<div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">data</span> food;
-    <span class="kw">set</span> ma505.food_surv;
-    <span class="libref-circle"><span class="kw">retain</span> Total 0;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text"><span class="mono">Total</span> starts at 0, and is not reset on each row</span></span>
-    Total = <span class="kw">sum</span>(Total, Score);
-<span class="kw">run</span>;</pre></div></div>
+<p><code>retain Total 0;</code> starts <code>Total</code> at 0, and it is not reset on each row.</p>
+<div class="pdv-walk">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food;</span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv;<span class="fragment pdv-lit" data-fragment-index="2"></span><span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line">    <span class="kw">retain</span> Total 0;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    Total = <span class="kw">sum</span>(Total, Score);<span class="fragment pdv-lit" data-fragment-index="3"></span><span class="fragment pdv-lit" data-fragment-index="5"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top">
@@ -2332,7 +2325,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <th class="keep" data-quarto-table-cell-role="th">Score<span class="pdv-tag">K</span></th>
 <th class="keep" data-quarto-table-cell-role="th">Total<span class="pdv-tag">K</span></th>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="1">
 <td>1</td>
 <td>0</td>
 <td></td>
@@ -2341,7 +2334,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td>.</td>
 <td class="hl">0</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="2">
 <td>1</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -2350,7 +2343,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td class="hl">7</td>
 <td>0</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="3">
 <td>1</td>
 <td>0</td>
 <td>Vince</td>
@@ -2359,7 +2352,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td>7</td>
 <td class="hl">7</td>
 </tr>
-<tr class="fragment odd">
+<tr class="fragment odd" data-fragment-index="4">
 <td>2</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -2368,7 +2361,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <td class="hl">8</td>
 <td>7</td>
 </tr>
-<tr class="fragment even">
+<tr class="fragment even" data-fragment-index="5">
 <td>2</td>
 <td>0</td>
 <td>Vince</td>
@@ -2379,7 +2372,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 </tr>
 </tbody>
 </table>
-</div>
+</div></div>
 <div class="fragment">
 <p><code>sum()</code> ignores missing values, so <code>Total</code> keeps going even when a score is missing.</p>
 </div>
@@ -3960,14 +3953,26 @@ window.QuartoSupport = function () {
       if (document.querySelector('.reveal .slides')) {
         document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
           if (!sec.querySelector('.cell')) return;
+          // PDV walkthrough slides: text before the PDV shows right away, and everything
+          // after it gets click numbers that come after the PDV rows
+          var walk = sec.querySelector('.pdv-walk'), seen = false, next = 0;
+          if (walk) walk.querySelectorAll('[data-fragment-index]').forEach(function (f) {
+            next = Math.max(next, +f.getAttribute('data-fragment-index'));
+          });
+          function frag(e) { e.classList.add('fragment'); if (walk) e.setAttribute('data-fragment-index', ++next); }
           Array.prototype.forEach.call(sec.children, function (el) {
+            if (walk) {
+              if (el === walk || el.contains(walk)) { seen = true; return; }
+              if (!seen && !/^H[1-6]$/.test(el.tagName)) return;
+              if (seen && el.classList.contains('fragment') && !el.hasAttribute('data-fragment-index')) { frag(el); return; }
+            }
             if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
             if (el.classList.contains('cell')) {
               var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
-              if (code) code.classList.add('fragment');
-              el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+              if (code) frag(code);
+              el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { frag(o); });
             } else {
-              el.classList.add('fragment');
+              frag(el);
             }
           });
         });

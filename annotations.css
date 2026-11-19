@@ -241,3 +241,7 @@ body:not(.reveal-viewport) table.pdv tr.fragment { opacity: 1; visibility: visib
 .reveal .pdv-line .pdv-lit { position: absolute; inset: 0; z-index: -1; opacity: 0 !important; visibility: visible !important; }
 .reveal .pdv-line .pdv-lit.current-fragment { opacity: 1 !important; background: #ffe066; border-radius: 3px; }
 .reveal .pdv-code { z-index: 0; isolation: isolate; }
+
+/* slides with a PDV code panel: keep the title and text clear of the panel */
+.reveal section:has(.pdv-walk) > h2, .reveal section:has(.pdv-walk) > p { max-width: 54%; }
+.reveal section:has(.pdv-walk) .pdv-wrap { clear: both; }

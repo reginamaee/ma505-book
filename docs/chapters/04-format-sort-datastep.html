@@ -1685,14 +1685,26 @@ document.addEventListener('DOMContentLoaded', function () {
   if (document.querySelector('.reveal .slides')) {
     document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
       if (!sec.querySelector('.cell')) return;
+      // PDV walkthrough slides: text before the PDV shows right away, and everything
+      // after it gets click numbers that come after the PDV rows
+      var walk = sec.querySelector('.pdv-walk'), seen = false, next = 0;
+      if (walk) walk.querySelectorAll('[data-fragment-index]').forEach(function (f) {
+        next = Math.max(next, +f.getAttribute('data-fragment-index'));
+      });
+      function frag(e) { e.classList.add('fragment'); if (walk) e.setAttribute('data-fragment-index', ++next); }
       Array.prototype.forEach.call(sec.children, function (el) {
+        if (walk) {
+          if (el === walk || el.contains(walk)) { seen = true; return; }
+          if (!seen && !/^H[1-6]$/.test(el.tagName)) return;
+          if (seen && el.classList.contains('fragment') && !el.hasAttribute('data-fragment-index')) { frag(el); return; }
+        }
         if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
         if (el.classList.contains('cell')) {
           var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
-          if (code) code.classList.add('fragment');
-          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+          if (code) frag(code);
+          el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { frag(o); });
         } else {
-          el.classList.add('fragment');
+          frag(el);
         }
       });
     });

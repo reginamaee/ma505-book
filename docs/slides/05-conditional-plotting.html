@@ -835,6 +835,9 @@ font-size: .6em; line-height: 1.45; background: #f6f8fa; border: 1px solid #d0d7
 .reveal .pdv-line .pdv-lit { position: absolute; inset: 0; z-index: -1; opacity: 0 !important; visibility: visible !important; }
 .reveal .pdv-line .pdv-lit.current-fragment { opacity: 1 !important; background: #ffe066; border-radius: 3px; }
 .reveal .pdv-code { z-index: 0; isolation: isolate; }
+
+.reveal section:has(.pdv-walk) > h2, .reveal section:has(.pdv-walk) > p { max-width: 54%; }
+.reveal section:has(.pdv-walk) .pdv-wrap { clear: both; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode
@@ -4356,14 +4359,26 @@ window.QuartoSupport = function () {
       if (document.querySelector('.reveal .slides')) {
         document.querySelectorAll('.reveal .slides section').forEach(function (sec) {
           if (!sec.querySelector('.cell')) return;
+          // PDV walkthrough slides: text before the PDV shows right away, and everything
+          // after it gets click numbers that come after the PDV rows
+          var walk = sec.querySelector('.pdv-walk'), seen = false, next = 0;
+          if (walk) walk.querySelectorAll('[data-fragment-index]').forEach(function (f) {
+            next = Math.max(next, +f.getAttribute('data-fragment-index'));
+          });
+          function frag(e) { e.classList.add('fragment'); if (walk) e.setAttribute('data-fragment-index', ++next); }
           Array.prototype.forEach.call(sec.children, function (el) {
+            if (walk) {
+              if (el === walk || el.contains(walk)) { seen = true; return; }
+              if (!seen && !/^H[1-6]$/.test(el.tagName)) return;
+              if (seen && el.classList.contains('fragment') && !el.hasAttribute('data-fragment-index')) { frag(el); return; }
+            }
             if (/^H[1-6]$/.test(el.tagName) || el.classList.contains('fragment') || el.querySelector('.fragment')) return;
             if (el.classList.contains('cell')) {
               var code = el.querySelector('.code-copy-outer-scaffold') || el.querySelector('div.sourceCode') || el.querySelector('pre.cell-code');
-              if (code) code.classList.add('fragment');
-              el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { o.classList.add('fragment'); });
+              if (code) frag(code);
+              el.querySelectorAll('.cell-output-display, .cell-output').forEach(function (o) { frag(o); });
             } else {
-              el.classList.add('fragment');
+              frag(el);
             }
           });
         });
