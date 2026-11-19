@@ -271,6 +271,9 @@ ul.task-list li input[type="checkbox"] {
 </table>
 <p>Import <code>food_surv_wide.csv</code> into your <code>ma505</code> library as <code>ma505.food_surv_wide</code>, and <code>food_surv.csv</code> as <code>ma505.food_surv</code>.</p>
 <p><code>guessingrows=max</code> tells SAS to look at every row before it decides how long each column is. Without it, SAS only looks at the first 20 rows. Kristian is after row 20 in <code>food_surv.csv</code>, so his name would get cut off to <code>Krist</code>.</p>
+<p>The two files hold the same data in two shapes. The <strong>wide</strong> file has 15 rows (5 students times 3 restaurants), with food quality and service as two separate columns. The <strong>long</strong> file has 30 rows: a <code>Category</code> column that says “Food Quality” or “Service”, and one <code>Score</code> column. Wide is easier to read and to compute across columns. Long is often easier to summarize and plot.</p>
+<p>Why do we only need <code>guessingrows=max</code> on the long file? The wide file has only 15 rows, so the first 20 rows are all of them, and SAS sees every name. In the long file, the first 20 rows only have Vince, Abi, Jon, and Maria, and Kristian’s rows don’t start until row 25.</p>
+<p>Check your log: <code>ma505.food_surv_wide</code> should have 15 observations, and <code>ma505.food_surv</code> should have 30.</p>
 <div id="d7-03" class="cell">
 <pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
 
@@ -298,6 +301,7 @@ run;</code></pre>
 <li>Loops back to the top of the DATA step to read the next row from the input table</li>
 </ol>
 </div>
+<p>During execution, the DATA step is a loop. It reads one row, runs it through each statement from top to bottom, writes it to the output table, and goes back to the top for the next row, until the input table runs out. The spot where each row gets built is called the PDV.</p>
 </section>
 <section id="sas-statements" class="level2" data-number="7.4">
 <h2 data-number="7.4" class="anchored" data-anchor-id="sas-statements"><span class="header-section-number">7.4</span> SAS statements</h2>
@@ -320,6 +324,24 @@ run;</code></pre>
 </ul>
 </div>
 </div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: statement order">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: statement order
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What happens if we write <code>Score_Avg = Score_Sum / 2;</code> and <strong>then</strong> <code>Score_Sum = FoodQuality + Service;</code>?</p>
+<p><code>Score_Avg</code> will be missing. When SAS runs the first line, <code>Score_Sum</code> hasn’t been computed yet for that row, so it’s missing, and missing divided by 2 is missing. The order of executable statements matters.</p>
+</div>
+</div>
+</div>
+<p>There is one exception to “declarative statements can go anywhere”: <code>LENGTH</code>. It has to come <strong>before</strong> the column is first used, because SAS sets a column’s length the first time it sees it. Otherwise values can get cut off.</p>
 </section>
 <section id="compilation" class="level2" data-number="7.5">
 <h2 data-number="7.5" class="anchored" data-anchor-id="compilation"><span class="header-section-number">7.5</span> Compilation</h2>
@@ -334,6 +356,8 @@ run;</code></pre>
 <p>The <strong>PDV</strong> is an area of memory created in compilation. SAS builds <strong>one row at a time</strong> in the PDV.</p>
 <p>It always starts with two temporary columns, <code>_N_</code> and <code>_ERROR_</code>.</p>
 </div>
+<p>Think of the PDV as a one-row spreadsheet with a slot for every column. SAS reads a row into it, runs our statements (which fill in or change the slots), copies the finished row to the output table, and then uses the same slots for the next row. There is only ever <strong>one</strong> row in the PDV at a time.</p>
+<p><code>_N_</code> and <code>_ERROR_</code> are called temporary because they only exist in the PDV. They are never written to the output table.</p>
 </section>
 <section id="compilation-building-the-pdv" class="level2" data-number="7.6">
 <h2 data-number="7.6" class="anchored" data-anchor-id="compilation-building-the-pdv"><span class="header-section-number">7.6</span> Compilation: building the PDV</h2>
@@ -360,6 +384,24 @@ run;</code></pre>
 <div class="fragment">
 <p><code>D</code> means the column is <strong>dropped</strong> (not written to the output table). <code>K</code> means it is <strong>kept</strong>. <code>_N_</code> counts the iterations, and <code>_ERROR_</code> is 1 when there is a data error.</p>
 </div>
+<p>SAS knows the columns from the input table and their attributes from the table’s descriptor, without reading any data yet.</p>
+<p>A dropped (<code>D</code>) column is still in the PDV, so we can still use it in calculations. It just isn’t written out at the end. That’s why <code>DROP</code> and <code>KEEP</code> don’t stop us from using a column inside the step.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: which columns end up in the output table?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: which columns end up in the output table?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>Student</code>, <code>Restaurant</code>, <code>FoodQuality</code>, <code>Service</code>, <code>Score_Sum</code>, and <code>Score_Avg</code>. Six columns, everything marked <code>K</code>. No <code>_N_</code> and no <code>_ERROR_</code>.</p>
+</div>
+</div>
+</div>
 </section>
 <section id="execution" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="execution"><span class="header-section-number">7.7</span> Execution</h2>
@@ -374,10 +416,10 @@ run;</code></pre>
 <div class="fragment">
 <p>Execution only starts if there are no syntax errors!</p>
 </div>
+<p>If compilation finds a syntax error, like a missing semicolon, SAS stops there. No rows are read and no table is created. That’s why the log says the output table was not created, or has 0 observations.</p>
 </section>
 <section id="execution-the-first-row" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="execution-the-first-row"><span class="header-section-number">7.8</span> Execution: the first row</h2>
-<p>Click through to see the PDV change after each statement.</p>
 <div class="pdv-walk">
 <pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> food_survey;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">set</span> ma505.food_surv_wide;<span class="fragment pdv-lit" data-fragment-index="2"></span></span><span class="pdv-line">    Score_Sum = FoodQuality + Service;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    Score_Avg = <span class="kw">mean</span>(FoodQuality, Service);<span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
 <div class="pdv-wrap">
@@ -554,6 +596,7 @@ run;</code></pre>
 </table>
 </div>
 </div>
+<p>Why are new columns set back to missing? It’s a safety feature. It makes sure a value from the previous row can’t leak into the current one, so every row is computed fresh. Columns from the input table don’t need it, because <code>SET</code> is about to replace them anyway.</p>
 </section>
 <section id="when-_error_-is-1" class="level2" data-number="7.10">
 <h2 data-number="7.10" class="anchored" data-anchor-id="when-_error_-is-1"><span class="header-section-number">7.10</span> When <code>_ERROR_</code> is 1</h2>
@@ -762,6 +805,8 @@ run;</code></pre>
 </div>
 </div>
 <p>Look at Kristian. He has no scores, so <code>Score_Sum</code> and <code>Score_Avg</code> are missing. Notice <code>FoodQuality + Service</code> is missing if <strong>either</strong> value is missing, but <code>mean()</code> uses whatever values it has.</p>
+<p>At the start of the next row, <code>_ERROR_</code> goes back to 0 and SAS keeps going. That’s good, because one typo doesn’t stop the program. It’s also bad, because it’s easy to miss: the table still gets created, and unless we read the log, we might never notice that some values became missing. Always check your log!</p>
+<p>Plus sign vs <code>mean()</code>: imagine a student who rated food quality but skipped service. <code>Score_Sum</code> would be missing, but <code>Score_Avg</code> would just be their food quality score.</p>
 </section>
 <section id="implicit-vs-explicit-output" class="level2" data-number="7.11">
 <h2 data-number="7.11" class="anchored" data-anchor-id="implicit-vs-explicit-output"><span class="header-section-number">7.11</span> Implicit vs explicit output</h2>
@@ -795,6 +840,8 @@ run;</code></pre>
 <div class="fragment red-text">
 <p>These two give us the same table.</p>
 </div>
+<p>Once we write an explicit <code>OUTPUT</code> <strong>anywhere</strong> in the step, the implicit output at the end turns off. So in the second step there is still only one write per row.</p>
+<p>This <code>OUTPUT</code> has no table name after it. With only one table on the <code>DATA</code> statement, a plain <code>output;</code> writes to that table.</p>
 </section>
 <section id="but-how-would-this-output-look" class="level2" data-number="7.12">
 <h2 data-number="7.12" class="anchored" data-anchor-id="but-how-would-this-output-look"><span class="header-section-number">7.12</span> But… how would this output look?</h2>
@@ -841,6 +888,8 @@ run;</code></pre>
 <div class="fragment">
 <p>Each row is written <strong>twice</strong>. The first time, <code>Score_Avg</code> has not been computed yet, so it is missing.</p>
 </div>
+<p><code>OUTPUT</code> takes a snapshot of the PDV at that exact moment. Whatever has been computed so far is in the snapshot, and whatever hasn’t is missing. Here that gives 30 rows, in pairs, and Kristian’s six rows are all missing.</p>
+<p>If you ever see duplicate rows or unexpected missing values in your output, check where your <code>OUTPUT</code> statements are.</p>
 <div id="d7-16" class="cell">
 <pre class="sas cell-code"><code>data food_survey2;
     set ma505.food_surv_wide;
@@ -1157,6 +1206,7 @@ run;</code></pre>
 <div class="syntax-box"><b>RETAIN</b> <i>column</i> &lt;<i>initial-value</i>&gt;;</div>
 <p><code>RETAIN</code> leaves the value as it is in the PDV from one row to the next.</p>
 </div>
+<p><code>RETAIN</code> is a declarative statement, like <code>LENGTH</code> and <code>FORMAT</code>, so it can technically go anywhere in the step. Putting it near the top, right after <code>SET</code>, makes our intent clear.</p>
 </section>
 <section id="retain-in-the-pdv" class="level2" data-number="7.14">
 <h2 data-number="7.14" class="anchored" data-anchor-id="retain-in-the-pdv"><span class="header-section-number">7.14</span> <code>RETAIN</code>: in the PDV</h2>
@@ -1227,6 +1277,42 @@ run;</code></pre>
 <div class="fragment">
 <p><code>sum()</code> ignores missing values, so <code>Total</code> keeps going even when a score is missing.</p>
 </div>
+<p><code>Total</code> climbs with every row: 7, 15, 23, 29.5, and so on, up to 183.5 after Maria’s last score. For Kristian’s rows it stays at 183.5. His scores are missing, and <code>sum()</code> ignores missing values, so the total just carries forward.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: what if we used a plus sign?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: what if we used a plus sign?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What if we wrote <code>Total = Total + Score;</code> instead of <code>sum()</code>?</p>
+<p>On Kristian’s first row, 183.5 plus missing is missing, so <code>Total</code> becomes missing. Because it’s retained, it stays missing for every row after that.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: what if we forgot RETAIN?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: what if we forgot RETAIN?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>What if we used <code>sum()</code>, but forgot the <code>RETAIN</code> statement?</p>
+<p><code>Total</code> resets to missing at the start of every row, so <code>sum()</code> of missing and the score is just the score. <code>Total</code> would equal each row’s <code>Score</code>, with no running total, and SAS would give no error.</p>
+</div>
+</div>
+</div>
+<p>Look at the <code>Student</code> column for Kristian’s rows: it says “Kristian”, his full name. That’s why we added <code>guessingrows=max;</code> to the import. Without it, those rows would say “Krist”.</p>
 <div id="d7-19" class="cell">
 <pre class="sas cell-code"><code>data food;
     set ma505.food_surv;
