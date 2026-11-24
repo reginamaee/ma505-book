@@ -1434,7 +1434,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="a-full-pdv-example" class="slide level2">
 <h2>A full PDV example</h2>
 <p>Let’s walk through one DATA step from start to finish. Here is a small table with 5 rows.</p>
-<div id="cell-4" class="cell">
+<div id="cell-5" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb1-1"><a href></a>data scores;</span>
 <span id="cb1-2"><a href></a>    input Student $ Quiz1 Quiz2;</span>
 <span id="cb1-3"><a href></a>    datalines;</span>
@@ -1484,7 +1484,7 @@ var requirejs,require,define;(function(global,setTimeout){var req,s,head,baseEle
 <section id="the-code" class="slide level2">
 <h2>The code</h2>
 <p>We want each student’s total, whether they passed (15 or more), and a running total of everyone’s points.</p>
-<div id="cell-7" class="cell">
+<div id="cell-8" class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource sas number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a href></a>data quiz_totals;</span>
 <span id="cb2-2"><a href></a>    set scores;</span>
 <span id="cb2-3"><a href></a>    retain Running 0;</span>

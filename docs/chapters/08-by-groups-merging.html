@@ -257,11 +257,14 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 </tbody>
 </table>
+<!-- notes8 -->
+<p>In compilation, SAS checks the syntax, figures out the columns and their attributes, and builds the PDV. No data is read yet. In execution, SAS reads one row at a time, runs the statements, and writes the row out.</p>
+<p>At the start of each new row, new columns are reset to missing, unless we <code>RETAIN</code> them.</p>
 </section>
 <section id="a-full-pdv-example" class="level2" data-number="8.3">
 <h2 data-number="8.3" class="anchored" data-anchor-id="a-full-pdv-example"><span class="header-section-number">8.3</span> A full PDV example</h2>
 <p>Let’s walk through one DATA step from start to finish. Here is a small table with 5 rows.</p>
-<div id="cell-4" class="cell">
+<div id="cell-5" class="cell">
 <pre class="sas cell-code"><code>data scores;
     input Student $ Quiz1 Quiz2;
     datalines;
@@ -312,7 +315,7 @@ run;</code></pre>
 <section id="the-code" class="level2" data-number="8.4">
 <h2 data-number="8.4" class="anchored" data-anchor-id="the-code"><span class="header-section-number">8.4</span> The code</h2>
 <p>We want each student’s total, whether they passed (15 or more), and a running total of everyone’s points.</p>
-<div id="cell-7" class="cell">
+<div id="cell-8" class="cell">
 <pre class="sas cell-code"><code>data quiz_totals;
     set scores;
     retain Running 0;
@@ -324,6 +327,8 @@ run;</code></pre>
 run;</code></pre>
 </div>
 <p>Before reading on, try to guess what the output table will look like. Which columns will it have? What will Kristian’s row say?</p>
+<!-- notes8 -->
+<p>This one step uses almost everything we’ve learned so far: <code>SET</code>, <code>RETAIN</code>, an assignment, <code>IF</code>/<code>ELSE</code>, <code>sum()</code>, and <code>DROP</code>.</p>
 </section>
 <section id="compilation" class="level2" data-number="8.5">
 <h2 data-number="8.5" class="anchored" data-anchor-id="compilation"><span class="header-section-number">8.5</span> Compilation</h2>
@@ -1112,6 +1117,8 @@ run;</code></pre>
 </div>
 </div>
 </div>
+<!-- notes8 -->
+<p>Is it fair to mark Kristian as failing? He got a 10 on the one quiz he took. SAS didn’t make a decision about that. It just treated missing as less than 15. If we want missing values handled differently, we have to write that into our code, for example by checking <code>if Total = . then ...</code> first.</p>
 </section>
 <section id="end-of-the-step" class="level2" data-number="8.11">
 <h2 data-number="8.11" class="anchored" data-anchor-id="end-of-the-step"><span class="header-section-number">8.11</span> End of the step</h2>
@@ -1176,6 +1183,8 @@ run;</code></pre>
 <li><strong><code>WHERE</code></strong> decides which rows go <strong>into</strong> the PDV.</li>
 <li><strong><code>IF</code></strong> uses the values <strong>in</strong> the PDV right now.</li>
 </ul>
+<!-- notes8 -->
+<p>These three come up constantly, and mixing them up causes a lot of bugs. <code>DROP</code> controls what goes into the output table. <code>WHERE</code> controls what goes into the PDV. <code>IF</code> checks what is in the PDV at that moment.</p>
 </section>
 <section id="drop-columns-are-still-in-the-pdv" class="level2" data-number="8.13">
 <h2 data-number="8.13" class="anchored" data-anchor-id="drop-columns-are-still-in-the-pdv"><span class="header-section-number">8.13</span> <code>DROP</code> columns are still in the PDV</h2>
@@ -1253,6 +1262,9 @@ run;</code></pre>
 </div>
 </div>
 </div>
+<!-- notes8 -->
+<p><code>Height</code> is gone from the output, but <code>BMI</code> was computed correctly. Alfred’s BMI is 16.6, using his height of 69 inches.</p>
+<p>The <code>DROP</code> is even placed before the calculation. That doesn’t matter, because <code>DROP</code> is declarative and takes effect during compilation. This is useful in practice. We can bring in helper columns, use them to compute what we need, and drop them so our output stays clean.</p>
 </section>
 <section id="where-decides-what-enters-the-pdv" class="level2" data-number="8.14">
 <h2 data-number="8.14" class="anchored" data-anchor-id="where-decides-what-enters-the-pdv"><span class="header-section-number">8.14</span> <code>WHERE</code> decides what enters the PDV</h2>
@@ -1360,6 +1372,9 @@ run;</code></pre>
 </div>
 </div>
 </div>
+<!-- notes8 -->
+<p>Only 9 students are 14 or older, so only 9 rows ever enter the PDV. The younger students never get an iteration at all, so <code>_N_</code> only counts up to 9.</p>
+<p>Because <code>WHERE</code> works before the row enters the PDV, it can only check columns that are already in the input table. We can’t use <code>WHERE</code> on a column we create in the step, like <code>BMI</code>.</p>
 </section>
 <section id="if-uses-the-pdv-right-now" class="level2" data-number="8.15">
 <h2 data-number="8.15" class="anchored" data-anchor-id="if-uses-the-pdv-right-now"><span class="header-section-number">8.15</span> <code>IF</code> uses the PDV right now</h2>
@@ -1570,6 +1585,10 @@ run;</code></pre>
 </div>
 </div>
 <p>Look at Alice. Her <code>Age</code> now says 14, but <code>Teenager</code> is missing. She was 13 when the <code>IF</code> checked, and 1 was added after. Order matters!</p>
+<!-- notes8 -->
+<p>Barbara and Jeffrey also show 14 with a missing <code>Teenager</code>, for the same reason.</p>
+<p>If we swapped the two lines, so <code>Age = Age + 1;</code> came first, the <code>IF</code> would see the new ages, and Alice, Barbara, and Jeffrey would get <code>Teenager = 1</code>. Which one is right depends on what we mean.</p>
+<p>Also notice that <code>Teenager</code> is missing, not 0, for the younger students. We only set it when the <code>IF</code> is true, and there’s no <code>ELSE</code>. To get 0, we would add <code>else Teenager = 0;</code>.</p>
 </section>
 <section id="error_" class="level2" data-number="8.16">
 <h2 data-number="8.16" class="anchored" data-anchor-id="error_"><span class="header-section-number">8.16</span> <code>_ERROR_</code></h2>
@@ -1584,7 +1603,6 @@ run;</code></pre>
 </ul>
 </div><div class="column" style="width:50%;">
 <ul>
-<li>uninitialized columns in expressions</li>
 <li>invalid date or time values</li>
 <li>errors in user-defined functions or formats</li>
 </ul>
@@ -1598,6 +1616,8 @@ run;</code></pre>
 <li>SAS keeps going with the next row</li>
 </ul>
 </div>
+<!-- notes8 -->
+<p>SAS won’t stop our program for these problems. It quietly sets values to missing and keeps going. That’s why we read the log, not just the output. If you see more missing values than you expected, check the log for notes about invalid data or division by zero.</p>
 </section>
 <section id="retain-with-by-groups" class="level2" data-number="8.17">
 <h2 data-number="8.17" class="anchored" data-anchor-id="retain-with-by-groups"><span class="header-section-number">8.17</span> <code>RETAIN</code> with BY groups</h2>
@@ -1664,6 +1684,8 @@ run;</code></pre>
 <p>The total keeps going when Jamaican Grill starts. What if we want a total score <strong>for each restaurant</strong>?</p>
 </div>
 <p><code>RETAIN</code> alone gives one running total for the whole table. Jamaican Grill starts at 71 instead of 8, because Fuji’s 63 points are carried along.</p>
+<!-- notes8 -->
+<p>Why can’t SAS just tell that a new restaurant started? The PDV only holds one row at a time. When SAS is working on Vince’s Jamaican Grill row, it doesn’t know the row before it was Fuji.</p>
 </section>
 <section id="the-by-statement" class="level2" data-number="8.18">
 <h2 data-number="8.18" class="anchored" data-anchor-id="the-by-statement"><span class="header-section-number">8.18</span> The <code>BY</code> statement</h2>
@@ -1740,6 +1762,8 @@ run;</code></pre>
 <p>When <code>FIRST.Restaurant</code> is 1, we set the total back to 0.</p>
 </div>
 <p>Like <code>_N_</code> and <code>_ERROR_</code>, <code>FIRST.</code> and <code>LAST.</code> columns are only in the PDV. They are never written to the output table.</p>
+<!-- notes8 -->
+<p>The period between <code>FIRST</code> and the column name is part of the name. We get one <code>FIRST.</code> and one <code>LAST.</code> column for each column in the <code>BY</code> statement.</p>
 </section>
 <section id="step-1-sort-by-the-group" class="level2" data-number="8.19">
 <h2 data-number="8.19" class="anchored" data-anchor-id="step-1-sort-by-the-group"><span class="header-section-number">8.19</span> Step 1: sort by the group</h2>
@@ -1752,6 +1776,9 @@ proc sort data=ma505.food_surv out=food_surv_rest_sort;
     by Restaurant;
 run;</code></pre>
 </div>
+<!-- notes8 -->
+<p>SAS finds where groups start and end by comparing each row to the next one. If the Fuji rows aren’t next to each other, that doesn’t work, and SAS stops with an error saying the data is not sorted.</p>
+<p>After sorting, all 10 Fuji rows come first, then 10 Jamaican Grill rows, then 10 Kings rows. If you get an error that <code>ma505.food_surv</code> doesn’t exist, rerun the import of <code>food_surv.csv</code> (with <code>guessingrows=max;</code>) first.</p>
 </section>
 <section id="step-2-total-by-restaurant" class="level2" data-number="8.20">
 <h2 data-number="8.20" class="anchored" data-anchor-id="step-2-total-by-restaurant"><span class="header-section-number">8.20</span> Step 2: total by restaurant</h2>
@@ -1763,6 +1790,9 @@ run;</code></pre>
     RestaurantSum = <span class="kw">sum</span>(RestaurantSum, Score);
     <span class="libref-circle"><span class="kw">if</span> Last.Restaurant = 1;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">only writes the last row of each restaurant</span></span>
 <span class="kw">run</span>;</pre></div></div>
+<!-- notes8 -->
+<p><code>if Last.Restaurant = 1;</code> has no <code>THEN</code>. This is called a <strong>subsetting IF</strong>. If the condition is true, SAS keeps going with this row. If it’s false, SAS stops right there, goes back to the top, and doesn’t write the row out. So only the last row of each restaurant gets written, and on that row <code>RestaurantSum</code> holds the full total.</p>
+<p>Why not <code>WHERE</code>? <code>LAST.Restaurant</code> only exists in the PDV, so <code>WHERE</code> can’t see it. <code>WHERE</code> filters rows before they enter the PDV. A subsetting <code>IF</code> filters rows after they’re in the PDV, so it can use anything we’ve computed.</p>
 </section>
 <section id="in-the-pdv" class="level2" data-number="8.21">
 <h2 data-number="8.21" class="anchored" data-anchor-id="in-the-pdv"><span class="header-section-number">8.21</span> In the PDV</h2>
@@ -1949,6 +1979,10 @@ run;</code></pre>
 </div>
 </div>
 <p><code>Student</code>, <code>Category</code>, and <code>Score</code> are just the values from the last row of each restaurant, so we would usually drop them.</p>
+<!-- notes8 -->
+<p>Rows 2 through 9 are similar. <code>FIRST.Restaurant</code> and <code>LAST.Restaurant</code> are both 0, the total keeps building, and no rows are written.</p>
+<p>A nice check: 63 + 60.5 + 60 = 183.5, the same grand total as the running total over the whole table.</p>
+<p>To keep just the totals, we would add <code>drop Student Category Score;</code>. This pattern comes up again and again: sort, then <code>BY</code>, <code>RETAIN</code>, reset on <code>FIRST.</code>, and output on <code>LAST.</code>. Any time we need a total, a count, or a summary for each group in a DATA step, this is the recipe.</p>
 </section>
 <section id="merging-tables" class="level2" data-number="8.22">
 <h2 data-number="8.22" class="anchored" data-anchor-id="merging-tables"><span class="header-section-number">8.22</span> Merging tables</h2>
@@ -2082,6 +2116,9 @@ run;</code></pre>
 </div>
 </div>
 </div>
+<!-- notes8 -->
+<p>Using <code>SET</code> with two tables stacks them, adding more <strong>rows</strong>. <code>MERGE</code> puts them side by side, adding more <strong>columns</strong>.</p>
+<p>The two tables have <code>Name</code> and <code>Grade</code> in common, so that’s how we match them. The rows are in a different order in each table (Sam is first in one, Taylor in the other), so we can’t just glue them side by side.</p>
 </section>
 <section id="step-1-sort-both-tables" class="level2" data-number="8.23">
 <h2 data-number="8.23" class="anchored" data-anchor-id="step-1-sort-both-tables"><span class="header-section-number">8.23</span> Step 1: sort both tables</h2>
@@ -2095,6 +2132,9 @@ proc sort data=teacher;
     by Name Grade;
 run;</code></pre>
 </div>
+<!-- notes8 -->
+<p>There’s no <code>OUT=</code> here, so each table is sorted in place. That’s fine, because these are our working copies in <code>work</code>.</p>
+<p>Why sort and merge by both <code>Name</code> and <code>Grade</code>? Two students could have the same name. Matching on both makes it much less likely we match the wrong two people.</p>
 </section>
 <section id="step-2-merge" class="level2" data-number="8.24">
 <h2 data-number="8.24" class="anchored" data-anchor-id="step-2-merge"><span class="header-section-number">8.24</span> Step 2: merge</h2>
@@ -2217,6 +2257,12 @@ run;</code></pre>
 </div>
 </div>
 </div>
+<!-- notes8 -->
+<p>Two things to know for real data:</p>
+<ul>
+<li>If a student is in one table but not the other, SAS still includes them, with missing values for the columns from the table they’re missing from. After a merge, check for unexpected missing values.</li>
+<li>If both tables have a column with the same name that isn’t in the <code>BY</code> statement, the value from the second table overwrites the first. It’s worth checking both tables with <code>PROC CONTENTS</code> before you merge.</li>
+</ul>
 </section>
 <section id="how-merge-uses-the-pdv" class="level2" data-number="8.25">
 <h2 data-number="8.25" class="anchored" data-anchor-id="how-merge-uses-the-pdv"><span class="header-section-number">8.25</span> How merge uses the PDV</h2>
@@ -2392,6 +2438,8 @@ run;</code></pre>
 <p>We merge <code>BY Name Grade</code>, and we still need to sort both tables first.</p>
 <p>The result has <strong>one row per test</strong>. Alex’s age and GPA are repeated on both of his rows, because SAS keeps his values in the PDV while it reads his next test.</p>
 </div>
+<!-- notes8 -->
+<p>When each student has exactly one row in each table, it’s called a <strong>one-to-one</strong> merge. Here, <code>class_all</code> has one row per student, and <code>tests</code> has one row per test.</p>
 </section>
 <section id="one-to-many-in-the-pdv" class="level2" data-number="8.27">
 <h2 data-number="8.27" class="anchored" data-anchor-id="one-to-many-in-the-pdv"><span class="header-section-number">8.27</span> One-to-many in the PDV</h2>
@@ -2710,6 +2758,73 @@ run;</code></pre>
 </table>
 
 </div>
+</div>
+</div>
+</div>
+<!-- notes8 -->
+<p>The output has 11 rows. Alex, Casey, and Jordan each have two tests, so they each get two rows, with their information repeated. Jamie, Morgan, Riley, Sam, and Taylor have one test each.</p>
+<p>This pattern is really common: customers and their orders, patients and their visits, players and their games. One table describes the people, the other describes the events, and merging puts each event next to the person’s information.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: why is Kristian's Pass N in the quiz example?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: why is Kristian’s Pass N in the quiz example?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>His <code>Total</code> was missing, and SAS treats missing as smaller than any number, so <code>Total &gt;= 15</code> was false.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: what is the difference between WHERE and a subsetting IF?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: what is the difference between WHERE and a subsetting IF?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>WHERE</code> filters before rows enter the PDV, so it only sees columns from the input table. A subsetting <code>IF</code> filters inside the PDV, so it can use new and temporary columns like <code>LAST.Restaurant</code>.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: what must we do before using BY?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: what must we do before using BY?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sort the data by the <code>BY</code> columns, in a DATA step with <code>BY</code> and before a merge.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Check yourself: what is the difference between SET with two tables and MERGE?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Check yourself: what is the difference between SET with two tables and MERGE?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><code>SET</code> stacks rows on top of each other. <code>MERGE</code> puts columns side by side, matched by the <code>BY</code> columns.</p>
 </div>
 </div>
 </div>
