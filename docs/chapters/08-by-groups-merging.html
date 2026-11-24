@@ -192,14 +192,17 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#if-uses-the-pdv-right-now" id="toc-if-uses-the-pdv-right-now" class="nav-link" data-scroll-target="#if-uses-the-pdv-right-now"><span class="header-section-number">8.15</span> <code>IF</code> uses the PDV right now</a></li>
   <li><a href="#error_" id="toc-error_" class="nav-link" data-scroll-target="#error_"><span class="header-section-number">8.16</span> <code>_ERROR_</code></a></li>
   <li><a href="#retain-with-by-groups" id="toc-retain-with-by-groups" class="nav-link" data-scroll-target="#retain-with-by-groups"><span class="header-section-number">8.17</span> <code>RETAIN</code> with BY groups</a></li>
-  <li><a href="#step-1-sort-by-the-group" id="toc-step-1-sort-by-the-group" class="nav-link" data-scroll-target="#step-1-sort-by-the-group"><span class="header-section-number">8.18</span> Step 1: sort by the group</a></li>
-  <li><a href="#step-2-total-by-restaurant" id="toc-step-2-total-by-restaurant" class="nav-link" data-scroll-target="#step-2-total-by-restaurant"><span class="header-section-number">8.19</span> Step 2: total by restaurant</a></li>
-  <li><a href="#in-the-pdv" id="toc-in-the-pdv" class="nav-link" data-scroll-target="#in-the-pdv"><span class="header-section-number">8.20</span> In the PDV</a></li>
-  <li><a href="#merging-tables" id="toc-merging-tables" class="nav-link" data-scroll-target="#merging-tables"><span class="header-section-number">8.21</span> Merging tables</a></li>
-  <li><a href="#step-1-sort-both-tables" id="toc-step-1-sort-both-tables" class="nav-link" data-scroll-target="#step-1-sort-both-tables"><span class="header-section-number">8.22</span> Step 1: sort both tables</a></li>
-  <li><a href="#step-2-merge" id="toc-step-2-merge" class="nav-link" data-scroll-target="#step-2-merge"><span class="header-section-number">8.23</span> Step 2: merge</a></li>
-  <li><a href="#how-merge-uses-the-pdv" id="toc-how-merge-uses-the-pdv" class="nav-link" data-scroll-target="#how-merge-uses-the-pdv"><span class="header-section-number">8.24</span> How merge uses the PDV</a></li>
-  <li><a href="#one-to-many" id="toc-one-to-many" class="nav-link" data-scroll-target="#one-to-many"><span class="header-section-number">8.25</span> One-to-many</a></li>
+  <li><a href="#the-by-statement" id="toc-the-by-statement" class="nav-link" data-scroll-target="#the-by-statement"><span class="header-section-number">8.18</span> The <code>BY</code> statement</a></li>
+  <li><a href="#step-1-sort-by-the-group" id="toc-step-1-sort-by-the-group" class="nav-link" data-scroll-target="#step-1-sort-by-the-group"><span class="header-section-number">8.19</span> Step 1: sort by the group</a></li>
+  <li><a href="#step-2-total-by-restaurant" id="toc-step-2-total-by-restaurant" class="nav-link" data-scroll-target="#step-2-total-by-restaurant"><span class="header-section-number">8.20</span> Step 2: total by restaurant</a></li>
+  <li><a href="#in-the-pdv" id="toc-in-the-pdv" class="nav-link" data-scroll-target="#in-the-pdv"><span class="header-section-number">8.21</span> In the PDV</a></li>
+  <li><a href="#merging-tables" id="toc-merging-tables" class="nav-link" data-scroll-target="#merging-tables"><span class="header-section-number">8.22</span> Merging tables</a></li>
+  <li><a href="#step-1-sort-both-tables" id="toc-step-1-sort-both-tables" class="nav-link" data-scroll-target="#step-1-sort-both-tables"><span class="header-section-number">8.23</span> Step 1: sort both tables</a></li>
+  <li><a href="#step-2-merge" id="toc-step-2-merge" class="nav-link" data-scroll-target="#step-2-merge"><span class="header-section-number">8.24</span> Step 2: merge</a></li>
+  <li><a href="#how-merge-uses-the-pdv" id="toc-how-merge-uses-the-pdv" class="nav-link" data-scroll-target="#how-merge-uses-the-pdv"><span class="header-section-number">8.25</span> How merge uses the PDV</a></li>
+  <li><a href="#one-to-many" id="toc-one-to-many" class="nav-link" data-scroll-target="#one-to-many"><span class="header-section-number">8.26</span> One-to-many</a></li>
+  <li><a href="#one-to-many-in-the-pdv" id="toc-one-to-many-in-the-pdv" class="nav-link" data-scroll-target="#one-to-many-in-the-pdv"><span class="header-section-number">8.27</span> One-to-many in the PDV</a></li>
+  <li><a href="#one-to-many-in-sas" id="toc-one-to-many-in-sas" class="nav-link" data-scroll-target="#one-to-many-in-sas"><span class="header-section-number">8.28</span> One-to-many in SAS</a></li>
   </ul>
 </nav>
     </div>
@@ -415,11 +418,11 @@ run;</code></pre>
 <th data-quarto-table-cell-role="th">Total</th>
 <th data-quarto-table-cell-role="th">Pass</th>
 </tr>
-<tr class="fragment even" data-fragment-index="6">
-<td class="hl">Vince</td>
-<td class="hl">17</td>
-<td class="hl">17</td>
-<td class="hl">Y</td>
+<tr class="fragment pdv-out-new even" data-fragment-index="6">
+<td class="xfer">Vince</td>
+<td class="xfer">17</td>
+<td class="xfer">17</td>
+<td class="xfer">Y</td>
 </tr>
 </tbody>
 </table>
@@ -477,15 +480,15 @@ run;</code></pre>
 <td>17</td>
 <td class="hl">Y</td>
 </tr>
-<tr class="fragment even" data-fragment-index="5">
+<tr class="fragment pdv-final even" data-fragment-index="5">
 <td>1</td>
 <td>0</td>
-<td>Vince</td>
+<td class="kc">Vince</td>
 <td>8</td>
 <td>9</td>
-<td class="hl">17</td>
-<td>17</td>
-<td>Y</td>
+<td class="hl kc">17</td>
+<td class="kc">17</td>
+<td class="kc">Y</td>
 </tr>
 </tbody>
 </table>
@@ -550,11 +553,11 @@ run;</code></pre>
 <td>17</td>
 <td>Y</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="7">
-<td class="hl">Abi</td>
-<td class="hl">30</td>
-<td class="hl">13</td>
-<td class="hl">N</td>
+<tr class="fragment pdv-out-new odd" data-fragment-index="7">
+<td class="xfer">Abi</td>
+<td class="xfer">30</td>
+<td class="xfer">13</td>
+<td class="xfer">N</td>
 </tr>
 </tbody>
 </table>
@@ -622,15 +625,15 @@ run;</code></pre>
 <td>13</td>
 <td class="hl">N</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="6">
+<tr class="fragment pdv-final odd" data-fragment-index="6">
 <td>2</td>
 <td>0</td>
-<td>Abi</td>
+<td class="kc">Abi</td>
 <td>6</td>
 <td>7</td>
-<td class="hl">30</td>
-<td>13</td>
-<td>N</td>
+<td class="hl kc">30</td>
+<td class="kc">13</td>
+<td class="kc">N</td>
 </tr>
 </tbody>
 </table>
@@ -701,11 +704,11 @@ run;</code></pre>
 <td>13</td>
 <td>N</td>
 </tr>
-<tr class="fragment even" data-fragment-index="6">
-<td class="hl">Jon</td>
-<td class="hl">49</td>
-<td class="hl">19</td>
-<td class="hl">Y</td>
+<tr class="fragment pdv-out-new even" data-fragment-index="6">
+<td class="xfer">Jon</td>
+<td class="xfer">49</td>
+<td class="xfer">19</td>
+<td class="xfer">Y</td>
 </tr>
 </tbody>
 </table>
@@ -763,15 +766,15 @@ run;</code></pre>
 <td>19</td>
 <td class="hl">Y</td>
 </tr>
-<tr class="fragment even" data-fragment-index="5">
+<tr class="fragment pdv-final even" data-fragment-index="5">
 <td>3</td>
 <td>0</td>
-<td>Jon</td>
+<td class="kc">Jon</td>
 <td>9</td>
 <td>10</td>
-<td class="hl">49</td>
-<td>19</td>
-<td>Y</td>
+<td class="hl kc">49</td>
+<td class="kc">19</td>
+<td class="kc">Y</td>
 </tr>
 </tbody>
 </table>
@@ -844,11 +847,11 @@ run;</code></pre>
 <td>19</td>
 <td>Y</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="7">
-<td class="hl">Maria</td>
-<td class="hl">63</td>
-<td class="hl">14</td>
-<td class="hl">N</td>
+<tr class="fragment pdv-out-new odd" data-fragment-index="7">
+<td class="xfer">Maria</td>
+<td class="xfer">63</td>
+<td class="xfer">14</td>
+<td class="xfer">N</td>
 </tr>
 </tbody>
 </table>
@@ -916,15 +919,15 @@ run;</code></pre>
 <td>14</td>
 <td class="hl">N</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="6">
+<tr class="fragment pdv-final odd" data-fragment-index="6">
 <td>4</td>
 <td>0</td>
-<td>Maria</td>
+<td class="kc">Maria</td>
 <td>7</td>
 <td>7</td>
-<td class="hl">63</td>
-<td>14</td>
-<td>N</td>
+<td class="hl kc">63</td>
+<td class="kc">14</td>
+<td class="kc">N</td>
 </tr>
 </tbody>
 </table>
@@ -1003,11 +1006,11 @@ run;</code></pre>
 <td>14</td>
 <td>N</td>
 </tr>
-<tr class="fragment even" data-fragment-index="7">
-<td class="hl">Kristian</td>
-<td class="hl">63</td>
-<td class="hl">.</td>
-<td class="hl">N</td>
+<tr class="fragment pdv-out-new even" data-fragment-index="7">
+<td class="xfer">Kristian</td>
+<td class="xfer">63</td>
+<td class="xfer">.</td>
+<td class="xfer">N</td>
 </tr>
 </tbody>
 </table>
@@ -1075,15 +1078,15 @@ run;</code></pre>
 <td>.</td>
 <td class="hl">N</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="6">
+<tr class="fragment pdv-final odd" data-fragment-index="6">
 <td>5</td>
 <td>0</td>
-<td>Kristian</td>
+<td class="kc">Kristian</td>
 <td>10</td>
 <td>.</td>
-<td class="hl">63</td>
-<td>.</td>
-<td>N</td>
+<td class="hl kc">63</td>
+<td class="kc">.</td>
+<td class="kc">N</td>
 </tr>
 </tbody>
 </table>
@@ -1598,18 +1601,148 @@ run;</code></pre>
 </section>
 <section id="retain-with-by-groups" class="level2" data-number="8.17">
 <h2 data-number="8.17" class="anchored" data-anchor-id="retain-with-by-groups"><span class="header-section-number">8.17</span> <code>RETAIN</code> with BY groups</h2>
-<p>Recall: <code>RETAIN</code> leaves a value as it is in the PDV from one row to the next.</p>
-<p>What if we want a total score <strong>for each restaurant</strong>?</p>
-<div class="fragment">
+<p>Recall: <code>RETAIN</code> leaves a value as it is in the PDV from one row to the next. Here is our food survey sorted by restaurant, with a running total from <code>retain Total 0;</code> and <code>Total = sum(Total, Score);</code>.</p>
+<table class="mini by-ctx caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Restaurant</th>
+<th data-quarto-table-cell-role="th">Category</th>
+<th data-quarto-table-cell-role="th">Score</th>
+<th data-quarto-table-cell-role="th">Total</th>
+<th class="fragment" data-quarto-table-cell-role="th" data-fragment-index="1">What we want</th>
+</tr>
+<tr class="dots even">
+<td colspan="6">⋮</td>
+</tr>
+<tr class="odd">
+<td>Maria</td>
+<td>Fuji</td>
+<td>Service</td>
+<td>7</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">63</td>
+</tr>
+<tr class="even">
+<td>Kristian</td>
+<td>Fuji</td>
+<td>Food Quality</td>
+<td>.</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">63</td>
+</tr>
+<tr class="odd">
+<td>Kristian</td>
+<td>Fuji</td>
+<td>Service</td>
+<td>.</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">63</td>
+</tr>
+<tr class="even">
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>Food Quality</td>
+<td>8</td>
+<td class="hl">71</td>
+<td class="fragment hl" data-fragment-index="1">8</td>
+</tr>
+<tr class="odd">
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>Service</td>
+<td>6.5</td>
+<td>77.5</td>
+<td class="fragment" data-fragment-index="1">14.5</td>
+</tr>
+<tr class="dots even">
+<td colspan="6">⋮</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment" data-fragment-index="2">
+<p>The total keeps going when Jamaican Grill starts. What if we want a total score <strong>for each restaurant</strong>?</p>
+</div>
+<p><code>RETAIN</code> alone gives one running total for the whole table. Jamaican Grill starts at 71 instead of 8, because Fuji’s 63 points are carried along.</p>
+</section>
+<section id="the-by-statement" class="level2" data-number="8.18">
+<h2 data-number="8.18" class="anchored" data-anchor-id="the-by-statement"><span class="header-section-number">8.18</span> The <code>BY</code> statement</h2>
 <p>We need to reset the total when a new restaurant starts. A <code>BY</code> statement tells SAS how our rows are grouped, and creates two temporary columns in the PDV:</p>
 <ul>
 <li><code>FIRST.Restaurant</code> is 1 on the <strong>first</strong> row of each restaurant, and 0 otherwise</li>
 <li><code>LAST.Restaurant</code> is 1 on the <strong>last</strong> row of each restaurant, and 0 otherwise</li>
 </ul>
+<table class="mini by-ctx caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Restaurant</th>
+<th data-quarto-table-cell-role="th">Category</th>
+<th data-quarto-table-cell-role="th">Score</th>
+<th data-quarto-table-cell-role="th">Total</th>
+<th class="fragment" data-quarto-table-cell-role="th" data-fragment-index="1">FIRST.Restaurant</th>
+<th class="fragment" data-quarto-table-cell-role="th" data-fragment-index="1">LAST.Restaurant</th>
+</tr>
+<tr class="dots even">
+<td colspan="7">⋮</td>
+</tr>
+<tr class="odd">
+<td>Maria</td>
+<td>Fuji</td>
+<td>Service</td>
+<td>7</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">0</td>
+<td class="fragment" data-fragment-index="1">0</td>
+</tr>
+<tr class="even">
+<td>Kristian</td>
+<td>Fuji</td>
+<td>Food Quality</td>
+<td>.</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">0</td>
+<td class="fragment" data-fragment-index="1">0</td>
+</tr>
+<tr class="odd">
+<td>Kristian</td>
+<td>Fuji</td>
+<td>Service</td>
+<td>.</td>
+<td>63</td>
+<td class="fragment" data-fragment-index="1">0</td>
+<td class="fragment hl" data-fragment-index="1">1</td>
+</tr>
+<tr class="even">
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>Food Quality</td>
+<td>8</td>
+<td>71</td>
+<td class="fragment hl" data-fragment-index="1">1</td>
+<td class="fragment" data-fragment-index="1">0</td>
+</tr>
+<tr class="odd">
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>Service</td>
+<td>6.5</td>
+<td>77.5</td>
+<td class="fragment" data-fragment-index="1">0</td>
+<td class="fragment" data-fragment-index="1">0</td>
+</tr>
+<tr class="dots even">
+<td colspan="7">⋮</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment" data-fragment-index="2">
+<p>When <code>FIRST.Restaurant</code> is 1, we set the total back to 0.</p>
 </div>
+<p>Like <code>_N_</code> and <code>_ERROR_</code>, <code>FIRST.</code> and <code>LAST.</code> columns are only in the PDV. They are never written to the output table.</p>
 </section>
-<section id="step-1-sort-by-the-group" class="level2" data-number="8.18">
-<h2 data-number="8.18" class="anchored" data-anchor-id="step-1-sort-by-the-group"><span class="header-section-number">8.18</span> Step 1: sort by the group</h2>
+<section id="step-1-sort-by-the-group" class="level2" data-number="8.19">
+<h2 data-number="8.19" class="anchored" data-anchor-id="step-1-sort-by-the-group"><span class="header-section-number">8.19</span> Step 1: sort by the group</h2>
 <p><code>BY</code> only works if the data is sorted by that column.</p>
 <div id="d8-14" class="cell">
 <pre class="sas cell-code"><code>libname ma505 "~";    /* skip if your autoexec does this */
@@ -1620,8 +1753,8 @@ proc sort data=ma505.food_surv out=food_surv_rest_sort;
 run;</code></pre>
 </div>
 </section>
-<section id="step-2-total-by-restaurant" class="level2" data-number="8.19">
-<h2 data-number="8.19" class="anchored" data-anchor-id="step-2-total-by-restaurant"><span class="header-section-number">8.19</span> Step 2: total by restaurant</h2>
+<section id="step-2-total-by-restaurant" class="level2" data-number="8.20">
+<h2 data-number="8.20" class="anchored" data-anchor-id="step-2-total-by-restaurant"><span class="header-section-number">8.20</span> Step 2: total by restaurant</h2>
 <div class="anno"><div class="anno-row"><pre class="anno-code"><span class="kw">data</span> sum_by_group;
     <span class="kw">set</span> food_surv_rest_sort;
     <span class="libref-circle"><span class="kw">by</span> Restaurant;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">creates <span class="mono">First.Restaurant</span> and <span class="mono">Last.Restaurant</span> in the PDV</span></span>
@@ -1631,10 +1764,50 @@ run;</code></pre>
     <span class="libref-circle"><span class="kw">if</span> Last.Restaurant = 1;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">only writes the last row of each restaurant</span></span>
 <span class="kw">run</span>;</pre></div></div>
 </section>
-<section id="in-the-pdv" class="level2" data-number="8.20">
-<h2 data-number="8.20" class="anchored" data-anchor-id="in-the-pdv"><span class="header-section-number">8.20</span> In the PDV</h2>
-<div class="pdv-walk">
+<section id="in-the-pdv" class="level2" data-number="8.21">
+<h2 data-number="8.21" class="anchored" data-anchor-id="in-the-pdv"><span class="header-section-number">8.21</span> In the PDV</h2>
+<div class="pdv-walk wide">
 <pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> sum_by_group;</span><span class="pdv-line">    <span class="kw">set</span> food_surv_rest_sort;<span class="fragment pdv-lit" data-fragment-index="1"></span><span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line">    <span class="kw">by</span> Restaurant;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">retain</span> RestaurantSum 0;</span><span class="pdv-line">    <span class="kw">if</span> First.Restaurant = 1 <span class="kw">then</span> RestaurantSum = 0;<span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line">    RestaurantSum = <span class="kw">sum</span>(RestaurantSum, Score);<span class="fragment pdv-lit" data-fragment-index="2"></span><span class="fragment pdv-lit" data-fragment-index="5"></span></span><span class="pdv-line">    <span class="kw">if</span> Last.Restaurant = 1;<span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
+<div class="pdv-in"><div class="pdv-cap">Input: <code>work.food_surv_rest_sort</code></div>
+<table class="mini pdv-intab caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Row</th>
+<th data-quarto-table-cell-role="th">Student</th>
+<th data-quarto-table-cell-role="th">Restaurant</th>
+<th data-quarto-table-cell-role="th">Category</th>
+<th data-quarto-table-cell-role="th">Score</th>
+</tr>
+<tr class="fragment pdv-inrow even" data-fragment-index="1">
+<td>1</td>
+<td>Vince</td>
+<td>Fuji</td>
+<td>Food Quality</td>
+<td>9</td>
+</tr>
+<tr class="dots odd">
+<td colspan="5">⋮</td>
+</tr>
+<tr class="fragment pdv-inrow even" data-fragment-index="3">
+<td>10</td>
+<td>Kristian</td>
+<td>Fuji</td>
+<td>Service</td>
+<td>.</td>
+</tr>
+<tr class="fragment pdv-inrow odd" data-fragment-index="4">
+<td>11</td>
+<td>Vince</td>
+<td>Jamaican Grill</td>
+<td>Food Quality</td>
+<td>8</td>
+</tr>
+<tr class="dots even">
+<td colspan="5">⋮</td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="pdv-wrap">
 
 <table class="pdv caption-top table">
@@ -1672,7 +1845,10 @@ run;</code></pre>
 <td>1</td>
 <td>0</td>
 </tr>
-<tr class="fragment even" data-fragment-index="3">
+<tr class="fragment dots even" data-fragment-index="3">
+<td colspan="9">⋮</td>
+</tr>
+<tr class="fragment odd" data-fragment-index="3">
 <td>10</td>
 <td>0</td>
 <td>Kristian</td>
@@ -1683,7 +1859,7 @@ run;</code></pre>
 <td>0</td>
 <td class="hl">1</td>
 </tr>
-<tr class="fragment odd" data-fragment-index="4">
+<tr class="fragment even" data-fragment-index="4">
 <td>11</td>
 <td>0</td>
 <td class="hl">Vince</td>
@@ -1694,7 +1870,7 @@ run;</code></pre>
 <td class="hl">1</td>
 <td>0</td>
 </tr>
-<tr class="fragment even" data-fragment-index="5">
+<tr class="fragment odd" data-fragment-index="5">
 <td>11</td>
 <td>0</td>
 <td>Vince</td>
@@ -1774,8 +1950,8 @@ run;</code></pre>
 </div>
 <p><code>Student</code>, <code>Category</code>, and <code>Score</code> are just the values from the last row of each restaurant, so we would usually drop them.</p>
 </section>
-<section id="merging-tables" class="level2" data-number="8.21">
-<h2 data-number="8.21" class="anchored" data-anchor-id="merging-tables"><span class="header-section-number">8.21</span> Merging tables</h2>
+<section id="merging-tables" class="level2" data-number="8.22">
+<h2 data-number="8.22" class="anchored" data-anchor-id="merging-tables"><span class="header-section-number">8.22</span> Merging tables</h2>
 <div class="syntax-box"><b>DATA</b> <i>output-table</i>;<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>MERGE</b> <i>input-table1 input-table2</i> ...;<br>&nbsp;&nbsp;&nbsp;&nbsp;<b>BY</b> <i>BY-column(s)</i>;<br><b>RUN;</b></div>
 <p><code>MERGE</code> puts tables together <strong>side by side</strong>, matching rows on the <code>BY</code> columns.</p>
 <p>Import <code>class_all.csv</code> and <code>class_teachers.csv</code> into your <code>work</code> library first.</p>
@@ -1907,8 +2083,8 @@ run;</code></pre>
 </div>
 </div>
 </section>
-<section id="step-1-sort-both-tables" class="level2" data-number="8.22">
-<h2 data-number="8.22" class="anchored" data-anchor-id="step-1-sort-both-tables"><span class="header-section-number">8.22</span> Step 1: sort both tables</h2>
+<section id="step-1-sort-both-tables" class="level2" data-number="8.23">
+<h2 data-number="8.23" class="anchored" data-anchor-id="step-1-sort-both-tables"><span class="header-section-number">8.23</span> Step 1: sort both tables</h2>
 <p>Just like <code>BY</code> groups, both tables need to be sorted by the <code>BY</code> columns.</p>
 <div id="d8-22" class="cell">
 <pre class="sas cell-code"><code>proc sort data=class_all;
@@ -1920,8 +2096,8 @@ proc sort data=teacher;
 run;</code></pre>
 </div>
 </section>
-<section id="step-2-merge" class="level2" data-number="8.23">
-<h2 data-number="8.23" class="anchored" data-anchor-id="step-2-merge"><span class="header-section-number">8.23</span> Step 2: merge</h2>
+<section id="step-2-merge" class="level2" data-number="8.24">
+<h2 data-number="8.24" class="anchored" data-anchor-id="step-2-merge"><span class="header-section-number">8.24</span> Step 2: merge</h2>
 <div class="anno"><div class="anno-row"><pre class="anno-code"><span class="cmt">/* merge together */</span>
 <span class="kw">data</span> class_merge;
     <span class="libref-circle"><span class="kw">merge</span> class_all teacher;</span><span class="anno-inline fragment"><span class="arrow-left"></span><span class="anno-inline-text">merging the <span class="mono">class_all</span> table and the <span class="mono">teacher</span> table</span></span>
@@ -2042,27 +2218,95 @@ run;</code></pre>
 </div>
 </div>
 </section>
-<section id="how-merge-uses-the-pdv" class="level2" data-number="8.24">
-<h2 data-number="8.24" class="anchored" data-anchor-id="how-merge-uses-the-pdv"><span class="header-section-number">8.24</span> How merge uses the PDV</h2>
+<section id="how-merge-uses-the-pdv" class="level2" data-number="8.25">
+<h2 data-number="8.25" class="anchored" data-anchor-id="how-merge-uses-the-pdv"><span class="header-section-number">8.25</span> How merge uses the PDV</h2>
 <p><strong>Compilation:</strong> the columns from the <strong>first</strong> table go into the PDV, then any new columns from the second table.</p>
-<div class="pdv-walk">
-<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> class_merge;</span><span class="pdv-line">    <span class="kw">merge</span> class_all teacher;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line">    <span class="kw">by</span> Name Grade;<span class="fragment pdv-lit" data-fragment-index="1"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
-<div class="pdv-wrap">
-
-<table class="pdv caption-top table">
+<div class="pdv-walk wide">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> class_merge;</span><span class="pdv-line">    <span class="kw">merge</span> class_all teacher;<span class="fragment pdv-lit" data-fragment-index="1"></span><span class="fragment pdv-lit" data-fragment-index="2"></span><span class="fragment pdv-lit" data-fragment-index="3"></span><span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line">    <span class="kw">by</span> Name Grade;<span class="fragment pdv-lit" data-fragment-index="3"></span><span class="fragment pdv-lit" data-fragment-index="4"></span></span><span class="pdv-line"><span class="kw">run</span>;</span></pre>
+<div class="pdv-ins"><div class="pdv-in"><div class="pdv-cap">Input: <code>class_all</code></div>
+<table class="mini pdv-intab caption-top table">
 <tbody>
 <tr class="odd">
-<th class="drop" data-quarto-table-cell-role="th">_N_<span class="pdv-tag">D</span></th>
-<th class="drop" data-quarto-table-cell-role="th">_ERROR_<span class="pdv-tag">D</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Name<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Age<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Weight<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Height<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Grade<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">GPA<span class="pdv-tag">K</span></th>
-<th class="keep" data-quarto-table-cell-role="th">Teacher<span class="pdv-tag">K</span></th>
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Weight</th>
+<th data-quarto-table-cell-role="th">Height</th>
+<th data-quarto-table-cell-role="th">Grade</th>
+<th data-quarto-table-cell-role="th">GPA</th>
 </tr>
-<tr class="fragment even" data-fragment-index="1">
+<tr class="fragment pdv-inrow even" data-fragment-index="3">
+<td>Alex Smith</td>
+<td>20</td>
+<td>145.6</td>
+<td>5.8</td>
+<td>Junior</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td>Casey Nguyen</td>
+<td>22</td>
+<td>140.8</td>
+<td>5.5</td>
+<td>Senior</td>
+<td>3.91</td>
+</tr>
+<tr class="dots even">
+<td colspan="6">⋮</td>
+</tr>
+</tbody>
+</table>
+</div><div class="pdv-in"><div class="pdv-cap">Input: <code>teacher</code></div>
+<table class="mini pdv-intab caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Grade</th>
+<th data-quarto-table-cell-role="th">Teacher</th>
+</tr>
+<tr class="fragment pdv-inrow even" data-fragment-index="4">
+<td>Alex Smith</td>
+<td>Junior</td>
+<td>Ms. Foster</td>
+</tr>
+<tr class="odd">
+<td>Casey Nguyen</td>
+<td>Senior</td>
+<td>Dr. Kim</td>
+</tr>
+<tr class="dots even">
+<td colspan="3">⋮</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<div class="pdv-wrap">
+<table class="pdv caption-top table">
+<thead>
+<tr class="header">
+<th class="drop fragment" data-quarto-table-cell-role="th" data-fragment-index="1">_N_<span class="pdv-tag">D</span></th>
+<th class="drop fragment" data-quarto-table-cell-role="th" data-fragment-index="1">_ERROR_<span class="pdv-tag">D</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">Name<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">Age<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">Weight<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">Height<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">Grade<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="1">GPA<span class="pdv-tag">K</span></th>
+<th class="keep fragment" data-quarto-table-cell-role="th" data-fragment-index="2">Teacher<span class="pdv-tag">K</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="fragment odd" data-fragment-index="3">
+<td>1</td>
+<td>0</td>
+<td class="hl">Alex Smith</td>
+<td class="hl">20</td>
+<td class="hl">145.6</td>
+<td class="hl">5.8</td>
+<td class="hl">Junior</td>
+<td class="hl">3.27</td>
+<td></td>
+</tr>
+<tr class="fragment even" data-fragment-index="4">
 <td>1</td>
 <td>0</td>
 <td>Alex Smith</td>
@@ -2075,13 +2319,16 @@ run;</code></pre>
 </tr>
 </tbody>
 </table>
-</div></div>
-<div class="fragment">
+</div>
+</div>
+<div class="fragment" data-fragment-index="3">
 <p><strong>Execution:</strong> SAS reads the rows from both tables in order. When the <code>BY</code> values match, the values from both go into the same row of the PDV.</p>
 </div>
+<p><code>Name</code> and <code>Grade</code> are in both tables, so they only go into the PDV once. <code>Teacher</code> is the only new column from <code>teacher</code>, so it’s added last.</p>
 </section>
-<section id="one-to-many" class="level2" data-number="8.25">
-<h2 data-number="8.25" class="anchored" data-anchor-id="one-to-many"><span class="header-section-number">8.25</span> One-to-many</h2>
+<section id="one-to-many" class="level2" data-number="8.26">
+<h2 data-number="8.26" class="anchored" data-anchor-id="one-to-many"><span class="header-section-number">8.26</span> One-to-many</h2>
+<div class="fragment" data-fragment-index="1">
 <p>What happens when one student has <strong>many</strong> rows in the other table?</p>
 <div class="columns">
 <div class="column" style="width:48%;">
@@ -2140,10 +2387,169 @@ run;</code></pre>
 </table>
 </div>
 </div>
-<div class="fragment">
+</div>
+<div class="fragment" data-fragment-index="2">
 <p>We merge <code>BY Name Grade</code>, and we still need to sort both tables first.</p>
 <p>The result has <strong>one row per test</strong>. Alex’s age and GPA are repeated on both of his rows, because SAS keeps his values in the PDV while it reads his next test.</p>
 </div>
+</section>
+<section id="one-to-many-in-the-pdv" class="level2" data-number="8.27">
+<h2 data-number="8.27" class="anchored" data-anchor-id="one-to-many-in-the-pdv"><span class="header-section-number">8.27</span> One-to-many in the PDV</h2>
+<p>Let’s follow Alex. He has 1 row in <code>class_all</code> and 2 rows in <code>tests</code>.</p>
+<div class="pdv-walk wide">
+<pre class="pdv-code"><span class="pdv-line"><span class="kw">data</span> class_tests;</span><span class="pdv-line">    <span class="kw">merge</span> class_all tests;<span class="fragment pdv-lit" data-fragment-index="1"></span><span class="fragment pdv-lit" data-fragment-index="3"></span></span><span class="pdv-line">    <span class="kw">by</span> Name Grade;</span><span class="pdv-line"><span class="kw">run</span>;<span class="fragment pdv-lit" data-fragment-index="2"></span><span class="fragment pdv-lit" data-fragment-index="4"></span></span></pre>
+<div class="pdv-ins"><div class="pdv-in"><div class="pdv-cap">Input: <code>class_all</code></div>
+<table class="mini pdv-intab caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Weight</th>
+<th data-quarto-table-cell-role="th">Height</th>
+<th data-quarto-table-cell-role="th">Grade</th>
+<th data-quarto-table-cell-role="th">GPA</th>
+</tr>
+<tr class="fragment pdv-inrow even" data-fragment-index="1">
+<td>Alex Smith</td>
+<td>20</td>
+<td>145.6</td>
+<td>5.8</td>
+<td>Junior</td>
+<td>3.27</td>
+</tr>
+<tr class="odd">
+<td>Casey Nguyen</td>
+<td>22</td>
+<td>140.8</td>
+<td>5.5</td>
+<td>Senior</td>
+<td>3.91</td>
+</tr>
+<tr class="dots even">
+<td colspan="6">⋮</td>
+</tr>
+</tbody>
+</table>
+</div><div class="pdv-in"><div class="pdv-cap">Input: <code>tests</code></div>
+<table class="mini pdv-intab caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Grade</th>
+<th data-quarto-table-cell-role="th">Subject</th>
+<th data-quarto-table-cell-role="th">TestScore</th>
+</tr>
+<tr class="fragment pdv-inrow even" data-fragment-index="1">
+<td>Alex Smith</td>
+<td>Junior</td>
+<td>Math</td>
+<td>98</td>
+</tr>
+<tr class="fragment pdv-inrow odd" data-fragment-index="3">
+<td>Alex Smith</td>
+<td>Junior</td>
+<td>English</td>
+<td>94</td>
+</tr>
+<tr class="even">
+<td>Casey Nguyen</td>
+<td>Senior</td>
+<td>English</td>
+<td>88</td>
+</tr>
+<tr class="dots odd">
+<td colspan="4">⋮</td>
+</tr>
+</tbody>
+</table>
+</div></div>
+<div class="pdv-wrap">
+<table class="pdv caption-top table">
+<tbody>
+<tr class="odd">
+<th class="drop" data-quarto-table-cell-role="th">_N_<span class="pdv-tag">D</span></th>
+<th class="drop" data-quarto-table-cell-role="th">_ERROR_<span class="pdv-tag">D</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Name<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Age<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Weight<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Height<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Grade<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">GPA<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">Subject<span class="pdv-tag">K</span></th>
+<th class="keep" data-quarto-table-cell-role="th">TestScore<span class="pdv-tag">K</span></th>
+</tr>
+<tr class="fragment even" data-fragment-index="1">
+<td>1</td>
+<td>0</td>
+<td class="hl">Alex Smith</td>
+<td class="hl">20</td>
+<td class="hl">145.6</td>
+<td class="hl">5.8</td>
+<td class="hl">Junior</td>
+<td class="hl">3.27</td>
+<td class="hl">Math</td>
+<td class="hl">98</td>
+</tr>
+<tr class="fragment odd" data-fragment-index="3">
+<td class="hl">2</td>
+<td>0</td>
+<td>Alex Smith</td>
+<td>20</td>
+<td>145.6</td>
+<td>5.8</td>
+<td>Junior</td>
+<td>3.27</td>
+<td class="hl">English</td>
+<td class="hl">94</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="out-table"><div class="pdv-cap">Output: <code>class_tests</code></div>
+<table class="mini caption-top table">
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Name</th>
+<th data-quarto-table-cell-role="th">Age</th>
+<th data-quarto-table-cell-role="th">Weight</th>
+<th data-quarto-table-cell-role="th">Height</th>
+<th data-quarto-table-cell-role="th">Grade</th>
+<th data-quarto-table-cell-role="th">GPA</th>
+<th data-quarto-table-cell-role="th">Subject</th>
+<th data-quarto-table-cell-role="th">TestScore</th>
+</tr>
+<tr class="fragment even" data-fragment-index="2">
+<td class="hl">Alex Smith</td>
+<td class="hl">20</td>
+<td class="hl">145.6</td>
+<td class="hl">5.8</td>
+<td class="hl">Junior</td>
+<td class="hl">3.27</td>
+<td class="hl">Math</td>
+<td class="hl">98</td>
+</tr>
+<tr class="fragment odd" data-fragment-index="4">
+<td class="hl">Alex Smith</td>
+<td class="hl">20</td>
+<td class="hl">145.6</td>
+<td class="hl">5.8</td>
+<td class="hl">Junior</td>
+<td class="hl">3.27</td>
+<td class="hl">English</td>
+<td class="hl">94</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment" data-fragment-index="5">
+<p>Alex has no more rows in <code>class_all</code>, so SAS keeps his values in the PDV. Only <code>Subject</code> and <code>TestScore</code> change.</p>
+</div>
+<p>This is different from a regular DATA step, where values are set back to missing at the top of each iteration. In a merge, values from a table stay in the PDV until SAS reads a new row from that same table. When Casey’s rows come up, SAS reads new rows from both tables, and the PDV fills with her values.</p>
+</section>
+<section id="one-to-many-in-sas" class="level2" data-number="8.28">
+<h2 data-number="8.28" class="anchored" data-anchor-id="one-to-many-in-sas"><span class="header-section-number">8.28</span> One-to-many in SAS</h2>
+<p>Import <code>class_tests.csv</code>, sort it, and merge it with <code>class_all</code>.</p>
 <div id="d8-27" class="cell">
 <pre class="sas cell-code"><code>proc import datafile="~/class_tests.csv" out=tests dbms=csv replace;
 run;

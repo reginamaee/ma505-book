@@ -1504,7 +1504,17 @@
     "href": "chapters/08-by-groups-merging.html#retain-with-by-groups",
     "title": "8  BY Groups and Merging",
     "section": "8.17 RETAIN with BY groups",
-    "text": "8.17 RETAIN with BY groups\nRecall: RETAIN leaves a value as it is in the PDV from one row to the next.\nWhat if we want a total score for each restaurant?\n\nWe need to reset the total when a new restaurant starts. A BY statement tells SAS how our rows are grouped, and creates two temporary columns in the PDV:\n\nFIRST.Restaurant is 1 on the first row of each restaurant, and 0 otherwise\nLAST.Restaurant is 1 on the last row of each restaurant, and 0 otherwise",
+    "text": "8.17 RETAIN with BY groups\nRecall: RETAIN leaves a value as it is in the PDV from one row to the next. Here is our food survey sorted by restaurant, with a running total from retain Total 0; and Total = sum(Total, Score);.\n\n\n\nStudent\nRestaurant\nCategory\nScore\nTotal\nWhat we want\n\n\n⋮\n\n\nMaria\nFuji\nService\n7\n63\n63\n\n\nKristian\nFuji\nFood Quality\n.\n63\n63\n\n\nKristian\nFuji\nService\n.\n63\n63\n\n\nVince\nJamaican Grill\nFood Quality\n8\n71\n8\n\n\nVince\nJamaican Grill\nService\n6.5\n77.5\n14.5\n\n\n⋮\n\n\n\n\nThe total keeps going when Jamaican Grill starts. What if we want a total score for each restaurant?\n\nRETAIN alone gives one running total for the whole table. Jamaican Grill starts at 71 instead of 8, because Fuji’s 63 points are carried along.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#the-by-statement",
+    "href": "chapters/08-by-groups-merging.html#the-by-statement",
+    "title": "8  BY Groups and Merging",
+    "section": "8.18 The BY statement",
+    "text": "8.18 The BY statement\nWe need to reset the total when a new restaurant starts. A BY statement tells SAS how our rows are grouped, and creates two temporary columns in the PDV:\n\nFIRST.Restaurant is 1 on the first row of each restaurant, and 0 otherwise\nLAST.Restaurant is 1 on the last row of each restaurant, and 0 otherwise\n\n\n\n\nStudent\nRestaurant\nCategory\nScore\nTotal\nFIRST.Restaurant\nLAST.Restaurant\n\n\n⋮\n\n\nMaria\nFuji\nService\n7\n63\n0\n0\n\n\nKristian\nFuji\nFood Quality\n.\n63\n0\n0\n\n\nKristian\nFuji\nService\n.\n63\n0\n1\n\n\nVince\nJamaican Grill\nFood Quality\n8\n71\n1\n0\n\n\nVince\nJamaican Grill\nService\n6.5\n77.5\n0\n0\n\n\n⋮\n\n\n\n\nWhen FIRST.Restaurant is 1, we set the total back to 0.\n\nLike _N_ and _ERROR_, FIRST. and LAST. columns are only in the PDV. They are never written to the output table.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1513,8 +1523,8 @@
     "objectID": "chapters/08-by-groups-merging.html#step-1-sort-by-the-group",
     "href": "chapters/08-by-groups-merging.html#step-1-sort-by-the-group",
     "title": "8  BY Groups and Merging",
-    "section": "8.18 Step 1: sort by the group",
-    "text": "8.18 Step 1: sort by the group\nBY only works if the data is sorted by that column.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* first step is to sort the data by the group */\nproc sort data=ma505.food_surv out=food_surv_rest_sort;\n    by Restaurant;\nrun;",
+    "section": "8.19 Step 1: sort by the group",
+    "text": "8.19 Step 1: sort by the group\nBY only works if the data is sorted by that column.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* first step is to sort the data by the group */\nproc sort data=ma505.food_surv out=food_surv_rest_sort;\n    by Restaurant;\nrun;",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1523,8 +1533,8 @@
     "objectID": "chapters/08-by-groups-merging.html#step-2-total-by-restaurant",
     "href": "chapters/08-by-groups-merging.html#step-2-total-by-restaurant",
     "title": "8  BY Groups and Merging",
-    "section": "8.19 Step 2: total by restaurant",
-    "text": "8.19 Step 2: total by restaurant\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;creates First.Restaurant and Last.Restaurant in the PDV\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;start over at 0 for each new restaurant\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;only writes the last row of each restaurant\nrun;",
+    "section": "8.20 Step 2: total by restaurant",
+    "text": "8.20 Step 2: total by restaurant\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;creates First.Restaurant and Last.Restaurant in the PDV\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;start over at 0 for each new restaurant\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;only writes the last row of each restaurant\nrun;",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1533,8 +1543,8 @@
     "objectID": "chapters/08-by-groups-merging.html#in-the-pdv",
     "href": "chapters/08-by-groups-merging.html#in-the-pdv",
     "title": "8  BY Groups and Merging",
-    "section": "8.20 In the PDV",
-    "text": "8.20 In the PDV\n\ndata sum_by_group;    set food_surv_rest_sort;    by Restaurant;    retain RestaurantSum 0;    if First.Restaurant = 1 then RestaurantSum = 0;    RestaurantSum = sum(RestaurantSum, Score);    if Last.Restaurant = 1;run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nCategoryK\nScoreK\nRestaurantSumK\nFirst.RestaurantD\nLast.RestaurantD\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n0\n1\n0\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n9\n1\n0\n\n\n10\n0\nKristian\nFuji\nService\n.\n63\n0\n1\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n0\n1\n0\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n8\n1\n0\n\n\n\n\n\n\nRow 10 is the last Fuji row (Last.Restaurant = 1), so it is written with a total of 63. On row 11, First.Restaurant = 1, so the total starts over.\n\n\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;    /* only outputs the last row of each group */\nrun;\n\nproc print data=sum_by_group;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nStudent\nRestaurant\nCategory\nScore\nRestaurantSum\n\n\n\n\n1\nKristian\nFuji\nService\n.\n63.0\n\n\n2\nKristian\nJamaican Grill\nService\n.\n60.5\n\n\n3\nKristian\nKings\nService\n.\n60.0\n\n\n\n\n\n\n\n\nStudent, Category, and Score are just the values from the last row of each restaurant, so we would usually drop them.",
+    "section": "8.21 In the PDV",
+    "text": "8.21 In the PDV\n\ndata sum_by_group;    set food_surv_rest_sort;    by Restaurant;    retain RestaurantSum 0;    if First.Restaurant = 1 then RestaurantSum = 0;    RestaurantSum = sum(RestaurantSum, Score);    if Last.Restaurant = 1;run;\nInput: work.food_surv_rest_sort\n\n\n\nRow\nStudent\nRestaurant\nCategory\nScore\n\n\n1\nVince\nFuji\nFood Quality\n9\n\n\n⋮\n\n\n10\nKristian\nFuji\nService\n.\n\n\n11\nVince\nJamaican Grill\nFood Quality\n8\n\n\n⋮\n\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nCategoryK\nScoreK\nRestaurantSumK\nFirst.RestaurantD\nLast.RestaurantD\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n0\n1\n0\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n9\n1\n0\n\n\n⋮\n\n\n10\n0\nKristian\nFuji\nService\n.\n63\n0\n1\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n0\n1\n0\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n8\n1\n0\n\n\n\n\n\n\nRow 10 is the last Fuji row (Last.Restaurant = 1), so it is written with a total of 63. On row 11, First.Restaurant = 1, so the total starts over.\n\n\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;    /* only outputs the last row of each group */\nrun;\n\nproc print data=sum_by_group;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nStudent\nRestaurant\nCategory\nScore\nRestaurantSum\n\n\n\n\n1\nKristian\nFuji\nService\n.\n63.0\n\n\n2\nKristian\nJamaican Grill\nService\n.\n60.5\n\n\n3\nKristian\nKings\nService\n.\n60.0\n\n\n\n\n\n\n\n\nStudent, Category, and Score are just the values from the last row of each restaurant, so we would usually drop them.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1543,8 +1553,8 @@
     "objectID": "chapters/08-by-groups-merging.html#merging-tables",
     "href": "chapters/08-by-groups-merging.html#merging-tables",
     "title": "8  BY Groups and Merging",
-    "section": "8.21 Merging tables",
-    "text": "8.21 Merging tables\nDATA output-table;    MERGE input-table1 input-table2 ...;    BY BY-column(s);RUN;\nMERGE puts tables together side by side, matching rows on the BY columns.\nImport class_all.csv and class_teachers.csv into your work library first.\n\nproc import datafile=\"~/class_all.csv\" out=class_all dbms=csv replace;\nrun;\n\nproc import datafile=\"~/class_teachers.csv\" out=teacher dbms=csv replace;\nrun;\n\nproc print data=teacher (obs=5);\nrun;\n\nproc print data=class_all (obs=5);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nGrade\nTeacher\n\n\n\n\n1\nSam Patel\nJunior\nMr. Ortiz\n\n\n2\nAlex Smith\nJunior\nMs. Foster\n\n\n3\nTaylor Lee\nSenior\nDr. Kim\n\n\n4\nJordan Brown\nFreshman\nMs. Foster\n\n\n5\nCasey Nguyen\nSenior\nDr. Kim\n\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\n\n\n\n\n1\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\n\n\n2\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\n\n\n3\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\n\n\n5\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05",
+    "section": "8.22 Merging tables",
+    "text": "8.22 Merging tables\nDATA output-table;    MERGE input-table1 input-table2 ...;    BY BY-column(s);RUN;\nMERGE puts tables together side by side, matching rows on the BY columns.\nImport class_all.csv and class_teachers.csv into your work library first.\n\nproc import datafile=\"~/class_all.csv\" out=class_all dbms=csv replace;\nrun;\n\nproc import datafile=\"~/class_teachers.csv\" out=teacher dbms=csv replace;\nrun;\n\nproc print data=teacher (obs=5);\nrun;\n\nproc print data=class_all (obs=5);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nGrade\nTeacher\n\n\n\n\n1\nSam Patel\nJunior\nMr. Ortiz\n\n\n2\nAlex Smith\nJunior\nMs. Foster\n\n\n3\nTaylor Lee\nSenior\nDr. Kim\n\n\n4\nJordan Brown\nFreshman\nMs. Foster\n\n\n5\nCasey Nguyen\nSenior\nDr. Kim\n\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\n\n\n\n\n1\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\n\n\n2\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\n\n\n3\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\n\n\n5\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1553,8 +1563,8 @@
     "objectID": "chapters/08-by-groups-merging.html#step-1-sort-both-tables",
     "href": "chapters/08-by-groups-merging.html#step-1-sort-both-tables",
     "title": "8  BY Groups and Merging",
-    "section": "8.22 Step 1: sort both tables",
-    "text": "8.22 Step 1: sort both tables\nJust like BY groups, both tables need to be sorted by the BY columns.\n\nproc sort data=class_all;\n    by Name Grade;\nrun;\n\nproc sort data=teacher;\n    by Name Grade;\nrun;",
+    "section": "8.23 Step 1: sort both tables",
+    "text": "8.23 Step 1: sort both tables\nJust like BY groups, both tables need to be sorted by the BY columns.\n\nproc sort data=class_all;\n    by Name Grade;\nrun;\n\nproc sort data=teacher;\n    by Name Grade;\nrun;",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1563,8 +1573,8 @@
     "objectID": "chapters/08-by-groups-merging.html#step-2-merge",
     "href": "chapters/08-by-groups-merging.html#step-2-merge",
     "title": "8  BY Groups and Merging",
-    "section": "8.23 Step 2: merge",
-    "text": "8.23 Step 2: merge\n/* merge together */\ndata class_merge;\n    merge class_all teacher;merging the class_all table and the teacher table\n    by Name Grade;\nrun;\n\ndata class_merge;\n    merge class_all teacher;\n    by Name Grade;\nrun;\n\nproc print data=class_merge;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nTeacher\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n2\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nDr. Kim\n\n\n3\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nMr. Ortiz\n\n\n4\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMs. Foster\n\n\n5\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nMr. Ortiz\n\n\n6\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMs. Foster\n\n\n7\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMr. Ortiz\n\n\n8\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nDr. Kim",
+    "section": "8.24 Step 2: merge",
+    "text": "8.24 Step 2: merge\n/* merge together */\ndata class_merge;\n    merge class_all teacher;merging the class_all table and the teacher table\n    by Name Grade;\nrun;\n\ndata class_merge;\n    merge class_all teacher;\n    by Name Grade;\nrun;\n\nproc print data=class_merge;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nTeacher\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n2\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nDr. Kim\n\n\n3\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nMr. Ortiz\n\n\n4\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMs. Foster\n\n\n5\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nMr. Ortiz\n\n\n6\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMs. Foster\n\n\n7\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMr. Ortiz\n\n\n8\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nDr. Kim",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1573,8 +1583,8 @@
     "objectID": "chapters/08-by-groups-merging.html#how-merge-uses-the-pdv",
     "href": "chapters/08-by-groups-merging.html#how-merge-uses-the-pdv",
     "title": "8  BY Groups and Merging",
-    "section": "8.24 How merge uses the PDV",
-    "text": "8.24 How merge uses the PDV\nCompilation: the columns from the first table go into the PDV, then any new columns from the second table.\n\ndata class_merge;    merge class_all teacher;    by Name Grade;run;\n\n\n\n\n\n_N_D\n_ERROR_D\nNameK\nAgeK\nWeightK\nHeightK\nGradeK\nGPAK\nTeacherK\n\n\n1\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n\n\n\nExecution: SAS reads the rows from both tables in order. When the BY values match, the values from both go into the same row of the PDV.",
+    "section": "8.25 How merge uses the PDV",
+    "text": "8.25 How merge uses the PDV\nCompilation: the columns from the first table go into the PDV, then any new columns from the second table.\n\ndata class_merge;    merge class_all teacher;    by Name Grade;run;\nInput: class_all\n\n\n\nName\nAge\nWeight\nHeight\nGrade\nGPA\n\n\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\n\n\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\n\n\n⋮\n\n\n\nInput: teacher\n\n\n\nName\nGrade\nTeacher\n\n\nAlex Smith\nJunior\nMs. Foster\n\n\nCasey Nguyen\nSenior\nDr. Kim\n\n\n⋮\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nNameK\nAgeK\nWeightK\nHeightK\nGradeK\nGPAK\nTeacherK\n\n\n\n\n1\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\n\n\n\n1\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n\n\n\n\nExecution: SAS reads the rows from both tables in order. When the BY values match, the values from both go into the same row of the PDV.\n\nName and Grade are in both tables, so they only go into the PDV once. Teacher is the only new column from teacher, so it’s added last.",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]
@@ -1583,8 +1593,28 @@
     "objectID": "chapters/08-by-groups-merging.html#one-to-many",
     "href": "chapters/08-by-groups-merging.html#one-to-many",
     "title": "8  BY Groups and Merging",
-    "section": "8.25 One-to-many",
-    "text": "8.25 One-to-many\nWhat happens when one student has many rows in the other table?\n\n\n\n\n\nName\nGrade\nAge\nGPA\n\n\nAlex Smith\nJunior\n20\n3.27\n\n\nJordan Brown\nFreshman\n19\n2.89\n\n\n\n\n\n\n\n\n\nName\nGrade\nSubject\nTest Score\n\n\nAlex Smith\nJunior\nMath\n98\n\n\nAlex Smith\nJunior\nEnglish\n94\n\n\nJordan Brown\nFreshman\nMath\n89\n\n\n\n\n\n\nWe merge BY Name Grade, and we still need to sort both tables first.\nThe result has one row per test. Alex’s age and GPA are repeated on both of his rows, because SAS keeps his values in the PDV while it reads his next test.\n\n\nproc import datafile=\"~/class_tests.csv\" out=tests dbms=csv replace;\nrun;\n\nproc sort data=tests;\n    by Name Grade;\nrun;\n\ndata class_tests;\n    merge class_all tests;\n    by Name Grade;\nrun;\n\nproc print data=class_tests;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nSubject\nTestScore\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMath\n98\n\n\n2\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nEnglish\n94\n\n\n3\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nEnglish\n88\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nMath\n95\n\n\n5\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nEnglish\n81\n\n\n6\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMath\n89\n\n\n7\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nEnglish\n76\n\n\n8\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nEnglish\n85\n\n\n9\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMath\n72\n\n\n10\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMath\n90\n\n\n11\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nMath\n91",
+    "section": "8.26 One-to-many",
+    "text": "8.26 One-to-many\n\nWhat happens when one student has many rows in the other table?\n\n\n\n\n\nName\nGrade\nAge\nGPA\n\n\nAlex Smith\nJunior\n20\n3.27\n\n\nJordan Brown\nFreshman\n19\n2.89\n\n\n\n\n\n\n\n\n\nName\nGrade\nSubject\nTest Score\n\n\nAlex Smith\nJunior\nMath\n98\n\n\nAlex Smith\nJunior\nEnglish\n94\n\n\nJordan Brown\nFreshman\nMath\n89\n\n\n\n\n\n\n\nWe merge BY Name Grade, and we still need to sort both tables first.\nThe result has one row per test. Alex’s age and GPA are repeated on both of his rows, because SAS keeps his values in the PDV while it reads his next test.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#one-to-many-in-the-pdv",
+    "href": "chapters/08-by-groups-merging.html#one-to-many-in-the-pdv",
+    "title": "8  BY Groups and Merging",
+    "section": "8.27 One-to-many in the PDV",
+    "text": "8.27 One-to-many in the PDV\nLet’s follow Alex. He has 1 row in class_all and 2 rows in tests.\n\ndata class_tests;    merge class_all tests;    by Name Grade;run;\nInput: class_all\n\n\n\nName\nAge\nWeight\nHeight\nGrade\nGPA\n\n\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\n\n\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\n\n\n⋮\n\n\n\nInput: tests\n\n\n\nName\nGrade\nSubject\nTestScore\n\n\nAlex Smith\nJunior\nMath\n98\n\n\nAlex Smith\nJunior\nEnglish\n94\n\n\nCasey Nguyen\nSenior\nEnglish\n88\n\n\n⋮\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nNameK\nAgeK\nWeightK\nHeightK\nGradeK\nGPAK\nSubjectK\nTestScoreK\n\n\n1\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMath\n98\n\n\n2\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nEnglish\n94\n\n\n\n\nOutput: class_tests\n\n\n\nName\nAge\nWeight\nHeight\nGrade\nGPA\nSubject\nTestScore\n\n\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMath\n98\n\n\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nEnglish\n94\n\n\n\n\n\n\nAlex has no more rows in class_all, so SAS keeps his values in the PDV. Only Subject and TestScore change.\n\nThis is different from a regular DATA step, where values are set back to missing at the top of each iteration. In a merge, values from a table stay in the PDV until SAS reads a new row from that same table. When Casey’s rows come up, SAS reads new rows from both tables, and the PDV fills with her values.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#one-to-many-in-sas",
+    "href": "chapters/08-by-groups-merging.html#one-to-many-in-sas",
+    "title": "8  BY Groups and Merging",
+    "section": "8.28 One-to-many in SAS",
+    "text": "8.28 One-to-many in SAS\nImport class_tests.csv, sort it, and merge it with class_all.\n\nproc import datafile=\"~/class_tests.csv\" out=tests dbms=csv replace;\nrun;\n\nproc sort data=tests;\n    by Name Grade;\nrun;\n\ndata class_tests;\n    merge class_all tests;\n    by Name Grade;\nrun;\n\nproc print data=class_tests;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nSubject\nTestScore\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMath\n98\n\n\n2\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nEnglish\n94\n\n\n3\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nEnglish\n88\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nMath\n95\n\n\n5\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nEnglish\n81\n\n\n6\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMath\n89\n\n\n7\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nEnglish\n76\n\n\n8\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nEnglish\n85\n\n\n9\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMath\n72\n\n\n10\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMath\n90\n\n\n11\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nMath\n91",
     "crumbs": [
       "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
     ]

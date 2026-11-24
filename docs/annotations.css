@@ -255,14 +255,40 @@ body:not(.reveal-viewport) table.pdv tr.fragment { opacity: 1; visibility: visib
 .reveal .pdv-side .pdv-cap { font-size: .55em; text-align: right; }
 /* the row being read stays visible, and turns yellow once SET reads it */
 .reveal table.pdv-intab tr.pdv-inrow.fragment { opacity: 1 !important; visibility: visible !important; }
-.reveal table.pdv-intab tr.pdv-inrow.fragment.visible td { background: #ffe066; font-weight: 600; }
+/* only the row being read right now is yellow */
+.reveal table.pdv-intab tr.pdv-inrow.fragment.visible:not(:has(~ tr.pdv-inrow.visible)) td { background: #ffe066; font-weight: 600; }
 body:not(.reveal-viewport) table.pdv-intab tr.pdv-inrow td { background: #ffe066; font-weight: 600; }
 body:not(.reveal-viewport) table.pdv th.fragment, body:not(.reveal-viewport) table.pdv .pdv-tag.fragment, body:not(.reveal-viewport) table.mini tr.fragment { opacity: 1; visibility: visible; }
 /* hidden rows in small tables don't show empty borders before they appear */
-.reveal table.mini tr.fragment:not(.visible) { display: none; }
+.reveal table.mini tr.fragment:not(.visible):not(.pdv-inrow) { display: none; }
 .reveal .out-table { padding-bottom: 2px; }
 .reveal section:has(.pdv-side) > .fragment, .reveal section:has(.pdv-side) > p { max-width: 64%; }
 .reveal table.mini tr:last-child td { border-bottom: 1px solid #c1c1c1; }
 /* book: input and output tables side by side, not full width */
 body:not(.reveal-viewport) .pdv-side { display: flex; gap: 2em; flex-wrap: wrap; align-items: flex-start; }
 body:not(.reveal-viewport) .pdv-side table.mini { width: auto; font-size: .8em; }
+
+/* at run;, the kept PDV values and the new output row turn green together */
+.reveal .pdv-walk:has(tr.pdv-out-new.visible) tr.pdv-final td.kc,
+.reveal tr.pdv-out-new.visible td.xfer { background: #b7e4c7 !important; font-weight: 600; }
+body:not(.reveal-viewport) tr.pdv-final td.kc, body:not(.reveal-viewport) td.xfer { background: #b7e4c7; font-weight: 600; }
+
+/* small context tables: highlighted cells and the "more rows" dots */
+table.mini td.hl { background: #ffe066; font-weight: 600; }
+table.mini tr.dots td { text-align: center; color: #888; border-left: none; border-right: none; padding: 0; line-height: 1; }
+
+/* wide PDV (many columns): code stays top right, input table under the title, PDV full width below */
+.reveal .pdv-walk.wide .pdv-in { max-width: 54%; margin-bottom: .3em; }
+.reveal .pdv-walk.wide .pdv-in table.mini { font-size: .5em; margin: 0; }
+.reveal .pdv-walk.wide .pdv-in .pdv-cap { font-size: .5em; }
+.reveal .pdv-walk.wide table.pdv { font-size: .58em; margin-left: 0; }
+.reveal .pdv-walk.wide table.pdv td, .reveal .pdv-walk.wide table.pdv th { white-space: nowrap; }
+table.pdv tr.dots td { background: none; color: #888; padding: 0; line-height: 1; }
+.reveal table.mini tr.dots td, table.mini tr.dots td { border: none !important; }
+
+/* two input tables side by side under the title (wide PDV slides) */
+.pdv-ins { display: flex; gap: 1.2em; align-items: flex-start; flex-wrap: wrap; }
+.reveal .pdv-walk.wide .pdv-ins { max-width: 62%; margin-bottom: .3em; }
+.reveal .pdv-walk.wide .pdv-ins .pdv-in { max-width: none; margin: 0; }
+.reveal .pdv-walk.wide .out-table table.mini { font-size: .5em; }
+.reveal .pdv-walk.wide .out-table .pdv-cap { font-size: .5em; }
