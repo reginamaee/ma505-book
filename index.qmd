@@ -15,3 +15,4 @@ All code runs in **SAS OnDemand for Academics**, a free version of SAS Studio th
 - [Conditional Processing and Plotting](slides/05-conditional-plotting.html)
 - [More Plots: SGPLOT, SGPANEL, and Exporting](slides/06-sgplot-sgpanel.html)
 - [Inside the DATA Step: the PDV](slides/07-pdv.html)
+- [BY Groups and Merging](slides/08-by-groups-merging.html)

@@ -1328,5 +1328,265 @@
     "crumbs": [
       "<span class='chapter-number'>7</span>  <span class='chapter-title'>Inside the DATA Step: the PDV</span>"
     ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html",
+    "href": "chapters/08-by-groups-merging.html",
+    "title": "8  BY Groups and Merging",
+    "section": "",
+    "text": "8.1 Agenda",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#agenda",
+    "href": "chapters/08-by-groups-merging.html#agenda",
+    "title": "8  BY Groups and Merging",
+    "section": "",
+    "text": "Recall: DATA step processing and the PDV\nDROP, WHERE, and IF in the PDV\n_ERROR_\nRETAIN with BY groups: FIRST. and LAST.\nMerging tables",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#recall",
+    "href": "chapters/08-by-groups-merging.html#recall",
+    "title": "8  BY Groups and Merging",
+    "section": "8.2 Recall",
+    "text": "8.2 Recall\n\n\n\n\n\n\n\nDATA step processing\n2 phases: compilation and execution\n\n\nPDV\nthe program data vector, a temporary area of memory that SAS uses inside a DATA step to build one row at a time",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#a-full-pdv-example",
+    "href": "chapters/08-by-groups-merging.html#a-full-pdv-example",
+    "title": "8  BY Groups and Merging",
+    "section": "8.3 A full PDV example",
+    "text": "8.3 A full PDV example\nLet’s walk through one DATA step from start to finish. Here is a small table with 5 rows.\n\ndata scores;\n    input Student $ Quiz1 Quiz2;\n    datalines;\nVince 8 9\nAbi 6 7\nJon 9 10\nMaria 7 7\nKristian 10 .\n;\nrun;\n\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\ndatalines lets us type a small table right into our code. Kristian missed the second quiz, so his Quiz2 is a period, which is how we write a missing number.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#the-code",
+    "href": "chapters/08-by-groups-merging.html#the-code",
+    "title": "8  BY Groups and Merging",
+    "section": "8.4 The code",
+    "text": "8.4 The code\nWe want each student’s total, whether they passed (15 or more), and a running total of everyone’s points.\n\ndata quiz_totals;\n    set scores;\n    retain Running 0;\n    Total = Quiz1 + Quiz2;\n    if Total &gt;= 15 then Pass = \"Y\";\n    else Pass = \"N\";\n    Running = sum(Running, Total);\n    drop Quiz1 Quiz2;\nrun;\n\nBefore reading on, try to guess what the output table will look like. Which columns will it have? What will Kristian’s row say?",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#compilation",
+    "href": "chapters/08-by-groups-merging.html#compilation",
+    "title": "8  BY Groups and Merging",
+    "section": "8.5 Compilation",
+    "text": "8.5 Compilation\nSAS reads the code top to bottom and builds the PDV. No data is read yet.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n\n\n\n\n\nSET adds the columns from scores. RETAIN adds Running, and sets it to 0. The next two lines add Total (numeric) and Pass (character, length 1 from \"Y\"). DROP marks Quiz1 and Quiz2 with a D.\n\nRETAIN and DROP do all their work here, during compilation. During execution, SAS skips right over them.\nPass gets a length of 1 because the first value SAS sees for it is \"Y\", which is one character long.\n\n\n\n\n\n\nTipCheck yourself: which columns end up in the output table?\n\n\n\n\n\nStudent, Running, Total, and Pass. Everything marked K, in the order they were added to the PDV.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#execution-row-1",
+    "href": "chapters/08-by-groups-merging.html#execution-row-1",
+    "title": "8  BY Groups and Merging",
+    "section": "8.6 Execution: row 1",
+    "text": "8.6 Execution: row 1\n_N_ is 1. Running starts at 0 because of RETAIN.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;Input: work.scores\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n1\n0\n\n.\n.\n0\n.\n\n\n\n1\n0\nVince\n8\n9\n0\n.\n\n\n\n1\n0\nVince\n8\n9\n0\n17\n\n\n\n1\n0\nVince\n8\n9\n0\n17\nY\n\n\n1\n0\nVince\n8\n9\n17\n17\nY\n\n\n\n\n\n\nTotal is 17, so the IF is true and SAS skips the ELSE. At run;, SAS writes the row to the output table, without _N_, _ERROR_, Quiz1, and Quiz2.\n\nNotice that RETAIN and DROP are never highlighted. They aren’t executable, so SAS doesn’t run them row by row.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#execution-row-2",
+    "href": "chapters/08-by-groups-merging.html#execution-row-2",
+    "title": "8  BY Groups and Merging",
+    "section": "8.7 Execution: row 2",
+    "text": "8.7 Execution: row 2\nBack to the top. Total and Pass reset to missing, but Running keeps its value.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;Input: work.scores\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\nAbi\n30\n13\nN\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n2\n0\nVince\n8\n9\n17\n.\n\n\n\n2\n0\nAbi\n6\n7\n17\n.\n\n\n\n2\n0\nAbi\n6\n7\n17\n13\n\n\n\n2\n0\nAbi\n6\n7\n17\n13\n\n\n\n2\n0\nAbi\n6\n7\n17\n13\nN\n\n\n2\n0\nAbi\n6\n7\n30\n13\nN\n\n\n\n\n\n\nTotal is 13, so the IF is false and the ELSE runs.\n\nStudent, Quiz1, and Quiz2 still hold Vince’s values at the top of the step. That’s fine, because SET replaces them right away. Total and Pass are new columns, so SAS sets them back to missing. Running is retained, so it keeps 17.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#execution-row-3",
+    "href": "chapters/08-by-groups-merging.html#execution-row-3",
+    "title": "8  BY Groups and Merging",
+    "section": "8.8 Execution: row 3",
+    "text": "8.8 Execution: row 3\nSame steps, next row.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;Input: work.scores\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\nAbi\n30\n13\nN\n\n\nJon\n49\n19\nY\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n3\n0\nAbi\n6\n7\n30\n.\n\n\n\n3\n0\nJon\n9\n10\n30\n.\n\n\n\n3\n0\nJon\n9\n10\n30\n19\n\n\n\n3\n0\nJon\n9\n10\n30\n19\nY\n\n\n3\n0\nJon\n9\n10\n49\n19\nY",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#execution-row-4",
+    "href": "chapters/08-by-groups-merging.html#execution-row-4",
+    "title": "8  BY Groups and Merging",
+    "section": "8.9 Execution: row 4",
+    "text": "8.9 Execution: row 4\nSame steps, next row.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;Input: work.scores\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\nAbi\n30\n13\nN\n\n\nJon\n49\n19\nY\n\n\nMaria\n63\n14\nN\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n4\n0\nJon\n9\n10\n49\n.\n\n\n\n4\n0\nMaria\n7\n7\n49\n.\n\n\n\n4\n0\nMaria\n7\n7\n49\n14\n\n\n\n4\n0\nMaria\n7\n7\n49\n14\n\n\n\n4\n0\nMaria\n7\n7\n49\n14\nN\n\n\n4\n0\nMaria\n7\n7\n63\n14\nN",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#execution-row-5",
+    "href": "chapters/08-by-groups-merging.html#execution-row-5",
+    "title": "8  BY Groups and Merging",
+    "section": "8.10 Execution: row 5",
+    "text": "8.10 Execution: row 5\nKristian’s Quiz2 is missing. Watch what happens.\n\ndata quiz_totals;    set scores;    retain Running 0;    Total = Quiz1 + Quiz2;    if Total &gt;= 15 then Pass = \"Y\";    else Pass = \"N\";    Running = sum(Running, Total);    drop Quiz1 Quiz2;run;Input: work.scores\n\n\n\nStudent\nQuiz1\nQuiz2\n\n\nVince\n8\n9\n\n\nAbi\n6\n7\n\n\nJon\n9\n10\n\n\nMaria\n7\n7\n\n\nKristian\n10\n.\n\n\n\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\nAbi\n30\n13\nN\n\n\nJon\n49\n19\nY\n\n\nMaria\n63\n14\nN\n\n\nKristian\n63\n.\nN\n\n\n\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nQuiz1D\nQuiz2D\nRunningK\nTotalK\nPassK\n\n\n5\n0\nMaria\n7\n7\n63\n.\n\n\n\n5\n0\nKristian\n10\n.\n63\n.\n\n\n\n5\n0\nKristian\n10\n.\n63\n.\n\n\n\n5\n0\nKristian\n10\n.\n63\n.\n\n\n\n5\n0\nKristian\n10\n.\n63\n.\nN\n\n\n5\n0\nKristian\n10\n.\n63\n.\nN\n\n\n\n\n\n\n10 plus missing is missing, so Total is missing. A missing value is smaller than any number, so the IF is false and Pass is N. sum() ignores the missing value, so Running stays at 63.\n\nKristian’s Total is missing because we used a plus sign. If we had used Total = sum(Quiz1, Quiz2);, his total would be 10.\n\n\n\n\n\n\nTipCheck yourself: what if Running used a plus sign too?\n\n\n\n\n\nWith Running = Running + Total;, Kristian’s row would make Running missing (63 plus missing is missing). Because it’s retained, it would stay missing for any rows after that.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#end-of-the-step",
+    "href": "chapters/08-by-groups-merging.html#end-of-the-step",
+    "title": "8  BY Groups and Merging",
+    "section": "8.11 End of the step",
+    "text": "8.11 End of the step\nSAS goes back to the top one more time, and _N_ becomes 6. SET has no more rows to read, so the DATA step stops.\nOutput: work.quiz_totals\n\n\n\nStudent\nRunning\nTotal\nPass\n\n\nVince\n17\n17\nY\n\n\nAbi\n30\n13\nN\n\n\nJon\n49\n19\nY\n\n\nMaria\n63\n14\nN\n\n\nKristian\n63\n.\nN\n\n\n\n\n\n5 rows in, 5 rows out. Quiz1 and Quiz2 were used in every row, but they aren’t in the output.\n\nFor the homework, use the same steps for each row:\n\nAt the top of the step, add 1 to _N_. Set new columns back to missing, unless they are retained.\nSET copies the next row into the PDV.\nRun each executable statement, top to bottom, and update the PDV.\nAt run;, write the row to the output table, leaving out anything marked D.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#important-things-to-note",
+    "href": "chapters/08-by-groups-merging.html#important-things-to-note",
+    "title": "8  BY Groups and Merging",
+    "section": "8.12 Important things to note",
+    "text": "8.12 Important things to note\n\nColumns in a DROP statement are still in the PDV. We can use them for any calculation until the row is written to the output table.\nWHERE decides which rows go into the PDV.\nIF uses the values in the PDV right now.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#drop-columns-are-still-in-the-pdv",
+    "href": "chapters/08-by-groups-merging.html#drop-columns-are-still-in-the-pdv",
+    "title": "8  BY Groups and Merging",
+    "section": "8.13 DROP columns are still in the PDV",
+    "text": "8.13 DROP columns are still in the PDV\nHeight is dropped, but we can still use it to compute BMI.\n\ndata drop_height;\n    set sashelp.class;\n    drop Height;    /* still enters the PDV, but not the output table */\n    BMI = (Weight / Height**2) * 703;\nrun;\n\nproc print data=drop_height (obs=5);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nWeight\nBMI\n\n\n\n\n1\nAlfred\nM\n14\n112.5\n16.6115\n\n\n2\nAlice\nF\n13\n84.0\n18.4986\n\n\n3\nBarbara\nF\n13\n98.0\n16.1568\n\n\n4\nCarol\nF\n14\n102.5\n18.2709\n\n\n5\nHenry\nM\n14\n102.5\n17.8703",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#where-decides-what-enters-the-pdv",
+    "href": "chapters/08-by-groups-merging.html#where-decides-what-enters-the-pdv",
+    "title": "8  BY Groups and Merging",
+    "section": "8.14 WHERE decides what enters the PDV",
+    "text": "8.14 WHERE decides what enters the PDV\n\ndata teenagers;\n    set sashelp.class;\n    where Age &gt;= 14;    /* only these rows enter the PDV */\nrun;\n\nproc print data=teenagers;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\n\n\n\n\n1\nAlfred\nM\n14\n69.0\n112.5\n\n\n2\nCarol\nF\n14\n62.8\n102.5\n\n\n3\nHenry\nM\n14\n63.5\n102.5\n\n\n4\nJanet\nF\n15\n62.5\n112.5\n\n\n5\nJudy\nF\n14\n64.3\n90.0\n\n\n6\nMary\nF\n15\n66.5\n112.0\n\n\n7\nPhilip\nM\n16\n72.0\n150.0\n\n\n8\nRonald\nM\n15\n67.0\n133.0\n\n\n9\nWilliam\nM\n15\n66.5\n112.0",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#if-uses-the-pdv-right-now",
+    "href": "chapters/08-by-groups-merging.html#if-uses-the-pdv-right-now",
+    "title": "8  BY Groups and Merging",
+    "section": "8.15 IF uses the PDV right now",
+    "text": "8.15 IF uses the PDV right now\nThe IF runs before we add 1 to Age. So it checks the original age.\n\ndata example;\n    set sashelp.class;\n    if Age &gt;= 14 then Teenager = 1;\n    Age = Age + 1;    /* this change happens AFTER the IF */\nrun;\n\nproc print data=example;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nSex\nAge\nHeight\nWeight\nTeenager\n\n\n\n\n1\nAlfred\nM\n15\n69.0\n112.5\n1\n\n\n2\nAlice\nF\n14\n56.5\n84.0\n.\n\n\n3\nBarbara\nF\n14\n65.3\n98.0\n.\n\n\n4\nCarol\nF\n15\n62.8\n102.5\n1\n\n\n5\nHenry\nM\n15\n63.5\n102.5\n1\n\n\n6\nJames\nM\n13\n57.3\n83.0\n.\n\n\n7\nJane\nF\n13\n59.8\n84.5\n.\n\n\n8\nJanet\nF\n16\n62.5\n112.5\n1\n\n\n9\nJeffrey\nM\n14\n62.5\n84.0\n.\n\n\n10\nJohn\nM\n13\n59.0\n99.5\n.\n\n\n11\nJoyce\nF\n12\n51.3\n50.5\n.\n\n\n12\nJudy\nF\n15\n64.3\n90.0\n1\n\n\n13\nLouise\nF\n13\n56.3\n77.0\n.\n\n\n14\nMary\nF\n16\n66.5\n112.0\n1\n\n\n15\nPhilip\nM\n17\n72.0\n150.0\n1\n\n\n16\nRobert\nM\n13\n64.8\n128.0\n.\n\n\n17\nRonald\nM\n16\n67.0\n133.0\n1\n\n\n18\nThomas\nM\n12\n57.5\n85.0\n.\n\n\n19\nWilliam\nM\n16\n66.5\n112.0\n1\n\n\n\n\n\n\n\n\nLook at Alice. Her Age now says 14, but Teenager is missing. She was 13 when the IF checked, and 1 was added after. Order matters!",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#error_",
+    "href": "chapters/08-by-groups-merging.html#error_",
+    "title": "8  BY Groups and Merging",
+    "section": "8.16 _ERROR_",
+    "text": "8.16 _ERROR_\nIn SAS, _ERROR_ is set to 1 when certain data or processing problems happen in a DATA step. For example:\n\n\n\ndata conversion errors\ndivision by zero\ninvalid math (like the log of a negative number)\ninvalid array references\n\n\n\nuninitialized columns in expressions\ninvalid date or time values\nerrors in user-defined functions or formats\n\n\n\n\nWhat happens when _ERROR_ = 1?\n\na note or warning is written in the log\nthe value is set to missing\nSAS keeps going with the next row",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#retain-with-by-groups",
+    "href": "chapters/08-by-groups-merging.html#retain-with-by-groups",
+    "title": "8  BY Groups and Merging",
+    "section": "8.17 RETAIN with BY groups",
+    "text": "8.17 RETAIN with BY groups\nRecall: RETAIN leaves a value as it is in the PDV from one row to the next.\nWhat if we want a total score for each restaurant?\n\nWe need to reset the total when a new restaurant starts. A BY statement tells SAS how our rows are grouped, and creates two temporary columns in the PDV:\n\nFIRST.Restaurant is 1 on the first row of each restaurant, and 0 otherwise\nLAST.Restaurant is 1 on the last row of each restaurant, and 0 otherwise",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#step-1-sort-by-the-group",
+    "href": "chapters/08-by-groups-merging.html#step-1-sort-by-the-group",
+    "title": "8  BY Groups and Merging",
+    "section": "8.18 Step 1: sort by the group",
+    "text": "8.18 Step 1: sort by the group\nBY only works if the data is sorted by that column.\n\nlibname ma505 \"~\";    /* skip if your autoexec does this */\n\n/* first step is to sort the data by the group */\nproc sort data=ma505.food_surv out=food_surv_rest_sort;\n    by Restaurant;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#step-2-total-by-restaurant",
+    "href": "chapters/08-by-groups-merging.html#step-2-total-by-restaurant",
+    "title": "8  BY Groups and Merging",
+    "section": "8.19 Step 2: total by restaurant",
+    "text": "8.19 Step 2: total by restaurant\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;creates First.Restaurant and Last.Restaurant in the PDV\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;start over at 0 for each new restaurant\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;only writes the last row of each restaurant\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#in-the-pdv",
+    "href": "chapters/08-by-groups-merging.html#in-the-pdv",
+    "title": "8  BY Groups and Merging",
+    "section": "8.20 In the PDV",
+    "text": "8.20 In the PDV\n\ndata sum_by_group;    set food_surv_rest_sort;    by Restaurant;    retain RestaurantSum 0;    if First.Restaurant = 1 then RestaurantSum = 0;    RestaurantSum = sum(RestaurantSum, Score);    if Last.Restaurant = 1;run;\n\n\n\n\n\n_N_D\n_ERROR_D\nStudentK\nRestaurantK\nCategoryK\nScoreK\nRestaurantSumK\nFirst.RestaurantD\nLast.RestaurantD\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n0\n1\n0\n\n\n1\n0\nVince\nFuji\nFood Quality\n9\n9\n1\n0\n\n\n10\n0\nKristian\nFuji\nService\n.\n63\n0\n1\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n0\n1\n0\n\n\n11\n0\nVince\nJamaican Grill\nFood Quality\n8\n8\n1\n0\n\n\n\n\n\n\nRow 10 is the last Fuji row (Last.Restaurant = 1), so it is written with a total of 63. On row 11, First.Restaurant = 1, so the total starts over.\n\n\ndata sum_by_group;\n    set food_surv_rest_sort;\n    by Restaurant;\n    retain RestaurantSum 0;\n    if First.Restaurant = 1 then RestaurantSum = 0;\n    RestaurantSum = sum(RestaurantSum, Score);\n    if Last.Restaurant = 1;    /* only outputs the last row of each group */\nrun;\n\nproc print data=sum_by_group;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nStudent\nRestaurant\nCategory\nScore\nRestaurantSum\n\n\n\n\n1\nKristian\nFuji\nService\n.\n63.0\n\n\n2\nKristian\nJamaican Grill\nService\n.\n60.5\n\n\n3\nKristian\nKings\nService\n.\n60.0\n\n\n\n\n\n\n\n\nStudent, Category, and Score are just the values from the last row of each restaurant, so we would usually drop them.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#merging-tables",
+    "href": "chapters/08-by-groups-merging.html#merging-tables",
+    "title": "8  BY Groups and Merging",
+    "section": "8.21 Merging tables",
+    "text": "8.21 Merging tables\nDATA output-table;    MERGE input-table1 input-table2 ...;    BY BY-column(s);RUN;\nMERGE puts tables together side by side, matching rows on the BY columns.\nImport class_all.csv and class_teachers.csv into your work library first.\n\nproc import datafile=\"~/class_all.csv\" out=class_all dbms=csv replace;\nrun;\n\nproc import datafile=\"~/class_teachers.csv\" out=teacher dbms=csv replace;\nrun;\n\nproc print data=teacher (obs=5);\nrun;\n\nproc print data=class_all (obs=5);\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nGrade\nTeacher\n\n\n\n\n1\nSam Patel\nJunior\nMr. Ortiz\n\n\n2\nAlex Smith\nJunior\nMs. Foster\n\n\n3\nTaylor Lee\nSenior\nDr. Kim\n\n\n4\nJordan Brown\nFreshman\nMs. Foster\n\n\n5\nCasey Nguyen\nSenior\nDr. Kim\n\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\n\n\n\n\n1\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\n\n\n2\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\n\n\n3\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\n\n\n5\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#step-1-sort-both-tables",
+    "href": "chapters/08-by-groups-merging.html#step-1-sort-both-tables",
+    "title": "8  BY Groups and Merging",
+    "section": "8.22 Step 1: sort both tables",
+    "text": "8.22 Step 1: sort both tables\nJust like BY groups, both tables need to be sorted by the BY columns.\n\nproc sort data=class_all;\n    by Name Grade;\nrun;\n\nproc sort data=teacher;\n    by Name Grade;\nrun;",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#step-2-merge",
+    "href": "chapters/08-by-groups-merging.html#step-2-merge",
+    "title": "8  BY Groups and Merging",
+    "section": "8.23 Step 2: merge",
+    "text": "8.23 Step 2: merge\n/* merge together */\ndata class_merge;\n    merge class_all teacher;merging the class_all table and the teacher table\n    by Name Grade;\nrun;\n\ndata class_merge;\n    merge class_all teacher;\n    by Name Grade;\nrun;\n\nproc print data=class_merge;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nTeacher\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n2\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nDr. Kim\n\n\n3\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nMr. Ortiz\n\n\n4\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMs. Foster\n\n\n5\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nMr. Ortiz\n\n\n6\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMs. Foster\n\n\n7\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMr. Ortiz\n\n\n8\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nDr. Kim",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#how-merge-uses-the-pdv",
+    "href": "chapters/08-by-groups-merging.html#how-merge-uses-the-pdv",
+    "title": "8  BY Groups and Merging",
+    "section": "8.24 How merge uses the PDV",
+    "text": "8.24 How merge uses the PDV\nCompilation: the columns from the first table go into the PDV, then any new columns from the second table.\n\ndata class_merge;    merge class_all teacher;    by Name Grade;run;\n\n\n\n\n\n_N_D\n_ERROR_D\nNameK\nAgeK\nWeightK\nHeightK\nGradeK\nGPAK\nTeacherK\n\n\n1\n0\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMs. Foster\n\n\n\n\n\nExecution: SAS reads the rows from both tables in order. When the BY values match, the values from both go into the same row of the PDV.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
+  },
+  {
+    "objectID": "chapters/08-by-groups-merging.html#one-to-many",
+    "href": "chapters/08-by-groups-merging.html#one-to-many",
+    "title": "8  BY Groups and Merging",
+    "section": "8.25 One-to-many",
+    "text": "8.25 One-to-many\nWhat happens when one student has many rows in the other table?\n\n\n\n\n\nName\nGrade\nAge\nGPA\n\n\nAlex Smith\nJunior\n20\n3.27\n\n\nJordan Brown\nFreshman\n19\n2.89\n\n\n\n\n\n\n\n\n\nName\nGrade\nSubject\nTest Score\n\n\nAlex Smith\nJunior\nMath\n98\n\n\nAlex Smith\nJunior\nEnglish\n94\n\n\nJordan Brown\nFreshman\nMath\n89\n\n\n\n\n\n\nWe merge BY Name Grade, and we still need to sort both tables first.\nThe result has one row per test. Alex’s age and GPA are repeated on both of his rows, because SAS keeps his values in the PDV while it reads his next test.\n\n\nproc import datafile=\"~/class_tests.csv\" out=tests dbms=csv replace;\nrun;\n\nproc sort data=tests;\n    by Name Grade;\nrun;\n\ndata class_tests;\n    merge class_all tests;\n    by Name Grade;\nrun;\n\nproc print data=class_tests;\nrun;\n\n\n\nThe Print Procedure\n\n\n\n\nObs\nName\nAge\nWeight\nHeight\nGrade\nGPA\nSubject\nTestScore\n\n\n\n\n1\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nMath\n98\n\n\n2\nAlex Smith\n20\n145.6\n5.8\nJunior\n3.27\nEnglish\n94\n\n\n3\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nEnglish\n88\n\n\n4\nCasey Nguyen\n22\n140.8\n5.5\nSenior\n3.91\nMath\n95\n\n\n5\nJamie Wilson\n20\n165.7\n5.9\nSophomore\n2.74\nEnglish\n81\n\n\n6\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nMath\n89\n\n\n7\nJordan Brown\n19\n170.3\n6\nFreshman\n2.89\nEnglish\n76\n\n\n8\nMorgan Davis\n20\n155\n5.7\nSophomore\n3.42\nEnglish\n85\n\n\n9\nRiley Garcia\n19\n182.1\n6.1\nFreshman\n3.05\nMath\n72\n\n\n10\nSam Patel\n21\n128.9\n5.3\nJunior\n3.58\nMath\n90\n\n\n11\nTaylor Lee\n21\n132.4\n5.4\nSenior\n3.65\nMath\n91",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>BY Groups and Merging</span>"
+    ]
   }
 ]

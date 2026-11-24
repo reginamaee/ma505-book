@@ -17,6 +17,7 @@ book:
     - chapters/05-conditional-plotting.ipynb
     - chapters/06-sgplot-sgpanel.ipynb
     - chapters/07-pdv.ipynb
+    - chapters/08-by-groups-merging.ipynb
     # To publish a draft: move it from _drafts/ into chapters/ and list it here
 
 # Notebooks are NOT re-run when the book is built.
