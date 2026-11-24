@@ -838,6 +838,26 @@ font-size: .6em; line-height: 1.45; background: #f6f8fa; border: 1px solid #d0d7
 
 .reveal section:has(.pdv-walk) > h2, .reveal section:has(.pdv-walk) > p { max-width: 54%; }
 .reveal section:has(.pdv-walk) .pdv-wrap { clear: both; }
+
+.pdv-side .pdv-in, .pdv-side .out-table { margin-top: .4em; }
+.reveal section:has(.pdv-side) table.pdv { margin-left: 0; margin-right: auto; }
+.reveal .pdv-side { position: absolute; top: 0; right: 0; max-width: 44%; display: flex; flex-direction: column; align-items: flex-end; z-index: 0; }
+.reveal .pdv-side pre.pdv-code { position: static; max-width: none; font-size: .5em; }
+.reveal .pdv-side table.mini { font-size: .5em; margin: 0 0 2px 0; }
+.reveal .pdv-side .pdv-cap { font-size: .55em; text-align: right; }
+
+.reveal table.pdv-intab tr.pdv-inrow.fragment { opacity: 1 !important; visibility: visible !important; }
+.reveal table.pdv-intab tr.pdv-inrow.fragment.visible td { background: #ffe066; font-weight: 600; }
+body:not(.reveal-viewport) table.pdv-intab tr.pdv-inrow td { background: #ffe066; font-weight: 600; }
+body:not(.reveal-viewport) table.pdv th.fragment, body:not(.reveal-viewport) table.pdv .pdv-tag.fragment, body:not(.reveal-viewport) table.mini tr.fragment { opacity: 1; visibility: visible; }
+
+.reveal table.mini tr.fragment:not(.visible) { display: none; }
+.reveal .out-table { padding-bottom: 2px; }
+.reveal section:has(.pdv-side) > .fragment, .reveal section:has(.pdv-side) > p { max-width: 64%; }
+.reveal table.mini tr:last-child td { border-bottom: 1px solid #c1c1c1; }
+
+body:not(.reveal-viewport) .pdv-side { display: flex; gap: 2em; flex-wrap: wrap; align-items: flex-start; }
+body:not(.reveal-viewport) .pdv-side table.mini { width: auto; font-size: .8em; }
 </style>
   <style type="text/css">.reveal
 div.sourceCode

@@ -14,7 +14,7 @@
     "href": "index.html#slides",
     "title": "Introduction to SAS",
     "section": "Slides",
-    "text": "Slides\n\nIntroduction to SAS\nSAS Tables and Libraries\nExploring Data with Procedures\nFormats, Sorting, and the DATA Step\nConditional Processing and Plotting\nMore Plots: SGPLOT, SGPANEL, and Exporting\nInside the DATA Step: the PDV",
+    "text": "Slides\n\nIntroduction to SAS\nSAS Tables and Libraries\nExploring Data with Procedures\nFormats, Sorting, and the DATA Step\nConditional Processing and Plotting\nMore Plots: SGPLOT, SGPANEL, and Exporting\nInside the DATA Step: the PDV\nBY Groups and Merging",
     "crumbs": [
       "Welcome"
     ]
